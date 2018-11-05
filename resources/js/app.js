@@ -6,6 +6,14 @@
  */
 
 require('./bootstrap');
+import { Card } from 'bootstrap-vue/es/components';
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Vue from 'vue'
+import BootstrapVue from 'bootstrap-vue'
+Vue.use(BootstrapVue);
+
+Vue.use(Card);
 
 window.Vue = require('vue');
 
@@ -15,8 +23,9 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('menuitems', require('./components/MenuItems.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+
 });

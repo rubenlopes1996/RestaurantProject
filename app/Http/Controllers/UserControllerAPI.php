@@ -9,6 +9,6 @@ use App\Items;
 class UserControllerAPI extends Controller
 {
     public function index(){
-        return ItemsResource::collection(Items::all());
+        return ItemsResource::collection(Items::paginate(10));
     }
 }
