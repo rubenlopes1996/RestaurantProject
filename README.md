@@ -1,3 +1,22 @@
+This project’s objective is to implement a Single Page Application (SPA) for the management of a
+restaurant’s order system, using Vue.js framework for the development of the web client.
+The main purpose of the order system is to improve the efficiency of the communication between
+managers, waiters, kitchen personal (cooks) and cashiers of a restaurant. Each time a waiter takes
+an order, the required items of that order are passed on as fast as possible to the kitchen. Also, the
+waiter must be notified as soon as the orders are completed in the kitchen, and the cashier as soon
+as the meal ends and the payment is due. To ensure the maximum efficiency, the communication
+within the application should happen in real time.
+To simplify the scenario, each order is comprised of only one item (dish/food or drink). Drinks and
+dishes have the same flow, they are all prepared by cooks.
+
+
+
+
+
+
+
+
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
