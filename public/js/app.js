@@ -64546,6 +64546,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -64576,55 +64592,46 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "container" },
-    _vm._l(_vm.items, function(item) {
-      return _c(
-        "div",
-        { key: item.id },
-        [
+  return _c("div", { staticClass: "container" }, [
+    _c(
+      "div",
+      { staticClass: "card-group" },
+      _vm._l(_vm.items, function(item) {
+        return _c("div", { key: item.id }, [
           _c(
-            "b-card",
+            "div",
+            {
+              staticClass: "card",
+              staticStyle: { width: "18rem", margin: "10px" }
+            },
             [
-              _c(
-                "b-card-body",
-                [
-                  _c("b-card-img", {
-                    attrs: {
-                      src: "storage/items/" + item.photo_url,
-                      alt: "Image",
-                      bottom: ""
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v(
-                      "\n          " + _vm._s(item.description) + "\n        "
-                    )
-                  ])
-                ],
-                1
-              ),
+              _c("img", {
+                staticClass: "card-img-top",
+                attrs: {
+                  src: "storage/items/" + item.photo_url,
+                  alt: "Card image cap"
+                }
+              }),
               _vm._v(" "),
-              _c(
-                "b-list-group",
-                { attrs: { flush: "" } },
-                [
-                  _c("b-list-group-item", [_vm._v(_vm._s(item.price))]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v(_vm._s(item.type))])
-                ],
-                1
-              )
-            ],
-            1
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [
+                  _vm._v(_vm._s(item.name))
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v(_vm._s(item.price) + " €")
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v(_vm._s(item.description))
+                ])
+              ])
+            ]
           )
-        ],
-        1
-      )
-    })
-  )
+        ])
+      })
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
