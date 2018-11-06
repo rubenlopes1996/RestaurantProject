@@ -64564,24 +64564,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      items: []
-    };
-  },
-  created: function created() {
-    this.fecthMenu();
-  },
+    data: function data() {
+        return {
+            items: []
+        };
+    },
+    created: function created() {
+        this.fecthMenu();
+    },
 
-  methods: {
-    fecthMenu: function fecthMenu(page_url) {
-      var _this = this;
+    methods: {
+        fecthMenu: function fecthMenu(page_url) {
+            var _this = this;
 
-      axios.get("api/menu").then(function (response) {
-        _this.items = response.data.data;
-      });
+            axios.get("api/menu").then(function (response) {
+                _this.items = response.data.data;
+            });
+        }
     }
-  }
 });
 
 /***/ }),
@@ -64593,6 +64593,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
+    _c("h1", [_vm._v("Menu Restaurant")]),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "card-group" },
