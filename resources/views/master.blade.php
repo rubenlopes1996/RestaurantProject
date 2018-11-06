@@ -10,7 +10,7 @@
 <body>
     <div id="app">
        <menuitems></menuitems>
-    </div>
+    </div> 
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

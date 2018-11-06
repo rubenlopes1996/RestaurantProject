@@ -31231,16 +31231,13 @@ __WEBPACK_IMPORTED_MODULE_3_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_boot
 
 window.Vue = __webpack_require__(74);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
 __WEBPACK_IMPORTED_MODULE_3_vue___default.a.component('menuitems', __webpack_require__(219));
 
 var app = new __WEBPACK_IMPORTED_MODULE_3_vue___default.a({
-  el: '#app'
+    el: '#app',
+    data: {
+        items: []
+    }
 
 });
 
@@ -64552,21 +64549,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            items: []
+            items: [],
+            pagination: {}
         };
     },
     created: function created() {
@@ -64577,9 +64565,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         fecthMenu: function fecthMenu(page_url) {
             var _this = this;
 
-            axios.get("api/menu").then(function (response) {
+            var pg = this;
+            page_url = page_url || 'api/menu';
+            axios.get(page_url).then(function (response) {
                 _this.items = response.data.data;
+                pg.makePagination(response.data.meta, response.data.links);
+            }).catch(function (error) {
+                console.log(error);
             });
+        },
+        makePagination: function makePagination(meta, links) {
+            var pagination = {
+                current_page: meta.current_page,
+                last_page: meta.last_page,
+                next_page_url: links.next,
+                prev_page_url: links.prev
+            };
+            this.pagination = pagination;
         }
     }
 });
@@ -64632,7 +64634,72 @@ var render = function() {
           )
         ])
       })
-    )
+    ),
+    _vm._v(" "),
+    _c("nav", { attrs: { "aria-label": "Page navigation example" } }, [
+      _c("ul", { staticClass: "pagination" }, [
+        _c(
+          "li",
+          {
+            staticClass: "page-item",
+            class: [{ disabled: !_vm.pagination.prev_page_url }]
+          },
+          [
+            _c(
+              "a",
+              {
+                staticClass: "page-link",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.fecthMenu(_vm.pagination.prev_page_url)
+                  }
+                }
+              },
+              [_vm._v("Previous")]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c("li", { staticClass: "page-item disabled" }, [
+          _c(
+            "a",
+            { staticClass: "page-link text-dark", attrs: { href: "#" } },
+            [
+              _vm._v(
+                "Page " +
+                  _vm._s(_vm.pagination.current_page) +
+                  " of " +
+                  _vm._s(_vm.pagination.last_page)
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "li",
+          {
+            staticClass: "page-item",
+            class: [{ disabled: !_vm.pagination.next_page_url }]
+          },
+          [
+            _c(
+              "a",
+              {
+                staticClass: "page-link",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.fecthMenu(_vm.pagination.next_page_url)
+                  }
+                }
+              },
+              [_vm._v("Next")]
+            )
+          ]
+        )
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
