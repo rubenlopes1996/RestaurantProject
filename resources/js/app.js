@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -6,7 +5,9 @@
  */
 
 require('./bootstrap');
-import { Card } from 'bootstrap-vue/es/components';
+import {
+    Card
+} from 'bootstrap-vue/es/components';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Vue from 'vue'
@@ -18,11 +19,13 @@ Vue.use(Card);
 window.Vue = require('vue');
 
 Vue.component('menuitems', require('./components/MenuItems.vue'));
+Vue.component('navbarmenu', require('./components/NavbarMenu.vue'));
+Vue.component('adminpage', require('./components/AdminPage.vue'));
 
 const app = new Vue({
     el: '#app',
     data: {
-        items:[],
+        items: [],
     }
 
 });
