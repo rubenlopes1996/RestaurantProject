@@ -18,4 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::get('menu','UserControllerAPI@index');
+Route::get('menu','ItemControllerAPI@index');
+Route::post('/register', 'API\AuthController@register');
+Route::post('/login', 'API\AuthController@login');
+Route::middleware('auth:api')->group(function () {
+    Route::post('/logout', 'API\AuthController@logout');
+    Route::get('/get-user', 'API\AuthController@getUser');
+});

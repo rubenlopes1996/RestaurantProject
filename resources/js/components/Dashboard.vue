@@ -1,5 +1,5 @@
 <template>
-<nav role="navigation">
+<nav id ="dashboard" role="navigation">
   <ul class="main">
     <li class="users"><a href="#">Users</a></li>
     <li class="users"><a href="#">Admins</a></li>
@@ -22,10 +22,7 @@ export default {
 <style scoped>
 @charset "UTF-8";
 @import url(
-  https://fonts.googleapis.com/css?family=Open+Sans:300,
-  400,
-  700,
-  400italic
+  https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,400italic
 );
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css);
 
@@ -114,4 +111,5 @@ main li:before {
     bottom: 0px;
   }
 }
+
 </style>

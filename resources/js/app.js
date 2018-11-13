@@ -8,24 +8,32 @@ require('./bootstrap');
 import {
     Card
 } from 'bootstrap-vue/es/components';
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-import Vue from 'vue'
-import BootstrapVue from 'bootstrap-vue'
-Vue.use(BootstrapVue);
-
-Vue.use(Card);
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+import Vue from 'vue';
+import BootstrapVue from 'bootstrap-vue';
+import router from './routes.js';
+import VueRouter from 'vue-router';
+import Auth from './auth.js';
+import Api from './api.js';
 
 window.Vue = require('vue');
 
-Vue.component('menuitems', require('./components/MenuItems.vue'));
+Vue.use(BootstrapVue);
+Vue.use(Card);
+Vue.use(VueRouter);
+
+window.api = new Api();
+window.auth = new Auth();
+window.Event = new Vue();
+window.auth = auth;
+
+Vue.component('menuitems',require('./components/NavbarMenu.vue'));
 Vue.component('navbarmenu', require('./components/NavbarMenu.vue'));
-Vue.component('adminpage', require('./components/AdminPage.vue'));
+Vue.component('vue-layout', require('./Layout.vue'));
 
 const app = new Vue({
     el: '#app',
-    data: {
-        items: [],
-    }
+    router
 
 });

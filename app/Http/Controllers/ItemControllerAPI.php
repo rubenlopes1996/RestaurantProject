@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Http\Resources\ItemsResource;
+use App\Items;
 
-
-class UserControllerAPI extends Controller
+class ItemControllerAPI extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,34 +15,7 @@ class UserControllerAPI extends Controller
      */
     public function index()
     {
-    }
-
-    public function all()
-    {
-        $users = User::all();
-
-        return response()->json([
-            "users" => $users
-        ], 200);
-    }
-
-    public function get($id)
-    {
-        $user = User::whereId($id)->first();
-
-        return response()->json([
-            "user" => $user
-        ], 200);
-    }
-
-    public function new(CreateCustomerRequest $request)
-    {
-        var_dump($request);
-        $user = User::create($request->only(["name", "email"]));
-
-        return response()->json([
-            "user" => $user
-        ], 200);
+        return ItemsResource::collection(Items::paginate(9));
     }
 
     /**
