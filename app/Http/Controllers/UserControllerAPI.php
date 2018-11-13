@@ -3,111 +3,65 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Support\Jsonable;
+use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\DB;
 use App\User;
+use App\StoreUserRequest;
+use Hash;
 
 
 class UserControllerAPI extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('page')) {
+            return UserResource::collection(User::paginate(5));
+        } else {
+            return UserResource::collection(User::all());
+        }
     }
 
-    public function all()
-    {
-        $users = User::all();
-
-        return response()->json([
-            "users" => $users
-        ], 200);
-    }
-
-    public function get($id)
-    {
-        $user = User::whereId($id)->first();
-
-        return response()->json([
-            "user" => $user
-        ], 200);
-    }
-
-    public function new(CreateCustomerRequest $request)
-    {
-        var_dump($request);
-        $user = User::create($request->only(["name", "email"]));
-
-        return response()->json([
-            "user" => $user
-        ], 200);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        return new UserResource(User::find($id));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:3|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
+            'username' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'min:3',
+            'type' => 'required'
+        ]);
+        $user = new User();
+        $user->fill($request->all());
+        $user->password = Hash::make($user->password);
+        $user->save();
+        return response()->json(new UserResource($user), 201);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:3|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
+            'username' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'min:3',
+            'type' => 'required'
+        ]);
+        $user = User::findOrFail($id);
+        $user->update($request->all());
+        return new UserResource($user);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return response()->json(null, 204);
     }
+
 }

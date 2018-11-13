@@ -1,8 +1,6 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                                                        <span class="navbar-toggler-icon"></span>
-                                                      </button>
+    <nav id="nav" class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
             <router-link class="navbar-brand" to="/">Restaurant DAD</router-link>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -20,7 +18,7 @@
                 <div v-if="authenticated === false && user.user == null">
                     <router-link class="btn btn-outline-success my-2 my-sm-0" to="/login">Login</router-link>
                 </div>
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" v-on:click.prevent="logout()" v-else>Logout</button>
+                <button class="btn btn-outline-dark my-2 my-sm-0" type="submit" v-on:click.prevent="logout()" v-else>Logout</button>
             </form>
         </div>
     </nav>
@@ -61,3 +59,6 @@
         }
     };
 </script>
+
+<style>
+</style>

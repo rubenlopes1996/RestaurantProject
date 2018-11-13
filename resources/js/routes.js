@@ -1,7 +1,6 @@
 import VueRouter from 'vue-router';
 
-let routes = [
-    {
+let routes = [{
         path: '/login',
         component: require('./components/Login.vue')
     },
@@ -15,20 +14,33 @@ let routes = [
     },
     {
         path: '/dashboard',
-        component: require('./components/Dashboard.vue'),
-        meta: { middlewareAuth: true }
+        component: require('./components/dashboards/DashboardManager.vue'),
+        meta: {
+            middlewareAuth: true
+        },
+        children: [{
+            path: '/manager',
+            component: require('./components/manager/Manager.vue'),
+            
+            //só pode ser acedido por managers falta midleware            
+        }]
     }
 ];
+
+
+
 const router = new VueRouter({
     routes
 });
 
 router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.middlewareAuth)) {                
+    if (to.matched.some(record => record.meta.middlewareAuth)) {
         if (!auth.check()) {
             next({
                 path: '/login',
-                query: { redirect: to.fullPath }
+                query: {
+                    redirect: to.fullPath
+                }
             });
 
             return;
