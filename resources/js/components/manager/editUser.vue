@@ -13,7 +13,7 @@
             <a class="btn btn-primary" v-on:click.prevent="saveUser()">Save</a>
             <a class="btn btn-light" v-on:click.prevent="cancelEdit()">Cancel</a>
         </div>
-    
+
     </div>
 </template>
 

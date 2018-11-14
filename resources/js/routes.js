@@ -15,16 +15,16 @@ let routes = [{
     {
         path: '/dashboard',
         component: require('./components/dashboards/DashboardManager.vue'),
+        redirect: '/manager',
         meta: {
             middlewareAuth: true
         },
         children: [{
             path: '/manager',
             component: require('./components/manager/Manager.vue'),
-            
-            //só pode ser acedido por managers falta midleware            
+            //só pode ser acedido por managers falta midleware
         }]
-    }
+    },
 ];
 
 

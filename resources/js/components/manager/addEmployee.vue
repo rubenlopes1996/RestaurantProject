@@ -11,30 +11,30 @@
                         <option v-for="user in users" v-bind:value="user.id" :key="user.id"> {{ user.type }} </option>
                     </select>
         </div>
-    
+
         <div class="form-group">
             <a class="btn btn-primary" v-on:click.prevent="saveEmployee()">Save</a>
             <a class="btn btn-light" v-on:click.prevent="cancel()">Cancel</a>
         </div>
-    
+
     </div>
 </template>
 
 <script>
-    module.exports = {
-        props: ["user"],
-    
-        data: function() {
-            return {};
-        },
-        methods: {
-            saveEmployee: function() {
-                this.$emit("save-employee");
-            },
-            cancel: function() {
-                this.$emit("cancel");
-            }
-        }
-    };
+module.exports = {
+  props: ["user"],
+
+  data: function() {
+    return {};
+  },
+  methods: {
+    saveEmployee: function() {
+      this.$emit("save-employee");
+    },
+    cancel: function() {
+      this.$emit("cancel");
+    }
+  }
+};
 </script>
 

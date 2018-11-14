@@ -28,12 +28,12 @@ window.auth = new Auth();
 window.Event = new Vue();
 window.auth = auth;
 
-Vue.component('menuitems',require('./components/NavbarMenu.vue'));
+Vue.component('menuitems', require('./components/NavbarMenu.vue'));
 Vue.component('navbarmenu', require('./components/NavbarMenu.vue'));
 Vue.component('vue-layout', require('./Layout.vue'));
 Vue.component('manager-list', require('./components/manager/ManagerList.vue'));
 Vue.component('user-edit', require('./components/manager/editUser.vue'));
-Vue.component('add-employee',require('./components/manager/addEmployee.vue'));
+Vue.component('add-employee', require('./components/manager/addEmployee.vue'));
 
 
 

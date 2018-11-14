@@ -5,13 +5,13 @@
 			<form>
 				<div class="form-group">
 					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						<span class="input-group-addon"></span>
 						<input type="text" name="username" placeholder="Username" class="form-control" autofocus="true" required="true" v-model="username">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+						<span class="input-group-addon"></span>
 						<input type="password" name="password" placeholder="Password" class="form-control" required="true" v-model="password">
 					</div>
 				</div>

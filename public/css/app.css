@@ -10472,3 +10472,9 @@ a.text-dark:focus {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.content-admin {
+  margin-left: 200px !important;
+  margin-top: 56px !important;
+  padding: 15px !important;
+}
+
