@@ -45,13 +45,10 @@ class UserControllerAPI extends Controller
 
     public function update(Request $request, $id)
     {
-        /*$request->validate([
+        $request->validate([
             'name' => 'required|min:3|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
-            'username' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'min:3',
-            'type' => 'required'
-        ]);*/
+            'email' => 'required|email|unique:users,email,' . $id,
+        ]);
         $user = User::findOrFail($id);
         $user->update($request->all());
         return new UserResource($user);

@@ -67511,7 +67511,7 @@ var content = __webpack_require__(226);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(22)("57d13055", content, false, {});
+var update = __webpack_require__(22)("9ead3c3c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -67640,6 +67640,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var response = _ref2.response;
 
         alert(response.data.message);
+        console.log(error.response.data.message);
+
+        console.log("erro");
       });
     }
   },
@@ -67826,7 +67829,7 @@ var content = __webpack_require__(232);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(22)("e83132c4", content, false, {});
+var update = __webpack_require__(22)("730209ab", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -67850,7 +67853,7 @@ exports = module.exports = __webpack_require__(7)(false);
 
 
 // module
-exports.push([module.i, "\n.container[data-v-5d4e5746] {\r\n  margin-top: 56px;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-5d4e5746] {\n  margin-top: 56px;\n}\n", ""]);
 
 // exports
 
@@ -68114,7 +68117,7 @@ var content = __webpack_require__(237);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(22)("21b903fa", content, false, {});
+var update = __webpack_require__(22)("7d042666", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -68138,7 +68141,7 @@ exports = module.exports = __webpack_require__(7)(false);
 
 
 // module
-exports.push([module.i, "\n#home{\r\n    margin-top: 200px;\n}\r\n", ""]);
+exports.push([module.i, "\n#home{\n    margin-top: 200px;\n}\n", ""]);
 
 // exports
 
@@ -68234,7 +68237,7 @@ var content = __webpack_require__(242);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(22)("d0b07eb4", content, false, {});
+var update = __webpack_require__(22)("634372c6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -68443,6 +68446,9 @@ module.exports = Component.exports
 //
 //
 //
+//
+//
+//
 
 module.exports = {
   data: function data() {
@@ -68453,6 +68459,7 @@ module.exports = {
       successMessage: "",
       failMessage: "",
       currentUser: null,
+      newUser: null,
       users: []
     };
   },
@@ -68491,7 +68498,6 @@ module.exports = {
             u = Object.assign(u, user);
           }
         });
-        _this2.editingUser = false;
       }).catch(function (error) {
         _this2.showFailure = true;
         _this2.showSuccess = false;
@@ -68518,6 +68524,7 @@ module.exports = {
       });
     }
   },
+
   mounted: function mounted() {
     this.getUsers();
   }
@@ -68535,57 +68542,55 @@ var render = function() {
     "div",
     { staticClass: "container content-admin" },
     [
+      _c("add-employee"),
+      _vm._v(" "),
       _c(
-        "button",
-        {
-          staticClass: "btn btn-sm btn-primary my-2",
-          attrs: { id: "button" },
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              _vm.createEmployee()
-            }
-          }
-        },
-        [_vm._v("Create employee")]
-      ),
-      _vm._v(" "),
-      _vm.showSuccess
-        ? _c("div", { staticClass: "alert alert-success" }, [
-            _c(
-              "button",
-              {
-                staticClass: "close",
-                attrs: { type: "button", "aria-label": "Close" },
-                on: {
-                  click: function($event) {
-                    _vm.showSuccess = false
-                  }
-                }
+        "div",
+        { attrs: { id: "list" } },
+        [
+          _vm.showSuccess
+            ? _c("div", { staticClass: "alert alert-success" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: { type: "button", "aria-label": "Close" },
+                    on: {
+                      click: function($event) {
+                        _vm.showSuccess = false
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("strong", [_vm._v(_vm._s(_vm.successMessage))])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("user-edit", {
+            attrs: { user: _vm.currentUser },
+            on: {
+              "save-user": function($event) {
+                _vm.saveUser()
               },
-              [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-            ),
-            _vm._v(" "),
-            _c("strong", [_vm._v(_vm._s(_vm.successMessage))])
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _c("user-edit", {
-        attrs: { user: _vm.currentUser },
-        on: {
-          "save-user": function($event) {
-            _vm.saveUser()
-          },
-          "cancel-edit": function($event) {
-            _vm.cancelEdit()
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("manager-list", {
-        attrs: { users: _vm.users },
-        on: { "edit-user": _vm.editUser, "delete-user": _vm.deleteUser }
-      })
+              "cancel-edit": function($event) {
+                _vm.cancelEdit()
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("manager-list", {
+            attrs: { users: _vm.users },
+            on: { "edit-user": _vm.editUser, "delete-user": _vm.deleteUser }
+          })
+        ],
+        1
+      )
     ],
     1
   )
@@ -68711,7 +68716,7 @@ var content = __webpack_require__(251);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(22)("4adb25c9", content, false, {});
+var update = __webpack_require__(22)("4714e45c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -69469,8 +69474,17 @@ module.exports = Component.exports
 
 /***/ }),
 /* 264 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -69494,21 +69508,37 @@ module.exports = Component.exports
 //
 //
 
-module.exports = {
-  props: ["user"],
-
+/* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      name: "",
+      email: "",
+      type: ""
+    };
   },
   methods: {
     saveEmployee: function saveEmployee() {
-      this.$emit("save-employee");
-    },
-    cancel: function cancel() {
-      this.$emit("cancel");
+      var _this = this;
+
+      var user = {
+        name: this.name,
+        email: this.email,
+        type: this.type
+      };
+      axios.post("api/register", user).then(function (response) {
+        _this.successMessage = "Employee Created";
+        console.log(response);
+      }).catch(function (error) {
+        /*this.showFailure = true;
+        this.showSuccess = false;
+        this.failMessage = error.response.data.message;*/
+        console.log(error);
+        console.log(error.response.data.message);
+      });
     }
+
   }
-};
+});
 
 /***/ }),
 /* 265 */
@@ -69518,117 +69548,140 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.user
-    ? _c("div", { staticClass: "jumbotron" }, [
-        _c("h2", [_vm._v("Add employee")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "inputEmail" } }, [_vm._v("Email")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.user.email,
-                expression: "user.email"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "email",
-              name: "email",
-              id: "inputEmail",
-              placeholder: "Email address",
-              value: ""
-            },
-            domProps: { value: _vm.user.email },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.user, "email", $event.target.value)
-              }
+  return _c("div", { staticClass: "jumbotron" }, [
+    _c("h2", [_vm._v("Add employee")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "inputName" } }, [_vm._v("Name")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.name,
+            expression: "name"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: { type: "name", name: "name", id: "name", placeholder: "Name" },
+        domProps: { value: _vm.name },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
             }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "type_id" } }, [_vm._v("Type:")]),
+            _vm.name = $event.target.value
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "inputEmail" } }, [_vm._v("Email")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.email,
+            expression: "email"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: {
+          type: "email",
+          name: "email",
+          id: "email",
+          placeholder: "Email address"
+        },
+        domProps: { value: _vm.email },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.email = $event.target.value
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "type" } }, [_vm._v("Type:")]),
+      _vm._v(" "),
+      _c(
+        "select",
+        {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.type,
+              expression: "type"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { id: "type", name: "type" },
+          on: {
+            change: function($event) {
+              var $$selectedVal = Array.prototype.filter
+                .call($event.target.options, function(o) {
+                  return o.selected
+                })
+                .map(function(o) {
+                  var val = "_value" in o ? o._value : o.value
+                  return val
+                })
+              _vm.type = $event.target.multiple
+                ? $$selectedVal
+                : $$selectedVal[0]
+            }
+          }
+        },
+        [
+          _c("option", [_vm._v(" manager ")]),
           _vm._v(" "),
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.user.type,
-                  expression: "user.type"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { id: "type_id", name: "type_id" },
-              on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.$set(
-                    _vm.user,
-                    "type",
-                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                  )
-                }
-              }
-            },
-            _vm._l(_vm.users, function(user) {
-              return _c(
-                "option",
-                { key: user.id, domProps: { value: user.id } },
-                [_vm._v(" " + _vm._s(user.type) + " ")]
-              )
-            })
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-primary",
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  _vm.saveEmployee()
-                }
-              }
-            },
-            [_vm._v("Save")]
-          ),
+          _c("option", [_vm._v(" cashier ")]),
           _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-light",
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  _vm.cancel()
-                }
-              }
-            },
-            [_vm._v("Cancel")]
-          )
-        ])
-      ])
-    : _vm._e()
+          _c("option", [_vm._v(" waiter ")]),
+          _vm._v(" "),
+          _c("option", [_vm._v(" cooker ")])
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-primary",
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              _vm.saveEmployee()
+            }
+          }
+        },
+        [_vm._v("Save")]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-light",
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              _vm.cancel()
+            }
+          }
+        },
+        [_vm._v("Cancel")]
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
