@@ -15,4 +15,3 @@ Route::get('/', function () {
     return view('master');
 });
 
-URL::forceSchema('https');
