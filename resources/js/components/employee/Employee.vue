@@ -1,7 +1,6 @@
 <template>
   <div class="container content-admin">
     <add-employee ></add-employee>
-    <!-- <button id="button" class="btn btn-sm btn-primary my-2" v-on:click.prevent="createEmployee()">Create employee</button>-->
     <div id="list">
       <div class="alert alert-success" v-if="showSuccess">
         <button type="button" class="close" aria-label="Close" v-on:click="showSuccess=false"><span aria-hidden="true">&times;</span></button>
@@ -38,7 +37,7 @@
         if (user === this.currentUser) {
           this.currentUser = null;
         }
-        axios.delete("api/users/" + user.id).then(response => {
+        axios.delete("api/employee/" + user.id).then(response => {
           this.showSuccess = true;
           this.successMessage = "User Deleted";
           this.getUsers();
@@ -48,7 +47,7 @@
         this.editingUser = false;
         const user = this.currentUser;
         axios
-          .put("api/users/" + this.currentUser.id, this.currentUser)
+          .put("api/employee/" + this.currentUser.id, this.currentUser)
           .then(response => {
             this.showSuccess = true;
             this.successMessage = "User Saved";
@@ -70,7 +69,7 @@
       cancelEdit: function() {
         this.showSuccess = false;
         this.editingUser = false;
-        axios.get("api/users/" + this.currentUser.id).then(response => {
+        axios.get("api/employee/" + this.currentUser.id).then(response => {
           // Copies response.data.data properties to this.currentUser
           // without changing this.currentUser reference
           Object.assign(this.currentUser, response.data.data);
@@ -78,7 +77,7 @@
         });
       },
       getUsers: function() {
-        axios.get("api/users").then(response => {
+        axios.get("api/employees").then(response => {
           this.users = response.data.data;
         });
       }

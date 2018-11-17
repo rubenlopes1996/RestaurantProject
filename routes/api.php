@@ -17,8 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+//Menu
 Route::get('menu','ItemControllerAPI@index');
+
+//Authetication
 Route::post('/register', 'API\AuthController@register');
 Route::post('/login', 'API\AuthController@login');
 Route::middleware('auth:api')->group(function () {
@@ -26,8 +28,12 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/get-user', 'API\AuthController@getUser');
 });
 
-Route::get('users', 'UserControllerAPI@index');
-Route::get('users/{id}', 'UserControllerAPI@show');
-Route::post('users', 'UserControllerAPI@store');
-Route::put('users/{id}', 'UserControllerAPI@update');
-Route::delete('users/{id}', 'UserControllerAPI@destroy');
+//Employees
+Route::get('employees', 'UserControllerAPI@index');
+Route::get('employee/{id}', 'UserControllerAPI@show');
+Route::post('employee', 'UserControllerAPI@store');
+Route::put('employee/{id}', 'UserControllerAPI@update');
+Route::delete('employee/{id}', 'UserControllerAPI@destroy');
+
+//Restaurant tables
+Route::get('restaurant-tables','RestaurantTableAPI@index');
