@@ -17,11 +17,13 @@ import VueRouter from 'vue-router';
 import Auth from './auth.js';
 import Api from './api.js';
 
+
 window.Vue = require('vue');
 
 Vue.use(BootstrapVue);
 Vue.use(Card);
 Vue.use(VueRouter);
+
 
 window.api = new Api();
 window.auth = new Auth();

@@ -48,7 +48,10 @@ class AuthController extends Controller
 
     }
 
-    public function login()
+    public function login(
+
+        
+    )
     {
     // Check if a user with the specified email exists
         $user = User::whereEmail(request('username'))->first();

@@ -6,7 +6,7 @@
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon"></span>
-            <input type="text" name="username" placeholder="Username" class="form-control" autofocus="true" required="true" v-model="username">
+            <input type="text" name="username" placeholder="Email or Username" class="form-control" autofocus="true" required="true" v-model="username">
           </div>
         </div>
         <div class="form-group">
@@ -60,9 +60,6 @@
             response
           }) => {
             alert(response.data.message);
-            console.log(error.response.data.message);
-  
-            console.log("erro");
           });
       }
     },
