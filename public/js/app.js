@@ -67513,7 +67513,7 @@ var content = __webpack_require__(226);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(22)("9ead3c3c", content, false, {});
+var update = __webpack_require__(22)("57d13055", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -67828,7 +67828,7 @@ var content = __webpack_require__(232);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(22)("730209ab", content, false, {});
+var update = __webpack_require__(22)("e83132c4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -67852,7 +67852,7 @@ exports = module.exports = __webpack_require__(7)(false);
 
 
 // module
-exports.push([module.i, "\n.container[data-v-5d4e5746] {\n  margin-top: 56px;\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-5d4e5746] {\r\n  margin-top: 56px;\n}\r\n", ""]);
 
 // exports
 
@@ -68116,7 +68116,7 @@ var content = __webpack_require__(237);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(22)("7d042666", content, false, {});
+var update = __webpack_require__(22)("21b903fa", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -68410,7 +68410,7 @@ var content = __webpack_require__(242);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(22)("634372c6", content, false, {});
+var update = __webpack_require__(22)("d0b07eb4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -68431,11 +68431,11 @@ if(false) {
 
 exports = module.exports = __webpack_require__(7)(false);
 // imports
-exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,400,italic\n);", ""]);
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,\n  400,\n  700,\n  400,\n  italic\n);", ""]);
 exports.push([module.i, "@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css);", ""]);
 
 // module
-exports.push([module.i, "\n@charset \"UTF-8\";\nbody[data-v-59c872ce] {\n  background: #f1f2f7;\n  font-family: \"Open Sans\", arial, sans-serif;\n  color: darkslategray;\n}\n.users a[data-v-59c872ce]:before {\n  content: \"\\F007\";\n}\nnav[role=\"navigation\"][data-v-59c872ce] {\n  background: #2a3542;\n  color: #ddd;\n}\nnav[role=\"navigation\"] li[data-v-59c872ce] {\n  border-bottom: 1px solid rgba(255, 255, 255, 0.08);\n}\nnav[role=\"navigation\"] li a[data-v-59c872ce] {\n  color: #ddd;\n  text-decoration: none;\n  display: block;\n  padding: 0.7em;\n}\nnav[role=\"navigation\"] li a[data-v-59c872ce]:hover {\n  background-color: rgba(255, 255, 255, 0.05);\n}\nnav[role=\"navigation\"] li a[data-v-59c872ce]:before {\n  content: \"\\F248\";\n  font-family: FontAwesome;\n  padding-right: 0.6em;\n}\nnav[role=\"navigation\"] .dashboard a[data-v-59c872ce]:before {\n  content: \"\\F0E4\";\n}\nnav[role=\"navigation\"] .write a[data-v-59c872ce]:before {\n  content: \"\\F055\";\n}\nnav[role=\"navigation\"] .edit a[data-v-59c872ce]:before {\n  content: \"\\F040\";\n}\nnav[role=\"navigation\"] .comments a[data-v-59c872ce]:before {\n  content: \"\\F27B\";\n}\nnav[role=\"navigation\"] .users a[data-v-59c872ce]:before {\n  content: \"\\F007\";\n}\n\n/* lists */\nul[data-v-59c872ce],\nli[data-v-59c872ce] {\n  list-style-type: none;\n  margin: 0;\n  padding: 0;\n}\nmain li[data-v-59c872ce] {\n  position: relative;\n  padding-left: 1.2em;\n  margin: 0.5em 0;\n}\nmain li[data-v-59c872ce]:before {\n  content: \"\";\n  position: absolute;\n  width: 0;\n  height: 0;\n  left: 0;\n  top: 0.3em;\n  border-left: solid 10px #dde;\n  border-top: solid 5px transparent;\n  border-bottom: solid 5px transparent;\n}\n@media screen and (min-width: 600px) {\nhtml[data-v-59c872ce],\n  body[data-v-59c872ce] {\n    height: 100%;\n}\nnav[role=\"navigation\"][data-v-59c872ce] {\n    position: fixed;\n    width: 200px;\n    top: 56px;\n    bottom: 0px;\n}\n}\nli p[data-v-59c872ce] {\n  padding: 15px;\n  margin: 0;\n}\n", ""]);
+exports.push([module.i, "\n@charset \"UTF-8\";\nbody[data-v-59c872ce] {\n  background: #f1f2f7;\n  font-family: \"Open Sans\", arial, sans-serif;\n  color: darkslategray;\n}\n.users a[data-v-59c872ce]:before {\n  content: \"\\F007\";\n}\nnav[role=\"navigation\"][data-v-59c872ce] {\n  background: #2a3542;\n  color: #ddd;\n}\nnav[role=\"navigation\"] li[data-v-59c872ce] {\n  border-bottom: 1px solid rgba(255, 255, 255, 0.08);\n}\nnav[role=\"navigation\"] li a[data-v-59c872ce] {\n  color: #ddd;\n  text-decoration: none;\n  display: block;\n  padding: 0.7em;\n}\nnav[role=\"navigation\"] li a[data-v-59c872ce]:hover {\n  background-color: rgba(255, 255, 255, 0.05);\n}\nnav[role=\"navigation\"] li a[data-v-59c872ce]:before {\n  content: \"\\F248\";\n  font-family: FontAwesome;\n  padding-right: 0.6em;\n}\nnav[role=\"navigation\"] .dashboard a[data-v-59c872ce]:before {\n  content: \"\\F0E4\";\n}\nnav[role=\"navigation\"] .write a[data-v-59c872ce]:before {\n  content: \"\\F055\";\n}\nnav[role=\"navigation\"] .edit a[data-v-59c872ce]:before {\n  content: \"\\F040\";\n}\nnav[role=\"navigation\"] .comments a[data-v-59c872ce]:before {\n  content: \"\\F27B\";\n}\nnav[role=\"navigation\"] .users a[data-v-59c872ce]:before {\n  content: \"\\F007\";\n}\n\n/* lists */\nul[data-v-59c872ce],\nli[data-v-59c872ce] {\n  list-style-type: none;\n  margin: 0;\n  padding: 0;\n}\nmain li[data-v-59c872ce] {\n  position: relative;\n  padding-left: 1.2em;\n  margin: 0.5em 0;\n}\nmain li[data-v-59c872ce]:before {\n  content: \"\";\n  position: absolute;\n  width: 0;\n  height: 0;\n  left: 0;\n  top: 0.3em;\n  border-left: solid 10px #dde;\n  border-top: solid 5px transparent;\n  border-bottom: solid 5px transparent;\n}\n@media screen and (min-width: 600px) {\nhtml[data-v-59c872ce],\n  body[data-v-59c872ce] {\n    height: 100%;\n}\nnav[role=\"navigation\"][data-v-59c872ce] {\n    position: fixed;\n    width: 200px;\n    top: 56px;\n    bottom: 0px;\n}\n}\nimg[data-v-59c872ce] {\n  margin: 15px;\n}\n", ""]);
 
 // exports
 
@@ -68446,6 +68446,8 @@ exports.push([module.i, "\n@charset \"UTF-8\";\nbody[data-v-59c872ce] {\n  backg
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -68492,10 +68494,13 @@ var render = function() {
   return _c("div", [
     _c("nav", { attrs: { role: "navigation" } }, [
       _c("ul", { staticClass: "main" }, [
-        _c("li", { staticClass: "users" }, [
-          _c("img", {
-            attrs: { src: "storage/profiles/" + _vm.user.user.photo_url }
-          }),
+        _c("li", { staticClass: "users text-center" }, [
+          _c("div", { staticClass: "container center-block " }, [
+            _c("img", {
+              staticClass: "rounded",
+              attrs: { src: "storage/profiles/" + _vm.user.user.photo_url }
+            })
+          ]),
           _vm._v(" "),
           _c("p", [_vm._v("Hello, " + _vm._s(_vm.user.user.name))])
         ]),
@@ -68507,7 +68512,7 @@ var render = function() {
             _c(
               "router-link",
               { staticClass: "nav-link", attrs: { to: "/restaurant-tables" } },
-              [_vm._v("Restaurant tables")]
+              [_vm._v("Restaurant Tables")]
             )
           ],
           1
@@ -68550,7 +68555,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("li", { staticClass: "users" }, [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Restaurant menu")])
+      _c("a", { attrs: { href: "#" } }, [_vm._v("Restaurant Menu")])
     ])
   },
   function() {
@@ -68574,7 +68579,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("li", { staticClass: "users" }, [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Statistical")])
+      _c("a", { attrs: { href: "#" } }, [_vm._v("Statistics")])
     ])
   }
 ]
@@ -68919,7 +68924,7 @@ var content = __webpack_require__(251);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(22)("4714e45c", content, false, {});
+var update = __webpack_require__(22)("4adb25c9", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags

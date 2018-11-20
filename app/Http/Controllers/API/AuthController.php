@@ -50,11 +50,12 @@ class AuthController extends Controller
 
     public function login(
 
-        
+
     )
     {
     // Check if a user with the specified email exists
         $user = User::whereEmail(request('username'))->first();
+        
         if (!$user) {
             return response()->json([
                 'message' => 'Wrong email or password',
@@ -82,7 +83,7 @@ class AuthController extends Controller
                 'message' => 'User have a block account please contact your manager.',
                 'status' => 403
             ], 403);
-        }   
+        }
     // Make sure a Password Client exists in the DB
         if (!$client) {
             return response()->json([

@@ -2,16 +2,18 @@
     <div>
         <nav role="navigation">
             <ul class="main">
-                <li class="users">
-                    <img :src="'storage/profiles/'+user.user.photo_url">
+                <li class="users text-center">
+                    <div class="container center-block ">
+                        <img :src="'storage/profiles/'+user.user.photo_url" class="rounded">
+                    </div>
                     <p>Hello, {{user.user.name}}</p>
                 </li>
-                <li class="users"><router-link class="nav-link" to="/restaurant-tables">Restaurant tables</router-link></li>
-                <li class="users"><a href="#">Restaurant menu</a></li>
+                <li class="users"><router-link class="nav-link" to="/restaurant-tables">Restaurant Tables</router-link></li>
+                <li class="users"><a href="#">Restaurant Menu</a></li>
                 <li class="users"><router-link class="nav-link" to="/employee">Employees</router-link></li>
                 <li class="users"><a href="#">Meals</a></li>
                 <li class="users"><a href="#">Invoices</a></li>
-                <li class="users"><a href="#">Statistical</a></li>
+                <li class="users"><a href="#">Statistics</a></li>
 
             </ul>
         </nav>
@@ -36,7 +38,11 @@ export default {
 <style scoped>
 @charset "UTF-8";
 @import url(
-  https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,400,italic
+  https://fonts.googleapis.com/css?family=Open+Sans:300,
+  400,
+  700,
+  400,
+  italic
 );
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css);
 body {
@@ -135,8 +141,7 @@ main li:before {
   }
 }
 
-li p {
-  padding: 15px;
-  margin: 0;
+img {
+  margin: 15px;
 }
 </style>
