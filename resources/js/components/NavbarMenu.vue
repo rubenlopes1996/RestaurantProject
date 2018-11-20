@@ -6,7 +6,18 @@
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <div v-if="authenticated === true && user != null">
                     <li class="nav-item active">
-                        <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
+                        <div v-if="user.type == 'manager'">
+                            <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
+                        </div>
+                        <div v-else-if="user.type == 'cook'">
+                            <router-link class="nav-link" to="/dashboardCook">Dashboard</router-link>
+                        </div>
+                        <div v-else-if="user.type == 'waiter'">
+                            <router-link class="nav-link" to="/dashboardWaiter">Dashboard</router-link>
+                        </div>
+                        <div v-else-if="user.type == 'cashier'">
+                            <router-link class="nav-link" to="/dashboardCashier">Dashboard</router-link>
+                        </div>
                     </li>
                 </div>
                 <li class="nav-item active">
@@ -61,4 +72,5 @@
 </script>
 
 <style>
+    
 </style>
