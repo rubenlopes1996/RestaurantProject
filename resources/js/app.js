@@ -36,6 +36,7 @@ Vue.component('vue-layout', require('./Layout.vue'));
 Vue.component('manager-list', require('./components/employee/EmployeeList.vue'));
 Vue.component('user-edit', require('./components/employee/editEmployee.vue'));
 Vue.component('add-employee', require('./components/employee/AddEmployee.vue'));
+Vue.component('list-orders',require('./components/cooks/ListOrders.vue'));
 
 
 

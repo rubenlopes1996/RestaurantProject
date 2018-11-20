@@ -59,7 +59,6 @@
                     alert(response.data.message);
                 });
     
-    
             }
         },
         mounted() {

@@ -9,6 +9,7 @@
             </ul>
         </nav>
         <div class="container d-flex justify-content-center">
+          <list-orders> </list-orders>
         </div>
     </div>
 </template>
