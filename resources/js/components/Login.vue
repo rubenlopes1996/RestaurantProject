@@ -42,7 +42,6 @@
               case "manager":
                 this.$router.push("/dashboard");
                 break;
-  
               case "cook":
                 this.$router.push("/dashboardCook");
                 break;

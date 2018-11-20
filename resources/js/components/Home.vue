@@ -50,7 +50,7 @@
 	
 </script>
 
-<style>
+<style scoped>
 	
 	.nav-item {
 		padding-right: 12px;
