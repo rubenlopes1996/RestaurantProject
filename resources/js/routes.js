@@ -26,7 +26,14 @@ let routes = [{
             },
         }]
         //só pode ser acedido por managers falta midleware
-    },
+    }, 
+    {
+        path: '/dashboardCook',
+        component: require('./components/dashboards/DashboardCooks.vue'),
+        meta: {
+            middlewareAuth: true
+        },
+    }
 
 ];
 

@@ -41,7 +41,7 @@ export default {
           password : this.password,
           blocked: this.blocked
         };  
-          .put("api/users/" + this.user.id, this.user)
+          axios.put("api/users/" + this.user.id, this.user)
           .then(response => {
             this.successMessage = "Registration completed";
             console.log(response);
@@ -56,7 +56,6 @@ export default {
   
     }
   };  
-}
 </script>
 <style>
 

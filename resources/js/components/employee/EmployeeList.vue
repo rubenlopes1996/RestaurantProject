@@ -18,6 +18,7 @@
                         <a class="btn btn-sm btn-primary" v-on:click.prevent="editUser(user)">Edit</a>
                         <a class="btn btn-sm btn-danger" v-on:click.prevent="deleteUser(user)">Delete</a>
                     </td>
+    
                 </tr>
             </tbody>
         </table>
@@ -25,22 +26,22 @@
 </template>
 
 <script>
-module.exports = {
-  props: ["users"],
-  data: function() {
-    return {
-      activeUser: {}
+    module.exports = {
+        props: ["users"],
+        data: function() {
+            return {
+                activeUser: {}
+            };
+        },
+        methods: {
+            editUser: function(user) {
+                this.activeUser = user;
+                this.$emit("edit-user", user);
+            },
+    
+            deleteUser: function(user) {
+                this.$emit("delete-user", user);
+            }
+        }
     };
-  },
-  methods: {
-    editUser: function(user) {
-      this.activeUser = user;
-      this.$emit("edit-user", user);
-    },
-
-    deleteUser: function(user) {
-      this.$emit("delete-user", user);
-    }
-  }
-};
 </script>

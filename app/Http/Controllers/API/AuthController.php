@@ -32,13 +32,14 @@ class AuthController extends Controller
 
         //Send email
         $title = $request->input('Confirmation account');
-        $content = $request->input('Link');
+        $content = $request->input('Ola tiago link');
 
-        Mail::send('master',['title' => $title, 'content' => $content, 'user'=> $user], function ($message) use ($user) {
+        Mail::send('master', ['title' => $title, 'content' => $content, 'user' => $user], function ($message) use ($user) {
 
             $message->from('mailgun@sandbox8ca773b433d0429bb6d345de1ed27764.mailgun.org', 'Admin Restaurant DAD');
 
             $message->to($user->email);
+
 
 
         });
@@ -48,26 +49,27 @@ class AuthController extends Controller
 
     }
 
-    public function login(
-
-
-    )
+    public function login()
     {
     // Check if a user with the specified email exists
         $user = User::whereEmail(request('username'))->first();
         
         if (!$user) {
-            return response()->json([
-                'message' => 'Wrong email or password',
-                'status' => 422
-            ], 422);
+            $user = User::where('username', request('username'))->first();
+            if (!$user) {
+                return response()->json([
+                    'message' => 'Wrong credentials',
+                    'status' => 422
+                ], 422);
+            }
         }
+        $username = $user->email; 
 
     // If a user with the email was found - check if the specified password
     // belongs to this user
         if (!Hash::check(request('password'), $user->password)) {
             return response()->json([
-                'message' => 'Wrong email or password',
+                'message' => ' password',
                 'status' => 422
             ], 422);
         }
@@ -96,7 +98,7 @@ class AuthController extends Controller
             'grant_type' => 'password',
             'client_id' => $client->id,
             'client_secret' => $client->secret,
-            'username' => request('username'),
+            'username' => $username,
             'password' => request('password'),
         ];
 
