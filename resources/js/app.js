@@ -17,13 +17,18 @@ import VueRouter from 'vue-router';
 import Auth from './auth.js';
 import Api from './api.js';
 
+import {
+    ServerTable,
+    ClientTable,
+    Event
+} from 'vue-tables-2';
 
 window.Vue = require('vue');
 
 Vue.use(BootstrapVue);
 Vue.use(Card);
 Vue.use(VueRouter);
-
+Vue.use(ClientTable);
 
 window.api = new Api();
 window.auth = new Auth();
@@ -37,10 +42,6 @@ Vue.component('manager-list', require('./components/employee/EmployeeList.vue'))
 Vue.component('user-edit', require('./components/employee/editEmployee.vue'));
 Vue.component('add-employee', require('./components/employee/AddEmployee.vue'));
 Vue.component('list-orders',require('./components/cooks/ListOrders.vue'));
-
-
-
-
 
 const app = new Vue({
     el: '#app',
