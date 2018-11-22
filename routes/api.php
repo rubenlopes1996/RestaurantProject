@@ -41,3 +41,6 @@ Route::delete('employee/{id}', 'UserControllerAPI@destroy');
 //Restaurant tables
 Route::get('restaurant-tables', 'RestaurantTableAPI@index');
 
+//Cashiers
+Route::get('invoices', 'InvoicesControllerAPI@index');
+

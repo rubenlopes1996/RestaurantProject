@@ -1,28 +1,31 @@
 <template>
     <div class="container">
         <h1>Menu Restaurant</h1>
-        <div class="card-group">
-            <div v-for="item in items" v-bind:key="item.id">
-                <div class="card" style="width: 18rem; margin:10px">
-                    <img class="card-img-top" :src="'storage/items/'+item.photo_url" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">{{item.name}}</h5>
-                        <p class="card-text">{{item.price}} €</p>
-                        <p class="card-text">{{item.description}}</p>
-                        <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+        <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="notLoaded"></PacmanLoader>
+        <div v-else>
+            <div class="card-group">
+                <div v-for="item in items" v-bind:key="item.id">
+                    <div class="card" style="width: 18rem; margin:10px">
+                        <img class="card-img-top" :src="'storage/items/'+item.photo_url" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{item.name}}</h5>
+                            <p class="card-text">{{item.price}} €</p>
+                            <p class="card-text">{{item.description}}</p>
+                            <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+                        </div>
                     </div>
                 </div>
             </div>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li v-bind:class="[{disabled: !pagination.prev_page_url}]" class="page-item"><a class="page-link" href="#" @click="fecthMenu(pagination.prev_page_url)">Previous</a></li>
+
+                    <li class="page-item disabled"><a class="page-link text-dark" href="#">Page {{ pagination.current_page }} of {{ pagination.last_page }}</a></li>
+
+                    <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item"><a class="page-link" href="#" @click="fecthMenu(pagination.next_page_url)">Next</a></li>
+                </ul>
+            </nav>
         </div>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li v-bind:class="[{disabled: !pagination.prev_page_url}]" class="page-item"><a class="page-link" href="#" @click="fecthMenu(pagination.prev_page_url)">Previous</a></li>
-
-                <li class="page-item disabled"><a class="page-link text-dark" href="#">Page {{ pagination.current_page }} of {{ pagination.last_page }}</a></li>
-
-                <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item"><a class="page-link" href="#" @click="fecthMenu(pagination.next_page_url)">Next</a></li>
-            </ul>
-        </nav>
     </div>
 </template>
 
@@ -31,7 +34,8 @@ export default {
   data() {
     return {
       items: [],
-      pagination: {}
+      pagination: {},
+      notLoaded: false
     };
   },
   created() {
@@ -46,6 +50,7 @@ export default {
         .then(response => {
           this.items = response.data.data;
           pg.makePagination(response.data.meta, response.data.links);
+          notLoaded = false;
         })
         .catch(error => {
           console.log(error);

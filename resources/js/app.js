@@ -16,12 +16,14 @@ import router from './routes.js';
 import VueRouter from 'vue-router';
 import Auth from './auth.js';
 import Api from './api.js';
-
 import {
     ServerTable,
     ClientTable,
     Event
 } from 'vue-tables-2';
+import {
+    VueSpinners
+} from '@saeris/vue-spinners';
 
 window.Vue = require('vue');
 
@@ -29,6 +31,7 @@ Vue.use(BootstrapVue);
 Vue.use(Card);
 Vue.use(VueRouter);
 Vue.use(ClientTable);
+Vue.use(VueSpinners);
 
 window.api = new Api();
 window.auth = new Auth();
@@ -41,10 +44,10 @@ Vue.component('vue-layout', require('./Layout.vue'));
 Vue.component('manager-list', require('./components/employee/EmployeeList.vue'));
 Vue.component('user-edit', require('./components/employee/editEmployee.vue'));
 Vue.component('add-employee', require('./components/employee/AddEmployee.vue'));
-Vue.component('list-orders',require('./components/cooks/ListOrders.vue'));
+Vue.component('list-orders', require('./components/cooks/ListOrders.vue'));
 
 const app = new Vue({
     el: '#app',
-    router
-
+    router,
+    color: '#375A52'
 });
