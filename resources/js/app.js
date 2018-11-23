@@ -16,6 +16,8 @@ import router from './routes.js';
 import VueRouter from 'vue-router';
 import Auth from './auth.js';
 import Api from './api.js';
+import ImgInputer from 'vue-img-inputer';
+import 'vue-img-inputer/dist/index.css';
 import {
     ServerTable,
     ClientTable,
@@ -33,17 +35,20 @@ Vue.use(VueRouter);
 Vue.use(ClientTable);
 Vue.use(VueSpinners);
 
+
 window.api = new Api();
 window.auth = new Auth();
 window.Event = new Vue();
 window.auth = auth;
 
+Vue.component('ImgInputer', ImgInputer);
 Vue.component('menuitems', require('./components/NavbarMenu.vue'));
 Vue.component('navbarmenu', require('./components/NavbarMenu.vue'));
 Vue.component('vue-layout', require('./Layout.vue'));
 Vue.component('manager-list', require('./components/employee/EmployeeList.vue'));
 Vue.component('user-edit', require('./components/employee/editEmployee.vue'));
 Vue.component('add-employee', require('./components/employee/AddEmployee.vue'));
+Vue.component('table-list', require('./components/restaurant-table/RestaurantTableList.vue'));
 Vue.component('list-orders', require('./components/cooks/ListOrders.vue'));
 Vue.component('list-invoices', require('./components/cashiers/InvoiceList.vue'));
 

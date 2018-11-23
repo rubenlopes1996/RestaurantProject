@@ -24,15 +24,27 @@ let routes = [{
             meta: {
                 middlewareAuth: true
             },
-        }]
-        //só pode ser acedido por managers falta midleware
-    },
+        }, {
+            path: '/restaurant-tables',
+            component: require('./components/restaurant-table/RestaurantTable.vue'),
+            meta: {
+                middlewareAuth: true
+            },
+        
+        }]},
     {
         path: '/dashboardCook',
         component: require('./components/dashboards/DashboardCooks.vue'),
         meta: {
             middlewareAuth: true
         },
+    },
+    {
+        path: '/myProfile',
+        component: require('./components/Profile.vue'),
+        meta: {
+            middlewareAuth: true
+        }
     },
     {
         path: '/dashboardCashier',

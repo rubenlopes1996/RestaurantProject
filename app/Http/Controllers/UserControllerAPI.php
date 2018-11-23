@@ -18,7 +18,7 @@ class UserControllerAPI extends Controller
         /*if ($request->has('page')) {
             return UserResource::collection(User::paginate(5));
         } else {*/
-            return UserResource::collection(User::all());
+        return UserResource::collection(User::all());
         //}
     }
 
@@ -54,11 +54,54 @@ class UserControllerAPI extends Controller
         return new UserResource($user);
     }
 
+    public function updateProfile(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $dados = $request->validate([
+            'name' => 'required|string|max:255|regex:/^[\pL\s]+$/u',
+            'username' => 'required',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'photo_url' => 'required',
+        ]);
+
+        $user->name = $dados['name'];
+        $user->email = $dados['email'];
+        $user->username = $dados['username'];
+        $file = $dados['photo_url'] ?? null;
+        if ($file != null) {
+            $file_name = basename($file->store('profiles', 'public'));
+            $user->update(['photo_url' => $file_name]);
+        }
+
+        $user->save();
+        return new UserResource($user);
+    }
+
     public function destroy($id)
     {
         $user = User::findOrFail($id);
         $user = $user->delete();
         return response()->json(null, 204);
+    }
+
+    public function startShift($id)
+    {
+        $user = User::findOrFail($id);
+        $user->last_shift_start = date("Y-m-d H:i:s");
+        $user->shift_active =1;
+        $user->save();
+
+        return response()->json(null, 200);
+    }
+
+    public function endShift($id)
+    {
+        $user = User::findOrFail($id);
+        $user->last_shift_end = date("Y-m-d H:i:s");
+        $user->shift_active =0;
+        $user->save();
+
+        return response()->json(null, 200);
     }
 
 }

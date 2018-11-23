@@ -44,3 +44,10 @@ Route::get('restaurant-tables', 'RestaurantTableAPI@index');
 //Cashiers
 Route::get('invoices', 'InvoicesControllerAPI@index');
 
+//My profile
+Route::put('employee/{id}', 'UserControllerAPI@updateProfile');
+
+//Start shift
+Route::put('startShift/{id}','UserControllerAPI@startShift');
+//End shift
+Route::put('endShift/{id}','UserControllerAPI@endShift');

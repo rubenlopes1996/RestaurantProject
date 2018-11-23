@@ -4,6 +4,12 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
             <router-link class="navbar-brand" to="/">Restaurant DAD</router-link>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <router-link class="nav-link" to="/menu">Menu</router-link>
+                </li>
+                <li class="nav-item active">
+                    <router-link class="nav-link" to="/myProfile">My profile</router-link>
+                </li>
                 <div v-if="authenticated === true && user != null">
                     <li class="nav-item active">
                         <div v-if="user.type == 'manager'">
@@ -20,10 +26,14 @@
                         </div>
                     </li>
                 </div>
-                <li class="nav-item active">
-                    <router-link class="nav-link" to="/menu">Menu</router-link>
-                </li>
-
+                <div v-if="authenticated === true">
+                    <li class="nav-item active" v-if=" user.shift_active ==1">
+                        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit" v-on:click.prevent="stopShift()">End shift</button>
+                    </li>
+                    <li class="nav-item active" v-else>
+                        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit" v-on:click.prevent="startShift()">Start shift</button>
+                    </li>
+                </div>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <div v-if="authenticated === false && user.user == null">
@@ -58,6 +68,26 @@ export default {
           console.log("erro");
           alert(response.data.message);
         });
+    },
+    startShift() {
+     axios
+        .put("api/startShift/" + +this.user.id, this.user.id)
+        .then(response => {
+            console.log("start");
+        })
+        .catch(error => {
+          console.log(error.response.data.message);
+        });
+    },
+    stopShift() {
+          axios
+        .put("api/endShift/" + +this.user.id, this.user.id)
+        .then(response => {
+        })
+        .catch(error => {
+          console.log(error.response.data.message);
+        });
+      
     }
   },
   mounted() {
