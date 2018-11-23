@@ -13,25 +13,21 @@
 </template>
 
 <script>
-  module.exports = {
-    data: function() {
-      return {
-        editingTable: false,
-        showSuccess: false,
-        showFailure: false,
-        successMessage: "",
-        failMessage: "",
-        currentTable: null,
-        newTable: null,
-      };
-    },
-    methods: {
-    editTable:function(){
-
-    },
-    deleteTable:function(){
-      
-    }
-    },
-  };
+module.exports = {
+  data: function() {
+    return {
+      editingTable: false,
+      showSuccess: false,
+      showFailure: false,
+      successMessage: "",
+      failMessage: "",
+      currentTable: null,
+      newTable: null
+    };
+  },
+  methods: {
+    editTable: function() {},
+    deleteTable: function() {}
+  }
+};
 </script>

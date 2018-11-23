@@ -19,19 +19,21 @@ let routes = [{
             middlewareAuth: true
         },
         children: [{
-            path: '/employee',
-            component: require('./components/employee/Employee.vue'),
-            meta: {
-                middlewareAuth: true
+                path: '/employee',
+                component: require('./components/employee/Employee.vue'),
+                meta: {
+                    middlewareAuth: true
+                },
             },
-        }, {
-            path: '/restaurant-tables',
-            component: require('./components/restaurant-table/RestaurantTable.vue'),
-            meta: {
-                middlewareAuth: true
-            },
-        
-        }]},
+            {
+                path: '/restaurant-tables',
+                component: require('./components/restaurant-table/RestaurantTable.vue'),
+                meta: {
+                    middlewareAuth: true
+                }
+            }
+        ]
+    },
     {
         path: '/dashboardCook',
         component: require('./components/dashboards/DashboardCooks.vue'),
@@ -60,6 +62,7 @@ let routes = [{
             },
         }]
     }
+
 
 ];
 

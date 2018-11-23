@@ -1,23 +1,18 @@
 <template>
     <div>
         <!--<PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="notLoaded"></PacmanLoader>-->
-        <v-client-table ref="table" :data="invoices" :columns="columns" :options="options" id="buttons">
-            <div slot="actions" slot-scope="invoices" align="center">
-                <button class="btn btn-sm btn-danger" v-on:click.prevent="deleteUser(invoices.row)">Payment</button>
+        <v-client-table ref="table" :data="items" :columns="columns" :options="options" id="buttons">
+            <div slot="actions" slot-scope="items" align="center">
+                <button class="btn btn-sm btn-danger" v-on:click.prevent="deleteUser(items.row)">Payment</button>
             </div>
-            <div slot="child_row" slot-scope="invoices">
-                <div v-for="(in_I, index) in invoices.row.invoice_items" :key="in_I.id">
-                    Quantity:<b> {{in_I.quantity}}</b><br>
-                     Unit Price: {{in_I.unit_price}} €<br>
-                      Sub Total: <b>{{in_I.sub_total_price}} €</b><br>
-                      &nbsp;Name: {{invoices.row.items_consumed[index].name}}<br>
-                      &nbsp;Created:  {{invoices.row.items_consumed[index].created_at}}<br>
-                      &nbsp;Type: {{invoices.row.items_consumed[index].type.toUpperCase()}}<br><br>
-                    <!--<div v-for="item in invoices.row.items_consumed" :key="item.id">
-                        Name: {{ item.name }} <br>
-                         Created: {{ item.created_at }}<br>
-                          Type: {{ item.type }}<br><br>
-                    </div>-->
+            <div slot="child_row" slot-scope="items">
+                <div v-for="(in_I, index) in items.row.invoice_items" :key="in_I.id">
+                    Quantity:<b> {{in_I.quantity}}</b>
+                    <br> Unit Price: {{in_I.unit_price}} €<br>
+                     Sub Total: <b>{{in_I.sub_total_price}} €</b>
+                     <br> &nbsp;Name: {{items.row.items_consumed[index].name}}<br>
+                      &nbsp;Created: {{items.row.items_consumed[index].created_at}}<br>
+                    &nbsp;Type: {{items.row.items_consumed[index].type.toUpperCase()}}<br><br>
                 </div>
             </div>
         </v-client-table>
@@ -41,12 +36,11 @@ module.exports = {
       ],
       options: {},
       size: 10,
-      notLoaded: false,
-      showItem: 0
+      notLoaded: false
     };
   },
   created() {
-    this.fecthEmployees();
+    this.fecthInvoices();
   },
   methods: {
     itemDetails: function(items) {
@@ -61,7 +55,7 @@ module.exports = {
       this.$emit("delete-user", user);
       //Vue.set(this.$emit, "delete-user", user);
     },
-    fecthEmployees(page_url) {
+    fecthInvoices(page_url) {
       let pg = this;
       page_url = page_url || "api/invoices";
       axios

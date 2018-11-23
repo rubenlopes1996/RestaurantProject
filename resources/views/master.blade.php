@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
+    <link rel="icon" href="/images/restaurant.png">
 
 </head>
 <body>
