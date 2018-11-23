@@ -23,7 +23,7 @@
                 <li class="nav-item active">
                     <router-link class="nav-link" to="/menu">Menu</router-link>
                 </li>
-    
+
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <div v-if="authenticated === false && user.user == null">
@@ -36,40 +36,38 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                authenticated: auth.check(),
-                user: auth
-            };
-        },
-        methods: {
-            logout() {
-                this.authenticated = false;
-                this.user.user = null;
-                this.user.token = null;
-    
-    
-                axios.post('/api/logout').then(({
-                    data
-                }) => {
-                    this.$router.push('/');
-                }).catch((response) => {
-                    console.log("erro");
-                    alert(response.data.message);
-                });
-    
-            }
-        },
-        mounted() {
-            Event.$on("userLoggedIn", () => {
-                this.authenticated = true;
-                this.user = auth.user;
-            });
-        }
+export default {
+  data() {
+    return {
+      authenticated: auth.check(),
+      user: auth.user
     };
+  },
+  methods: {
+    logout() {
+      this.authenticated = false;
+      this.user.user = null;
+      this.user.token = null;
+
+      axios
+        .post("/api/logout")
+        .then(({ data }) => {
+          this.$router.push("/");
+        })
+        .catch(response => {
+          console.log("erro");
+          alert(response.data.message);
+        });
+    }
+  },
+  mounted() {
+    Event.$on("userLoggedIn", () => {
+      this.authenticated = true;
+      this.user = auth.user;
+    });
+  }
+};
 </script>
 
 <style>
-    
 </style>

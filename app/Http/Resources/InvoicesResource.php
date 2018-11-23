@@ -5,7 +5,9 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\DB;
 use App\InvoiceItems;
-
+use App\Meals;
+use App\Invoices;
+use App\Items;
 
 class InvoicesResource extends JsonResource
 {
@@ -19,12 +21,14 @@ class InvoicesResource extends JsonResource
     {
         //state table respWaiter totalPrice
         return [
+            'id' => $this->id,
             'state' => $this->state,
-            'table_number'=> $this->table,
-            'responsible_waiter'=> $this->responsible_waiter,
+            'table_number'=> Meals::find($this->id)->table_number,
+            'responsible_waiter' => $this->name,
             'total_price'=> $this->total_price,
-            'name' => $this->name,
-            'quantity' => InvoiceItems::Where('invoice_id', $this->meal_id)->get()->count()
-    ];
+            'date' => $this->date,
+            'items_consumed' => Items::find(InvoiceItems::Where('invoice_id', $this->id)->pluck('item_id')),
+            'invoice_items' => InvoiceItems::Where('invoice_id', $this->id)->get()
+        ];
     }
 }

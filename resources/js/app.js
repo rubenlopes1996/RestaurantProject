@@ -45,9 +45,9 @@ Vue.component('manager-list', require('./components/employee/EmployeeList.vue'))
 Vue.component('user-edit', require('./components/employee/editEmployee.vue'));
 Vue.component('add-employee', require('./components/employee/AddEmployee.vue'));
 Vue.component('list-orders', require('./components/cooks/ListOrders.vue'));
+Vue.component('list-invoices', require('./components/cashiers/InvoiceList.vue'));
 
 const app = new Vue({
     el: '#app',
-    router,
-    color: '#375A52'
+    router
 });

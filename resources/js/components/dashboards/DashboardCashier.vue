@@ -2,20 +2,26 @@
     <div>
         <nav role="navigation">
             <ul class="main">
-                <li class="users">
-                    <img :src="'storage/profiles/'+user.user.photo_url">
+                <li class="users text-center">
+                    <div class="container center-block ">
+                        <img :src="'storage/profiles/'+user.user.photo_url" class="rounded">
+                    </div>
                     <p>Hello, {{user.user.name}}</p>
+                </li>
+                <li class="users">
+                    <router-link class="nav-link" to="/invoices">Invoices</router-link>
+                </li>
+                <li class="users">
+                    <router-link class="nav-link" to="/invoices">?? ALL Invoices ??</router-link>
                 </li>
             </ul>
         </nav>
-        <div class="container d-flex justify-content-center">
-            <list-invoices> </list-invoices>
-        </div>
         <div class="container d-flex justify-content-center">
             <router-view></router-view>
         </div>
     </div>
 </template>
+
 
 <script>
 export default {
@@ -138,5 +144,9 @@ main li:before {
 li p {
   padding: 15px;
   margin: 0;
+}
+
+img {
+  margin: 15px;
 }
 </style>

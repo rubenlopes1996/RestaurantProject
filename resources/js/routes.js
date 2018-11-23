@@ -26,13 +26,27 @@ let routes = [{
             },
         }]
         //só pode ser acedido por managers falta midleware
-    }, 
+    },
     {
         path: '/dashboardCook',
         component: require('./components/dashboards/DashboardCooks.vue'),
         meta: {
             middlewareAuth: true
         },
+    },
+    {
+        path: '/dashboardCashier',
+        component: require('./components/dashboards/DashboardCashier.vue'),
+        meta: {
+            middlewareAuth: true
+        },
+        children: [{
+            path: '/invoices',
+            component: require('./components/cashiers/Invoices.vue'),
+            meta: {
+                middlewareAuth: true
+            },
+        }]
     }
 
 ];

@@ -9,7 +9,6 @@
         </v-client-table>
     </div>
 </template>
-
 <script>
 module.exports = {
   props: ["users"],
