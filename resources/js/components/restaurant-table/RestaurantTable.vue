@@ -7,7 +7,7 @@
         <strong>{{ successMessage }}</strong>
       </div>
       <!--<user-edit :user="currentUser" @save-user="saveUser()" @cancel-edit="cancelEdit()"></user-edit>-->
-      <table-list @edit-table="editTable" @delete-table="deleteTable"></table-list>
+      <table-list :tables="tables" @edit-table="editTable" @delete-table="deleteTable"></table-list>
     </div>
   </div>
 </template>
@@ -22,7 +22,8 @@ module.exports = {
       successMessage: "",
       failMessage: "",
       currentTable: null,
-      newTable: null
+      newTable: null,
+      tables: []
     };
   },
   methods: {

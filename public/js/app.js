@@ -70835,6 +70835,12 @@ var routes = [{
         meta: {
             middlewareAuth: true
         }
+    }, {
+        path: '/invoices',
+        component: __webpack_require__(294),
+        meta: {
+            middlewareAuth: true
+        }
     }]
 }, {
     path: '/dashboardCook',
@@ -72361,7 +72367,8 @@ module.exports = {
       successMessage: "",
       failMessage: "",
       currentTable: null,
-      newTable: null
+      newTable: null,
+      tables: []
     };
   },
   methods: {
@@ -72408,6 +72415,7 @@ var render = function() {
           : _vm._e(),
         _vm._v(" "),
         _c("table-list", {
+          attrs: { tables: _vm.tables },
           on: { "edit-table": _vm.editTable, "delete-table": _vm.deleteTable }
         })
       ],
@@ -91201,7 +91209,7 @@ module.exports = {
       inload: false
     };
   },
-  created: function created() {
+  mounted: function mounted() {
     this.fecthTables();
   },
 

@@ -22,7 +22,7 @@ module.exports = {
       inload: false
     };
   },
-  created() {
+  mounted() {
     this.fecthTables();
   },
   methods: {
