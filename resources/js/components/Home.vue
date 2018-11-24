@@ -1,155 +1,168 @@
 <template>
-	<body data-spy="scroll" data-target=".navbar" data-offset="50">
-		<div id="Welcome">
-			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-				<ol class="carousel-indicators">
-					<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-					<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-					<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-				</ol>
-				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<img class="d-block w-100 img-fluid img-slider" src="images/slider1.jpg" alt="First slide">
-						<div class="carousel-caption">
-	
-						</div>
-					</div>
-					<div class="carousel-item">
-						<img class="d-block w-100 img-fluid img-slider" src="images/slider2.jpg" alt="Second slide">
-						<div class="carousel-caption">
-	
-						</div>
-					</div>
-					<div class="carousel-item">
-						<img class="d-block w-100 img-fluid img-slider" src="images/slider3.jpg" alt="Third slide">
-						<div class="carousel-caption">
-	
-						</div>
-					</div>
-				</div>
-				<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="sr-only">Previous</span>
-				</a>
-				<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="sr-only">Next</span>
-				</a>
-			</div>
-		</div>
-		<div class="row footer bg-light">
-			<div class="col">
-				<p class="text-center">About Us</p>
-			</div>
-	
-		</div>
-	</body>
+    <body>
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleControls" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleControls" data-slide-to="1"></li>
+                <li data-target="#carouselExampleControls" data-slide-to="2"></li>
+            </ol>
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="images/slider1.jpg" alt="First slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5> DAD Restaurant </h5>
+                            <p> We cook here </p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="images/slider2.jpg" alt="Second slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5> Our food </h5>
+                            <p> We only serve freshly gathered ingredients </p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="images/slider3.jpg" alt="Third slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5> You </h5>
+                            <p> Our clients are our top priority </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <section id="tools">
+            <div class="container built-with d-flex justify-content-center">
+                <div class="card-deck">
+                    <div class="card">
+                        <img class="card-img-top" src="/images/vue-logo.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Vue</h5>
+                            <p class="card-text">Vue.js is an open-source JavaScript framework for building user interfaces and single-page applications.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img class="card-img-top" src="/images/laravel-logo.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Laravel</h5>
+                            <p class="card-text">Laravel is a free, open-source[3] PHP web framework, created by Taylor Otwell and intended for the development of web applications following the model–view–controller (MVC) architectural pattern and based on Symfony</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img class="card-img-top" src="/images/bootstrap-logo.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Bootstrap</h5>
+                            <p class="card-text">Bootstrap is a free and open-source front-end framework for designing websites and web applications.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="parallax"></div>
+
+        <section id="about-us">
+            <div class="container built-with d-flex justify-content-center">
+                <div class="card-deck">
+                    <div class="card">
+                        <img class="card-img-top" src="/images/person-icon.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Rúben Lopes</h5>
+                            <p class="card-text">IPL - ESTG, Sistemas de Informação. 2019</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img class="card-img-top" src="/images/person-icon.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Tiago Batista</h5>
+                            <p class="card-text">IPL - ESTG, Sistemas de Informação. 2019</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img class="card-img-top" src="/images/person-icon.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Tiago Afonso</h5>
+                            <p class="card-text">IPL - ESTG, Tecnologias de Informação. 2019</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ipl">
+            <div class="container">
+                <div class="card">
+                    <div class="row no-gutters">
+                        <div class="col-auto">
+                            <img src="/images/pdad.png" class="img-fluid" alt="">
+                        </div>
+                        <div class="col">
+                            <div class="card-block px-2">
+                                <h4 class="card-title">Projeto de Desenvolvimento de Aplicações Distribuidas</h4>
+                                <p class="card-text">This project’s objective is to implement a Single Page Application (SPA) for the management of a restaurant’s order system, using Vue.js framework for the development of the web client.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer w-100 text-muted">
+                        ESTG Leiria
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container footer bg-light">
+            <div class="col">
+                <p class="text-center">All rights reserved ®</p>
+            </div>
+
+        </div>
+    </body>
 </template>
 
 <script>
-	
 </script>
 
 <style scoped>
-	
-	.nav-item {
-		padding-right: 12px;
-		padding-left: 12px;
-	}
-	
-	.flag {
-		max-height: 20px;
-		max-width: 20px;
-		margin-top: 10px;
-	}
-	
-	.nav-link.active {
-		background-color: lightgrey !important;
-	}
-	
-	.reserve-container {
-		position: relative;
-	}
-	
-	.card-body {
-		-webkit-transition: all 1s ease;
-		/* Safari and Chrome */
-		-moz-transition: all 1s ease;
-		/* Firefox */
-		-o-transition: all 1s ease;
-		/* IE 9 */
-		-ms-transition: all 1s ease;
-		/* Opera */
-		transition: all 1s ease;
-	}
-	
-	.card-body:hover {
-		-webkit-transform: scale(1.05);
-		-moz-transform: scale(1.05);
-		-o-transform: scale(1.05);
-		-ms-transform: scale(1.05);
-		transform: scale(1.05);
-	}
-	
-	.reserve-text {
-		position: absolute;
-		top: 40%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-	}
-	
-	.image-reserve {
-		opacity: 0.4;
-		max-height: 750px;
-	}
-	
-	.carousel-caption {
-		top: 40%;
-	}
-	
-	.img-slider {
-		min-height: 320px;
-	}
-	
-	.navMenu {
-		padding-top: 75px;
-		padding-bottom: 20px;
-	}
-	
-	.card-img-top {
-		height: 200px;
-	}
-	
-	.map {
-		height: 320px;
-	}
-	
-	@media screen and (max-width: 1920px) {
-		.only-mobile {
-			visibility: hidden;
-		}
-	}
-	
-	@media screen and (max-width: 506px) {
-		.only-mobile {
-			visibility: visible;
-		}
-	}
-	
-	.footer {
-		margin-bottom: 30px;
-		margin-top: 30px;
-		padding-top: 20px;
-	}
-	
-	.social-icon {
-		font-size: 28;
-	}
-	
-	footer {
-		position: fixed;
-		bottom: 0px;
-		padding-top: 20px;
-	}
+#ipl .card {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+#about-us img {
+  width: 100%;
+  padding: 15px;
+}
+
+.parallax {
+  /* The image used */
+  background-image: url("/images/slider3.jpg");
+  /* Set a specific height */
+  height: 500px;
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+#tools img {
+  width: 100%;
+  padding: 15px;
+}
+
+#carouselExampleControls {
+  margin-top: 56px;
+  margin-bottom: 50px;
+}
 </style>
 

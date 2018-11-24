@@ -10,6 +10,7 @@ import {
 } from 'bootstrap-vue/es/components';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import router from './routes.js';
@@ -26,6 +27,7 @@ import {
 import {
     VueSpinners
 } from '@saeris/vue-spinners';
+import VueFeatherIcon from 'vue-feather-icon';
 
 window.Vue = require('vue');
 
@@ -34,7 +36,7 @@ Vue.use(Card);
 Vue.use(VueRouter);
 Vue.use(ClientTable);
 Vue.use(VueSpinners);
-
+Vue.use(VueFeatherIcon);
 
 window.api = new Api();
 window.auth = new Auth();
