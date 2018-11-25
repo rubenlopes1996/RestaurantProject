@@ -13,22 +13,44 @@
 </template>
 
 <script>
-module.exports = {
-  data: function() {
-    return {
-      editingTable: false,
-      showSuccess: false,
-      showFailure: false,
-      successMessage: "",
-      failMessage: "",
-      currentTable: null,
-      newTable: null,
-      tables: []
-    };
-  },
-  methods: {
-    editTable: function() {},
-    deleteTable: function() {}
+  module.exports = {
+    data: function() {
+      return {
+        editingTable: false,
+        showSuccess: false,
+        showFailure: false,
+        successMessage: "",
+        failMessage: "",
+        currentTable: null,
+        newTable: null,
+        tables: []
+      };
+    },
+    methods: {
+      editTable: function() {},
+      deleteTable: function(table) {
+        if (table === this.currentTable) {
+          this.currentTable = null;
+        }
+        axios
+          .delete("api/restaurant-tables/" + table.table_number)
+          .then(response => {
+            this.showSuccess = true;
+            this.successMessage = "Table Deleted";
+            this.getTables();
+          })
+          .catch(error => {
+            console.log(error.response.data.message);
+            this.failMessage = error.response.data.message;
+          });
+      },
+      getTables: function() {
+        axios.get("api/restaurant-tables").then(response => {
+          this.tables = response.data.data;
+        });
+      }
+    }, mounted() {
+      this.getTables();
+    },
   }
-};
 </script>

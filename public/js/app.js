@@ -82220,6 +82220,12 @@ var routes = [{
         meta: {
             middlewareAuth: true
         }
+    }, {
+        path: '/restaurant-menu',
+        component: __webpack_require__(1002),
+        meta: {
+            middlewareAuth: true
+        }
     }]
 }, {
     path: '/dashboardCook',
@@ -82335,7 +82341,7 @@ var content = __webpack_require__(497);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(10)("57d13055", content, false, {});
+var update = __webpack_require__(10)("9ead3c3c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -82649,7 +82655,7 @@ var content = __webpack_require__(503);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(10)("e83132c4", content, false, {});
+var update = __webpack_require__(10)("730209ab", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -82962,7 +82968,7 @@ var content = __webpack_require__(508);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(10)("0f0db792", content, false, {});
+var update = __webpack_require__(10)("cf83e5ec", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -83538,7 +83544,7 @@ var content = __webpack_require__(513);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(10)("d0b07eb4", content, false, {});
+var update = __webpack_require__(10)("634372c6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -83574,6 +83580,8 @@ exports.push([module.i, "\nsvg[data-v-59c872ce] {\n  stroke: #fff !important;\n}
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -83659,17 +83667,22 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _c("li", { staticClass: "users" }, [
-          _c(
-            "a",
-            { attrs: { href: "#" } },
-            [
-              _c("feather-icon", { attrs: { type: "clipboard" } }),
-              _vm._v(" Restaurant Menu")
-            ],
-            1
-          )
-        ]),
+        _c(
+          "li",
+          { staticClass: "users" },
+          [
+            _c(
+              "router-link",
+              { staticClass: "nav-link", attrs: { to: "/restaurant-menu" } },
+              [
+                _c("feather-icon", { attrs: { type: "clipboard" } }),
+                _vm._v(" Restaurant Menu")
+              ],
+              1
+            )
+          ],
+          1
+        ),
         _vm._v(" "),
         _c(
           "li",
@@ -84056,7 +84069,30 @@ module.exports = {
   },
   methods: {
     editTable: function editTable() {},
-    deleteTable: function deleteTable() {}
+    deleteTable: function deleteTable(table) {
+      var _this = this;
+
+      if (table === this.currentTable) {
+        this.currentTable = null;
+      }
+      axios.delete("api/restaurant-tables/" + table.table_number).then(function (response) {
+        _this.showSuccess = true;
+        _this.successMessage = "Table Deleted";
+        _this.getTables();
+      }).catch(function (error) {
+        console.log(error.response.data.message);
+        _this.failMessage = error.response.data.message;
+      });
+    },
+    getTables: function getTables() {
+      var _this2 = this;
+
+      axios.get("api/restaurant-tables").then(function (response) {
+        _this2.tables = response.data.data;
+      });
+    }
+  }, mounted: function mounted() {
+    this.getTables();
   }
 };
 
@@ -84312,7 +84348,7 @@ var content = __webpack_require__(526);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(10)("5d5d84af", content, false, {});
+var update = __webpack_require__(10)("2b018262", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -84487,7 +84523,7 @@ var content = __webpack_require__(531);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(10)("5381807c", content, false, {});
+var update = __webpack_require__(10)("51d8fa6e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -84511,7 +84547,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n#profile {\r\n  margin-top: 300px;\r\n  margin-left: 300px;\n}\r\n", ""]);
+exports.push([module.i, "\n#profile {\n  margin-top: 300px;\n  margin-left: 300px;\n}\n", ""]);
 
 // exports
 
@@ -84787,7 +84823,7 @@ var content = __webpack_require__(536);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(10)("0160cc72", content, false, {});
+var update = __webpack_require__(10)("660702dc", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -114756,7 +114792,7 @@ var content = __webpack_require__(968);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(10)("4adb25c9", content, false, {});
+var update = __webpack_require__(10)("4714e45c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -115270,7 +115306,7 @@ var content = __webpack_require__(976);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(10)("bc068bb0", content, false, {});
+var update = __webpack_require__(10)("0e062b88", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -115966,7 +116002,7 @@ var content = __webpack_require__(987);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(10)("cb9e4e82", content, false, {});
+var update = __webpack_require__(10)("18df985f", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -116023,17 +116059,20 @@ module.exports = {
       inload: false
     };
   },
-  mounted: function mounted() {
+  /* mounted() {
+     this.fecthTables();
+   },*/
+  created: function created() {
     this.fecthTables();
   },
 
   methods: {
-    editUser: function editUser(table) {
+    editTable: function editTable(table) {
       this.activeTable = table;
       this.$emit("edit-table", table);
       this.editingTable = true;
     },
-    deleteUser: function deleteUser(table) {
+    deleteTable: function deleteTable(table) {
       this.$emit("delete-table", table);
     },
     fecthTables: function fecthTables(page_url) {
@@ -116076,7 +116115,7 @@ var render = function() {
           })
         : _c("v-client-table", {
             attrs: {
-              data: _vm.items,
+              data: _vm.tables,
               columns: _vm.columns,
               options: _vm.options,
               id: "buttons"
@@ -116084,7 +116123,7 @@ var render = function() {
             scopedSlots: _vm._u([
               {
                 key: "actions",
-                fn: function(items) {
+                fn: function(tables) {
                   return _c("div", { attrs: { align: "center" } }, [
                     _c(
                       "button",
@@ -116093,7 +116132,7 @@ var render = function() {
                         on: {
                           click: function($event) {
                             $event.preventDefault()
-                            _vm.editTable(items.row)
+                            _vm.editTable(tables.row)
                           }
                         }
                       },
@@ -116107,7 +116146,7 @@ var render = function() {
                         on: {
                           click: function($event) {
                             $event.preventDefault()
-                            _vm.deleteTable(items.row)
+                            _vm.deleteTable(tables.row)
                           }
                         }
                       },
@@ -116194,7 +116233,7 @@ var content = __webpack_require__(992);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(10)("0a580ae2", content, false, {});
+var update = __webpack_require__(10)("a724bc70", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -116411,7 +116450,7 @@ var content = __webpack_require__(997);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(10)("6639a2c4", content, false, {});
+var update = __webpack_require__(10)("2b36113e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -116612,6 +116651,85 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 1001 */,
+/* 1002 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(1004)
+/* template */
+var __vue_template__ = __webpack_require__(1003)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/restaurant-menu/RestaurantMenu.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4a0da187", Component.options)
+  } else {
+    hotAPI.reload("data-v-4a0da187", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 1003 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-4a0da187", module.exports)
+  }
+}
+
+/***/ }),
+/* 1004 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ })
 /******/ ]);

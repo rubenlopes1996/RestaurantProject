@@ -1,10 +1,10 @@
 <template>
    <div>
       <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="inload"></PacmanLoader>
-      <v-client-table :data="items" :columns="columns" :options="options" id="buttons" v-else >
-         <div slot="actions" slot-scope="items" align="center">
-           <button class="btn btn-sm btn-primary" v-on:click.prevent="editTable(items.row)">Edit</button>
-            <button class="btn btn-sm btn-danger" v-on:click.prevent="deleteTable(items.row)">Delete</button>
+      <v-client-table :data="tables" :columns="columns" :options="options" id="buttons" v-else >
+         <div slot="actions" slot-scope="tables" align="center">
+           <button class="btn btn-sm btn-primary" v-on:click.prevent="editTable(tables.row)">Edit</button>
+            <button class="btn btn-sm btn-danger" v-on:click.prevent="deleteTable(tables.row)">Delete</button>
          </div>
       </v-client-table>
    </div>
@@ -22,16 +22,19 @@ module.exports = {
       inload: false
     };
   },
-  mounted() {
+ /* mounted() {
+    this.fecthTables();
+  },*/
+  created() {
     this.fecthTables();
   },
   methods: {
-    editUser: function(table) {
+    editTable: function(table) {
       this.activeTable = table;
       this.$emit("edit-table", table);
       this.editingTable = true;
     },
-    deleteUser: function(table) {
+    deleteTable: function(table) {
       this.$emit("delete-table", table);
     },
     fecthTables(page_url) {

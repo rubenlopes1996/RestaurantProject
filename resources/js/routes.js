@@ -38,7 +38,15 @@ let routes = [{
                 meta: {
                     middlewareAuth: true
                 },
-            }
+            },
+            {
+                path: '/restaurant-menu',
+                component: require('./components/restaurant-menu/RestaurantMenu.vue'),
+                meta: {
+                    middlewareAuth: true
+                },
+            },
+
         ]
     },
     {

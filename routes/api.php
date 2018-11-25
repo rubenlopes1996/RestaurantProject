@@ -40,6 +40,7 @@ Route::delete('employee/{id}', 'UserControllerAPI@destroy');
 
 //Restaurant tables
 Route::get('restaurant-tables', 'RestaurantTableAPI@index');
+Route::delete('restaurant-tables/{id}','RestaurantTableAPI@destroy');
 
 //Cashiers
 Route::get('invoices', 'InvoicesControllerAPI@index');

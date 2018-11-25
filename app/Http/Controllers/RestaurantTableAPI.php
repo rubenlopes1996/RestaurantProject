@@ -85,6 +85,8 @@ class RestaurantTableAPI extends Controller
      */
     public function destroy($id)
     {
-        //
+        $table = RestaurantTable::where('table_number',$id);
+        $table = $table->delete();
+        return response()->json(null, 204);
     }
 }

@@ -11,7 +11,9 @@
                 <li class="users">
                     <router-link class="nav-link" to="/restaurant-tables"><feather-icon type="layers"></feather-icon> Restaurant Tables</router-link>
                 </li>
-                <li class="users"><a href="#"><feather-icon type="clipboard"></feather-icon> Restaurant Menu</a></li>
+                <li class="users">
+                  <router-link class="nav-link" to="/restaurant-menu"><feather-icon type="clipboard"></feather-icon> Restaurant Menu</router-link>
+                  </li>
                 <li class="users">
                     <router-link class="nav-link" to="/employee">
                         <feather-icon type="users" stroke="fcolor"></feather-icon> Employees
