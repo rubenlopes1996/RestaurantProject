@@ -82263,8 +82263,8 @@ var routes = [{
             middlewareAuth: true
         }
     }, {
-        path: '/invoices',
-        component: __webpack_require__(86),
+        path: '/paidinvoices',
+        component: __webpack_require__(87),
         meta: {
             middlewareAuth: true
         }
@@ -83618,11 +83618,11 @@ if(false) {
 
 exports = module.exports = __webpack_require__(5)(false);
 // imports
-exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,\r\n  400,\r\n  700,\r\n  400,\r\n  italic\r\n);", ""]);
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,\n  400,\n  700,\n  400,\n  italic\n);", ""]);
 exports.push([module.i, "@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css);", ""]);
 
 // module
-exports.push([module.i, "\n@charset \"UTF-8\";\nbody[data-v-59c872ce] {\r\n  background: #f1f2f7;\r\n  font-family: \"Open Sans\", arial, sans-serif;\r\n  color: darkslategray;\n}\nnav[role=\"navigation\"][data-v-59c872ce] {\r\n  background: #2a3542;\r\n  color: #ddd;\n}\nnav[role=\"navigation\"] li[data-v-59c872ce] {\r\n  border-bottom: 1px solid rgba(255, 255, 255, 0.08);\n}\nnav[role=\"navigation\"] li a[data-v-59c872ce] {\r\n  color: #ddd;\r\n  text-decoration: none;\r\n  display: block;\r\n  padding: 0.7em;\n}\nnav[role=\"navigation\"] li a[data-v-59c872ce]:hover {\r\n  background-color: rgba(255, 255, 255, 0.05);\n}\r\n\r\n/* lists */\nul[data-v-59c872ce],\r\nli[data-v-59c872ce] {\r\n  list-style-type: none;\r\n  margin: 0;\r\n  padding: 0;\n}\nmain li[data-v-59c872ce] {\r\n  position: relative;\r\n  padding-left: 1.2em;\r\n  margin: 0.5em 0;\n}\n@media screen and (min-width: 600px) {\nhtml[data-v-59c872ce],\r\n  body[data-v-59c872ce] {\r\n    height: 100%;\n}\nnav[role=\"navigation\"][data-v-59c872ce] {\r\n    position: fixed;\r\n    width: 200px;\r\n    top: 56px;\r\n    bottom: 0px;\n}\n}\nimg[data-v-59c872ce] {\r\n  margin: 15px;\n}\r\n", ""]);
+exports.push([module.i, "\n@charset \"UTF-8\";\nbody[data-v-59c872ce] {\n  background: #f1f2f7;\n  font-family: \"Open Sans\", arial, sans-serif;\n  color: darkslategray;\n}\nnav[role=\"navigation\"][data-v-59c872ce] {\n  background: #2a3542;\n  color: #ddd;\n}\nnav[role=\"navigation\"] li[data-v-59c872ce] {\n  border-bottom: 1px solid rgba(255, 255, 255, 0.08);\n}\nnav[role=\"navigation\"] li a[data-v-59c872ce] {\n  color: #ddd;\n  text-decoration: none;\n  display: block;\n  padding: 0.7em;\n}\nnav[role=\"navigation\"] li a[data-v-59c872ce]:hover {\n  background-color: rgba(255, 255, 255, 0.05);\n}\n\n/* lists */\nul[data-v-59c872ce],\nli[data-v-59c872ce] {\n  list-style-type: none;\n  margin: 0;\n  padding: 0;\n}\nmain li[data-v-59c872ce] {\n  position: relative;\n  padding-left: 1.2em;\n  margin: 0.5em 0;\n}\n@media screen and (min-width: 600px) {\nhtml[data-v-59c872ce],\n  body[data-v-59c872ce] {\n    height: 100%;\n}\nnav[role=\"navigation\"][data-v-59c872ce] {\n    position: fixed;\n    width: 200px;\n    top: 56px;\n    bottom: 0px;\n}\n}\nimg[data-v-59c872ce] {\n  margin: 15px;\n}\n", ""]);
 
 // exports
 
@@ -83773,10 +83773,10 @@ var render = function() {
           [
             _c(
               "router-link",
-              { staticClass: "nav-link", attrs: { to: "/invoices" } },
+              { staticClass: "nav-link", attrs: { to: "/paidinvoices" } },
               [
                 _c("feather-icon", { attrs: { type: "box" } }),
-                _vm._v(" Invoices")
+                _vm._v(" All Invoices")
               ],
               1
             )
@@ -84977,24 +84977,24 @@ if (false) {
 //
 
 module.exports = {
-    data: function data() {
-        return {
-            paidinvoices: []
-        };
-    },
-    methods: {
-        getPaidInvoices: function getPaidInvoices() {
-            var _this = this;
+  data: function data() {
+    return {
+      paidinvoices: []
+    };
+  },
+  methods: {
+    getPaidInvoices: function getPaidInvoices() {
+      var _this = this;
 
-            axios.get("api/invoices?paid").then(function (response) {
-                _this.paidinvoices = response.data.data;
-            });
-        }
-    },
-
-    mounted: function mounted() {
-        this.getPaidInvoices();
+      axios.get("api/invoices?paid").then(function (response) {
+        _this.paidinvoices = response.data.data;
+      });
     }
+  },
+
+  mounted: function mounted() {
+    this.getPaidInvoices();
+  }
 };
 
 /***/ }),
@@ -116543,7 +116543,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n.VueTables__child-row-toggler {\n    width: 16px;\n    height: 16px;\n    line-height: 16px;\n    display: block;\n    margin: auto;\n    text-align: center;\n}\n.VueTables__child-row-toggler--closed::before {\n    content: \"\\F06E\";\n    font-family: FontAwesome;\n}\n.VueTables__child-row-toggler--open::before {\n    content: \"\\F070\";\n    font-family: FontAwesome;\n}\n", ""]);
+exports.push([module.i, "\n.VueTables__child-row-toggler {\n  width: 16px;\n  height: 16px;\n  line-height: 16px;\n  display: block;\n  margin: auto;\n  text-align: center;\n}\n.VueTables__child-row-toggler--closed::before {\n  content: \"\\F06E\";\n  font-family: FontAwesome;\n}\n.VueTables__child-row-toggler--open::before {\n  content: \"\\F070\";\n  font-family: FontAwesome;\n}\n", ""]);
 
 // exports
 
@@ -116570,37 +116570,46 @@ exports.push([module.i, "\n.VueTables__child-row-toggler {\n    width: 16px;\n  
 //
 //
 //
+//
+//
 
 module.exports = {
-    props: ["paidinvoices"],
-    data: function data() {
-        return {
-            items: this.paidinvoices,
-            columns: ["state", "table_number", "responsible_waiter", "total_price", "date", "actions"],
-            options: {},
-            size: 10,
-            notLoaded: false
-        };
-    },
-    created: function created() {
-        this.fecthPaidInvoices();
-    },
-
-    methods: {
-        fecthPaidInvoices: function fecthPaidInvoices(page_url) {
-            var _this = this;
-
-            var pg = this;
-            page_url = page_url || "api/invoices?paid";
-            axios.get(page_url).then(function (response) {
-                notLoaded = false;
-                _this.items = response.data.data;
-            }).catch(function (error) {
-                console.log(error);
-                notLoaded = false;
-            });
+  props: ["paidinvoices"],
+  data: function data() {
+    return {
+      items: this.paidinvoices,
+      columns: ["state", "table_number", "responsible_waiter", "total_price", "date", "actions"],
+      options: {
+        dateColumns: ["date"],
+        dateFormat: "YYYY-MM-DD",
+        datepickerOptions: {
+          showDropdowns: true,
+          autoUpdateInput: true
         }
+      },
+      size: 10,
+      notLoaded: false
+    };
+  },
+  created: function created() {
+    this.fecthPaidInvoices();
+  },
+
+  methods: {
+    fecthPaidInvoices: function fecthPaidInvoices(page_url) {
+      var _this = this;
+
+      var pg = this;
+      page_url = page_url || "api/invoices?paid";
+      axios.get(page_url).then(function (response) {
+        notLoaded = false;
+        _this.items = response.data.data;
+      }).catch(function (error) {
+        console.log(error);
+        notLoaded = false;
+      });
     }
+  }
 };
 
 /***/ }),
@@ -116666,7 +116675,7 @@ var render = function() {
                     ),
                     _c("br"),
                     _vm._v(
-                      "  Created: " +
+                      "\n                  Created: " +
                         _vm._s(items.row.items_consumed[index].created_at)
                     ),
                     _c("br"),

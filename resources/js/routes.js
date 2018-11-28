@@ -33,8 +33,8 @@ let routes = [{
                 }
             },
             {
-                path: '/invoices',
-                component: require('./components/cashiers/Invoices.vue'),
+                path: '/paidinvoices',
+                component: require('./components/cashiers/PaidInvoices.vue'),
                 meta: {
                     middlewareAuth: true
                 },
