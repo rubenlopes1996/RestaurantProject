@@ -22,7 +22,7 @@
                             <router-link class="nav-link" to="/dashboardWaiter">Dashboard</router-link>
                         </div>
                         <div v-else-if="user.type == 'cashier'">
-                            <router-link class="nav-link" to="/dashboardCashier">Dashboard</router-link>
+                            <router-link class="nav-link" to="/dashboardCashier/invoices">Dashboard</router-link>
                         </div>
                     </li>
                 </div>
@@ -70,24 +70,22 @@ export default {
         });
     },
     startShift() {
-     axios
+      axios
         .put("api/startShift/" + +this.user.id, this.user.id)
         .then(response => {
-            console.log("start");
+          console.log("start");
         })
         .catch(error => {
           console.log(error.response.data.message);
         });
     },
     stopShift() {
-          axios
+      axios
         .put("api/endShift/" + +this.user.id, this.user.id)
-        .then(response => {
-        })
+        .then(response => {})
         .catch(error => {
           console.log(error.response.data.message);
         });
-      
     }
   },
   mounted() {

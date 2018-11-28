@@ -8,11 +8,8 @@
             <div slot="child_row" slot-scope="items">
                 <div v-for="(in_I, index) in items.row.invoice_items" :key="in_I.id">
                     Quantity:<b> {{in_I.quantity}}</b>
-                    <br> Unit Price: {{in_I.unit_price}} €<br>
-                     Sub Total: <b>{{in_I.sub_total_price}} €</b>
-                     <br> &nbsp;Name: {{items.row.items_consumed[index].name}}<br>
-                      &nbsp;Created: {{items.row.items_consumed[index].created_at}}<br>
-                    &nbsp;Type: {{items.row.items_consumed[index].type.toUpperCase()}}<br><br>
+                    <br> Unit Price: {{in_I.unit_price}} €<br> Sub Total: <b>{{in_I.sub_total_price}} €</b>
+                    <br> &nbsp;Name: {{items.row.items_consumed[index].name}}<br> &nbsp;Created: {{items.row.items_consumed[index].created_at}}<br> &nbsp;Type: {{items.row.items_consumed[index].type.toUpperCase()}}<br><br>
                 </div>
             </div>
         </v-client-table>
@@ -24,7 +21,6 @@ module.exports = {
   props: ["invoices"],
   data: function() {
     return {
-      activeUser: {},
       items: this.invoices,
       columns: [
         "state",
@@ -39,25 +35,13 @@ module.exports = {
       notLoaded: false
     };
   },
-  created() {
+  mounted() {
     this.fecthInvoices();
   },
   methods: {
-    itemDetails: function(items) {
-      this.$emit("items-detail", items);
-    },
-    editUser: function(user) {
-      this.activeUser = user;
-      this.$emit("edit-user", user);
-      this.editingUser = true;
-    },
-    deleteUser: function(user) {
-      this.$emit("delete-user", user);
-      //Vue.set(this.$emit, "delete-user", user);
-    },
     fecthInvoices(page_url) {
       let pg = this;
-      page_url = page_url || "api/invoices";
+      page_url = page_url || "api/invoices?unpaid";
       axios
         .get(page_url)
         .then(response => {

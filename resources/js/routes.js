@@ -70,19 +70,22 @@ let routes = [{
             middlewareAuth: true
         },
         children: [{
-            path: '/invoices',
-            component: require('./components/cashiers/Invoices.vue'),
-            meta: {
-                middlewareAuth: true
+                path: 'invoices',
+                component: require('./components/cashiers/Invoices.vue'),
+                meta: {
+                    middlewareAuth: true
+                }
             },
-        }]
+            {
+                path: 'paidinvoices',
+                component: require('./components/cashiers/PaidInvoices.vue'),
+                meta: {
+                    middlewareAuth: true
+                }
+            }
+        ]
     }
-
-
 ];
-
-
-
 const router = new VueRouter({
     routes
 });

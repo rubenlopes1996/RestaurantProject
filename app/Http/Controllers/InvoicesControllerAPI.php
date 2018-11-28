@@ -8,9 +8,13 @@ use \App\Invoices;
 
 class InvoicesControllerAPI extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return InvoicesResource::collection(Invoices::Where('state','not paid')->Orderby('created_at')->get());
+        if($request->has('paid')){
+            return InvoicesResource::collection(Invoices::Where('state','paid')->Orderby('created_at')->get());
+        }else if($request->has('unpaid')) {
+            return InvoicesResource::collection(Invoices::Where('state','not paid')->Orderby('created_at')->get());
+        }
     }
 }
 //

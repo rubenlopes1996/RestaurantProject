@@ -53,6 +53,7 @@ Vue.component('add-employee', require('./components/employee/AddEmployee.vue'));
 Vue.component('table-list', require('./components/restaurant-table/RestaurantTableList.vue'));
 Vue.component('list-orders', require('./components/cooks/ListOrders.vue'));
 Vue.component('list-invoices', require('./components/cashiers/InvoiceList.vue'));
+Vue.component('paid-invoices', require('./components/cashiers/PaidInvoicesList.vue'));
 
 const app = new Vue({
     el: '#app',

@@ -23,6 +23,7 @@ class InvoicesResource extends JsonResource
         return [
             'id' => $this->id,
             'state' => $this->state,
+            'nif' => $this->nif,
             'table_number'=> Meals::find($this->id)->table_number,
             'responsible_waiter' => $this->name,
             'total_price'=> $this->total_price,
