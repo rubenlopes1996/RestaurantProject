@@ -9,10 +9,10 @@
                     <p>Hello, {{user.user.name}}</p>
                 </li>
                 <li class="users">
-                    <router-link class="nav-link" to="/invoices">Invoices</router-link>
+                    <router-link class="nav-link" to="/dashboardCashier/invoices"><feather-icon type="box"></feather-icon> Invoices</router-link>
                 </li>
                 <li class="users">
-                    <router-link class="nav-link" to="/invoices">?? ALL Invoices ??</router-link>
+                    <router-link class="nav-link" to="/dashboardCashier/paidinvoices"><feather-icon type="box"></feather-icon> All Invoices</router-link>
                 </li>
             </ul>
         </nav>
@@ -50,10 +50,10 @@ body {
   font-family: "Open Sans", arial, sans-serif;
   color: darkslategray;
 }
-
+/*
 .users a:before {
   content: "";
-}
+}*/
 
 nav[role="navigation"] {
   background: #2a3542;
@@ -70,7 +70,7 @@ nav[role="navigation"] li a {
   display: block;
   padding: 0.7em;
 }
-
+/*
 nav[role="navigation"] li a:hover {
   background-color: rgba(255, 255, 255, 0.05);
 }
@@ -100,7 +100,7 @@ nav[role="navigation"] .comments a:before {
 nav[role="navigation"] .users a:before {
   content: "";
 }
-
+*/
 /* lists */
 
 ul,

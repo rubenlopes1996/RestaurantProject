@@ -24,7 +24,7 @@
                             <router-link class="nav-link" to="/dashboardWaiter">Dashboard</router-link>
                         </div>
                         <div v-else-if="user.type == 'cashier'">
-                            <router-link class="nav-link" to="/dashboardCashier">Dashboard</router-link>
+                            <router-link class="nav-link" to="/dashboardCashier/invoices">Dashboard</router-link>
                         </div>
                     </li>
                     <li class="nav-item active" v-if=" user.shift_active ==1">

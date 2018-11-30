@@ -50,6 +50,7 @@ Vue.component('list-orders', require('./components/cooks/ListOrders.vue'));
 Vue.component('list-invoices', require('./components/cashiers/InvoiceList.vue'));
 Vue.component('item-edit', require('./components/restaurant-menu/EditRestaurantMenu.vue'));
 Vue.component('item-list', require('./components/restaurant-menu/RestaurantMenuList.vue'));
+Vue.component('paid-invoices', require('./components/cashiers/PaidInvoicesList.vue'));
 
 
 const app = new Vue({

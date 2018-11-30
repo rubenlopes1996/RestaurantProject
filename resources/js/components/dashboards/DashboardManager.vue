@@ -21,7 +21,7 @@
                 </li>
                 <li class="users"><a href="#"><feather-icon type="droplet"></feather-icon> Drinks & Meals</a></li>
                 <li class="users">
-                    <router-link class="nav-link" to="/invoices"><feather-icon type="box"></feather-icon> Invoices</router-link>
+                    <router-link class="nav-link" to="/paidinvoices"><feather-icon type="box"></feather-icon> All Invoices</router-link>
                 </li>
                 <li class="users"><a href="#"><feather-icon type="activity"></feather-icon> Statistics</a></li>
 
@@ -47,14 +47,6 @@ export default {
 </script>
 
 <style scoped>
-svg {
-  stroke: #fff !important;
-}
-svg path,
-svg polyline,
-svg * {
-  stroke: #fff !important;
-}
 @charset "UTF-8";
 @import url(
   https://fonts.googleapis.com/css?family=Open+Sans:300,
@@ -69,11 +61,6 @@ body {
   font-family: "Open Sans", arial, sans-serif;
   color: darkslategray;
 }
-
-/*
-        .users a:before {
-          content: "";
-        }*/
 
 nav[role="navigation"] {
   background: #2a3542;
@@ -95,34 +82,6 @@ nav[role="navigation"] li a:hover {
   background-color: rgba(255, 255, 255, 0.05);
 }
 
-/*:-moz-first-node
-        nav[role="navigation"] li a:before {
-          content: "\f248";
-          font-family: FontAwesome;
-          padding-right: 0.6em;
-        }*/
-
-/*
-        nav[role="navigation"] .dashboard a:before {
-          content: "";
-        }
-
-        nav[role="navigation"] .write a:before {
-          content: "";
-        }
-
-        nav[role="navigation"] .edit a:before {
-          content: "";
-        }
-
-        nav[role="navigation"] .comments a:before {
-          content: "";
-        }
-
-        nav[role="navigation"] .users a:before {
-          content: "";
-        }*/
-
 /* lists */
 
 ul,
@@ -137,19 +96,6 @@ main li {
   padding-left: 1.2em;
   margin: 0.5em 0;
 }
-
-/*
-        main li:before {
-          content: "";
-          position: absolute;
-          width: 0;
-          height: 0;
-          left: 0;
-          top: 0.3em;
-          border-left: solid 10px #dde;
-          border-top: solid 5px transparent;
-          border-bottom: solid 5px transparent;
-        }*/
 
 @media screen and (min-width: 600px) {
   html,
