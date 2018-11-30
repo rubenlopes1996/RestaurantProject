@@ -22,7 +22,7 @@ Route::get('menu', 'ItemControllerAPI@index');
 
 //Authetication
 Route::post('/register', 'API\AuthController@register');
-Route::post('/login', 'API\AuthController@login');
+Route::post('/login', 'API\AuthController@login')->name('login');
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout', 'API\AuthController@logout');
     Route::get('/get-user', 'API\AuthController@getUser');
@@ -46,7 +46,9 @@ Route::delete('restaurant-tables/{id}','RestaurantTableAPI@destroy');
 Route::get('invoices', 'InvoicesControllerAPI@index');
 
 //My profile
-Route::put('employee/{id}', 'UserControllerAPI@updateProfile');
+Route::put('employee-profile/{id}', 'UserControllerAPI@update');
+Route::post('employee-photo/{id}', 'UserControllerAPI@uploadPhoto');
+
 
 //Start shift
 Route::put('startShift/{id}','UserControllerAPI@startShift');

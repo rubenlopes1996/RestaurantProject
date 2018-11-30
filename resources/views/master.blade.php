@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
     <link rel="icon" href="/images/restaurant.png">
-    <title>Restuarant DAD</title>
+    <title>Restaurant DAD</title>
 
 </head>
 <body>

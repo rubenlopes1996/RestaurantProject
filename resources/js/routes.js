@@ -1,4 +1,5 @@
 import VueRouter from 'vue-router';
+import store from './vuex.js';
 
 let routes = [{
         path: '/login',
@@ -81,27 +82,16 @@ let routes = [{
 
 ];
 
-
-
 const router = new VueRouter({
     routes
 });
 
 router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.middlewareAuth)) {
-        if (!auth.check()) {
-            next({
-                path: '/login',
-                query: {
-                    redirect: to.fullPath
-                }
-            });
-
-            return;
-        }
-    }
-
-    next();
-})
+   if(to.meta.middlewareAuth && (store.state.user == null)){
+       next('/login');
+       return;
+   }
+   next();
+});
 
 export default router;

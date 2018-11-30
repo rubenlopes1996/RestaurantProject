@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Jsonable;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\DB;
 use App\User;
 use App\StoreUserRequest;
 use Hash;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\File;
 
 
 class UserControllerAPI extends Controller
@@ -45,33 +48,58 @@ class UserControllerAPI extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $data = $request->validate([
             'name' => 'required|min:3|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
             'email' => 'required|email|unique:users,email,' . $id,
         ]);
+
         $user = User::findOrFail($id);
-        $user->update($request->all());
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->save();
         return new UserResource($user);
+    }
+
+    public function uploadPhoto(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        if ($user->photo_url) {
+            Storage::disk('public')->delete('profile/' . $user->photo_url);
+        }
+
+        $file = Input::file('file');
+        $filename = $file->getClientOriginalName();
+        $ext = $file->getClientOriginalExtension();
+        $uploadedFile = str_random(10) . '.' . $ext;
+
+        if (!Storage::disk('public')->put('profiles/' . $uploadedFile, File::get($file))) {
+            return response()->json([
+                'message' => 'Problem uploading item photo.',
+                'status' => 422
+            ], 422);
+        }
+        $user->photo_url = $uploadedFile;
+        $user->save();
+
+        return response()->json(
+            [
+                'status' => 201,
+                'success' => 'item photo updated.',
+                'photo' => $uploadedFile
+            ]
+        );
     }
 
     public function updateProfile(Request $request, $id)
     {
-        $user = User::findOrFail($id);
         $dados = $request->validate([
             'name' => 'required|string|max:255|regex:/^[\pL\s]+$/u',
-            'username' => 'required',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'photo_url' => 'required',
+            'username' => 'required|string',
         ]);
 
         $user->name = $dados['name'];
-        $user->email = $dados['email'];
         $user->username = $dados['username'];
-        $file = $dados['photo_url'] ?? null;
-        if ($file != null) {
-            $file_name = basename($file->store('profiles', 'public'));
-            $user->update(['photo_url' => $file_name]);
-        }
 
         $user->save();
         return new UserResource($user);
@@ -88,7 +116,7 @@ class UserControllerAPI extends Controller
     {
         $user = User::findOrFail($id);
         $user->last_shift_start = date("Y-m-d H:i:s");
-        $user->shift_active =1;
+        $user->shift_active = 1;
         $user->save();
 
         return response()->json(null, 200);
@@ -98,7 +126,7 @@ class UserControllerAPI extends Controller
     {
         $user = User::findOrFail($id);
         $user->last_shift_end = date("Y-m-d H:i:s");
-        $user->shift_active =0;
+        $user->shift_active = 0;
         $user->save();
 
         return response()->json(null, 200);

@@ -15,8 +15,6 @@ import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import router from './routes.js';
 import VueRouter from 'vue-router';
-import Auth from './auth.js';
-import Api from './api.js';
 import ImgInputer from 'vue-img-inputer';
 import 'vue-img-inputer/dist/index.css';
 import {
@@ -28,6 +26,7 @@ import {
     VueSpinners
 } from '@saeris/vue-spinners';
 import VueFeatherIcon from 'vue-feather-icon';
+import store from './vuex.js';
 
 window.Vue = require('vue');
 
@@ -38,13 +37,9 @@ Vue.use(ClientTable);
 Vue.use(VueSpinners);
 Vue.use(VueFeatherIcon);
 
-window.api = new Api();
-window.auth = new Auth();
 window.Event = new Vue();
-window.auth = auth;
 
 Vue.component('ImgInputer', ImgInputer);
-Vue.component('menuitems', require('./components/NavbarMenu.vue'));
 Vue.component('navbarmenu', require('./components/NavbarMenu.vue'));
 Vue.component('vue-layout', require('./Layout.vue'));
 Vue.component('manager-list', require('./components/employee/EmployeeList.vue'));
@@ -53,8 +48,16 @@ Vue.component('add-employee', require('./components/employee/AddEmployee.vue'));
 Vue.component('table-list', require('./components/restaurant-table/RestaurantTableList.vue'));
 Vue.component('list-orders', require('./components/cooks/ListOrders.vue'));
 Vue.component('list-invoices', require('./components/cashiers/InvoiceList.vue'));
+Vue.component('item-edit', require('./components/restaurant-menu/EditRestaurantMenu.vue'));
+Vue.component('item-list', require('./components/restaurant-menu/RestaurantMenuList.vue'));
+
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    store,
+    created() {
+        this.$store.commit('loadTokenAndUserFromSession');
+        }
 });
+

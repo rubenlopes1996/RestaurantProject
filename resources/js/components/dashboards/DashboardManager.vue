@@ -4,9 +4,9 @@
             <ul class="main">
                 <li class="users text-center">
                     <div class="container center-block ">
-                        <img :src="'storage/profiles/'+user.user.photo_url" class="rounded">
+                        <img :src="'storage/profiles/'+user.photo_url" class="rounded">
                     </div>
-                    <p>Hello, {{user.user.name}}</p>
+                    <p>Hello, {{user.name}}</p>
                 </li>
                 <li class="users">
                     <router-link class="nav-link" to="/restaurant-tables"><feather-icon type="layers"></feather-icon> Restaurant Tables</router-link>
@@ -37,7 +37,7 @@
 export default {
   data() {
     return {
-      user: auth,
+      user: this.$store.state.user,
       fcolor: "#fff"
     };
   },

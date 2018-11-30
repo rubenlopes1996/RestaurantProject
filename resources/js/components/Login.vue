@@ -6,13 +6,28 @@
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon"></span>
-            <input type="text" name="username" placeholder="Email or Username" class="form-control" autofocus="true" required="true" v-model="username">
+            <input
+              type="text"
+              name="email"
+              placeholder="Email or Username"
+              class="form-control"
+              autofocus="true"
+              required="true"
+              v-model="user.email"
+            >
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon"></span>
-            <input type="password" name="password" placeholder="Password" class="form-control" required="true" v-model="password">
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              class="form-control"
+              required="true"
+              v-model="user.password"
+            >
           </div>
         </div>
         <div class="col-xs-12">
@@ -24,59 +39,63 @@
 </template>
 
 <script>
-  export default {
-    methods: {
-      login() {
-        let data = {
-          username: this.username,
-          password: this.password
-        };
-  
-        axios
-          .post("/api/login", data)
-          .then(({
-            data
-          }) => {
-            auth.login(data.token, data.user);
-            switch (data.user.type) {
-              case "manager":
-                this.$router.push("/dashboard");
-                break;
-              case "cook":
-                this.$router.push("/dashboardCook");
-                break;
-  
-              case "waiter":
-                this.$router.push("/dashboardWaiter");
-                break;
-  
-              case "cashier":
-                this.$router.push("/dashboardCashier");
-                break;
-            }
-          })
-          .catch(({
-            response
-          }) => {
-            alert(response.data.message);
-          });
-      }
-    },
-    data() {
-      return {
-        username: "",
+export default {
+  data() {
+    return {
+      user: {
+        email: "",
         password: ""
-      };
+      }
+    };
+  },
+  methods: {
+    login() {
+      this.showMessage = false;
+      axios
+        .post("api/login", this.user)
+        .then(response => {
+          this.$store.commit("setToken", response.data.access_token);
+          return axios.get("api/get-user");
+        })
+        .then(response => {
+          this.$store.commit("setUser", response.data.data);
+          this.typeofmsg = "alert-success";
+          this.message = "User authenticated correctly";
+          this.showMessage = true;
+         switch (response.data.data.type) {
+            case "manager":
+              this.$router.push("/dashboard");
+              break;
+            case "cook":
+              this.$router.push("/dashboardCook");
+              break;
+            case "waiter":
+              this.$router.push("/dashboardWaiter");
+              break;
+
+            case "cashier":
+              this.$router.push("/dashboardCashier");
+              break;
+          }
+        })
+        .catch(error => {
+          this.$store.commit("clearUserAndToken");
+          this.typeofmsg = "alert-danger";
+          this.message = "Invalid credentials";
+          this.showMessage = true;
+          console.log(error);
+        });
     }
-  };
+  }
+};
 </script>
 
 <style>
-  #login {
-    margin-top: 200px;
-  }
-  
-  #login h3 {
-    padding: 20px;
-  }
+#login {
+  margin-top: 200px;
+}
+
+#login h3 {
+  padding: 20px;
+}
 </style>

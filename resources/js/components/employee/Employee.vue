@@ -52,13 +52,13 @@ module.exports = {
     saveUser: function() {
       this.editingUser = false;
       const user = this.currentUser;
-      axios
-        .put("api/employee/" + this.currentUser.id, this.currentUser)
+      axios.put("api/employee/" + this.currentUser.id, this.currentUser)
         .then(response => {
           this.showSuccess = true;
           this.successMessage = "User Saved";
           // Copies response.data.data properties to this.currentUser
           // without changing this.currentUser reference
+          console.log(response.data.data);
           Object.assign(this.currentUser, response.data.data);
           this.users.forEach(u => {
             if (u.id == user.id) {
@@ -70,6 +70,7 @@ module.exports = {
           this.showFailure = true;
           this.showSuccess = false;
           this.failMessage = error.response.data.message;
+          console.log(error.response.data.message);
         });
     },
     cancelEdit: function() {

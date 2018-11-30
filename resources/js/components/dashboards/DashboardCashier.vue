@@ -27,7 +27,7 @@
 export default {
   data() {
     return {
-      user: auth
+      user: this.$root.user
     };
   },
   created() {},

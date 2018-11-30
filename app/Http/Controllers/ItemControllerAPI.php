@@ -13,9 +13,13 @@ class ItemControllerAPI extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return ItemsResource::collection(Items::paginate(9));
+    public function index(Request $request)
+    {   
+        if ($request->has('page')) {
+            return ItemsResource::collection(Items::paginate(9));
+        } else {
+            return ItemsResource::collection(Items::all());
+        }
     }
 
     /**

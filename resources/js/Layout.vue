@@ -6,11 +6,5 @@
 
 <script>
     export default {
-        data() {
-            return {
-                authenticated: auth.check(),
-                user: auth
-            };
-        }
     };
 </script>

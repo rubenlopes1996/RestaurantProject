@@ -44,7 +44,7 @@ export default {
   methods: {
     fecthMenu(page_url) {
       let pg = this;
-      page_url = page_url || "api/menu";
+      page_url = page_url || "api/menu?page=1";
       axios
         .get(page_url)
         .then(response => {
