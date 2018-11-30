@@ -10484,3 +10484,11 @@ a.text-dark:focus {
   padding: 15px !important;
 }
 
+.profile-pic {
+  max-width: 128px;
+}
+
+.profile-pic-edit {
+  max-width: 300px;
+}
+

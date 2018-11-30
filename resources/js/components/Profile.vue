@@ -7,7 +7,7 @@
         <form class="ui form">
           <div class="field">
             <label>Profile photo</label>
-            <img :src="'storage/profiles/'+user.photo_url">
+            <img :src="'storage/profiles/'+user.photo_url" class="profile-pic-edit rounded-circle">
             <input type="file" id="files" ref="files" v-on:change="handleFiles()">
           </div>
           <div class="field">

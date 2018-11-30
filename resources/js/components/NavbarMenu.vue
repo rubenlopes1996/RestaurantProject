@@ -6,14 +6,14 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
             <router-link class="navbar-brand" to="/">Restaurant DAD</router-link>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <router-link class="nav-link" to="/menu">Menu</router-link>
                 </li>
-                <div v-if="user!= null">
-                    <li class="nav-item active">
+                <div class="dashboards" v-if="user!= null">
+                    <li class="nav-item">
                         <router-link class="nav-link" to="/myProfile">My profile</router-link>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <div v-if="user.type == 'manager'">
                             <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
                         </div>
@@ -27,15 +27,15 @@
                             <router-link class="nav-link" to="/dashboardCashier/invoices">Dashboard</router-link>
                         </div>
                     </li>
-                    <li class="nav-item active" v-if=" user.shift_active ==1">
+                    <li class="nav-item" v-if=" user.shift_active ==1">
                         <button class="btn btn-outline-dark my-2 my-sm-0" type="submit" v-on:click.prevent="stopShift()">End shift</button>
                     </li> 
-                    <li class="nav-item active" v-else>
+                    <li class="nav-item" v-else>
                         <button class="btn btn-outline-dark my-2 my-sm-0" type="submit" v-on:click.prevent="startShift()">Start shift</button>
                     </li>
                 </div>
             </ul>
-            <form class="form-inline my-2 my-lg-0 nav-item active">
+            <form class="form-inline my-2 my-lg-0 nav-item">
                 <div v-if="user == null">
                     <router-link class="btn btn-outline-success my-2 my-sm-0" to="/login">Login</router-link>
                 </div>
@@ -99,5 +99,7 @@
 </script>
 
 <style>
-    
+    .dashboards{
+        display: inherit;
+    }
 </style>

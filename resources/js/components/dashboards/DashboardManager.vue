@@ -4,7 +4,7 @@
             <ul class="main">
                 <li class="users text-center">
                     <div class="container center-block ">
-                        <img :src="'storage/profiles/'+user.photo_url" class="rounded">
+                        <img :src="'storage/profiles/'+user.photo_url" class="rounded profile-pic">
                     </div>
                     <p>Hello, {{user.name}}</p>
                 </li>
