@@ -10468,6 +10468,10 @@ a.text-dark:focus {
 
 /*  Custom CSS  */
 
+.users img {
+  max-width: 128px;
+}
+
 .users a svg * {
   stroke: #fff !important;
 }

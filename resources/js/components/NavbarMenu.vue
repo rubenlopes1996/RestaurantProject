@@ -102,4 +102,9 @@
     .dashboards{
         display: inherit;
     }
+    @media screen and ( max-width: 991px ){
+        .dashboards{
+            display: inline-block;
+        }
+    }
 </style>

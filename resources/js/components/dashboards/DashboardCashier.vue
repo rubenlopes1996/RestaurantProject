@@ -4,9 +4,9 @@
             <ul class="main">
                 <li class="users text-center">
                     <div class="container center-block ">
-                        <img :src="'storage/profiles/'+user.user.photo_url" class="rounded">
+                        <img :src="'storage/profiles/'+user.photo_url" class="rounded">
                     </div>
-                    <p>Hello, {{user.user.name}}</p>
+                    <p>Hello, {{user.name}}</p>
                 </li>
                 <li class="users">
                     <router-link class="nav-link" to="/dashboardCashier/invoices"><feather-icon type="box"></feather-icon> Invoices</router-link>
@@ -27,7 +27,7 @@
 export default {
   data() {
     return {
-      user: this.$root.user
+      user: this.$store.state.user
     };
   },
   created() {},

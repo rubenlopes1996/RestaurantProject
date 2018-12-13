@@ -8,7 +8,7 @@ class Invoices extends Model
 {
     protected $fillable = [
         //state table respWaiter totalPrice
-        'state','table_number','responsible_waiter', 'total_price', 'date', 'items_consumed', 'invoice_items'
+        'state', 'nif', 'name', 'table_number','responsible_waiter', 'total_price', 'date', 'items_consumed', 'invoice_items'
     ];
 
     public function invoices_invoice_items(){

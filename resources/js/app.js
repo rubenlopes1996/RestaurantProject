@@ -27,6 +27,7 @@ import {
 } from '@saeris/vue-spinners';
 import VueFeatherIcon from 'vue-feather-icon';
 import store from './vuex.js';
+import Toasted from 'vue-toasted';
 
 window.Vue = require('vue');
 
@@ -36,6 +37,8 @@ Vue.use(VueRouter);
 Vue.use(ClientTable);
 Vue.use(VueSpinners);
 Vue.use(VueFeatherIcon);
+
+Vue.use(Toasted);
 
 window.Event = new Vue();
 
@@ -51,7 +54,7 @@ Vue.component('list-invoices', require('./components/cashiers/InvoiceList.vue'))
 Vue.component('item-edit', require('./components/restaurant-menu/EditRestaurantMenu.vue'));
 Vue.component('item-list', require('./components/restaurant-menu/RestaurantMenuList.vue'));
 Vue.component('paid-invoices', require('./components/cashiers/PaidInvoicesList.vue'));
-
+Vue.component('invoice-payment', require('./components/cashiers/InvoicePayment.vue'));
 
 const app = new Vue({
     el: '#app',

@@ -8,6 +8,7 @@ use App\InvoiceItems;
 use App\Meals;
 use App\Invoices;
 use App\Items;
+use App\User;
 
 class InvoicesResource extends JsonResource
 {
@@ -24,8 +25,9 @@ class InvoicesResource extends JsonResource
             'id' => $this->id,
             'state' => $this->state,
             'nif' => $this->nif,
-            'table_number'=> Meals::find($this->id)->table_number,
-            'responsible_waiter' => $this->name,
+            'name' => $this->name,
+            'table_number'=> Meals::find($this->meal_id)->table_number,
+            'responsible_waiter' => User::find(Meals::find($this->meal_id)->responsible_waiter_id)->name,
             'total_price'=> $this->total_price,
             'date' => $this->date,
             'items_consumed' => Items::find(InvoiceItems::Where('invoice_id', $this->id)->pluck('item_id')),
