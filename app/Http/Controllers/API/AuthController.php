@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Mail;
 
-define('YOUR_SERVER_URL', 'http://dadproject.restaurant');
+define('YOUR_SERVER_URL', 'http://restaurantproject.dad');
 // Check "oauth_clients" table for next 2 values:
 define('CLIENT_ID', '2');
-define('CLIENT_SECRET', 'uuD8nd80tIBwEuNxrKNLpLp5b6kB2eWOa2UR8PC5');
+define('CLIENT_SECRET', '0Xm4ZQvOhjrYU2yRSrZfGmjdakadQyLCytoF7NOa');
 
 class AuthController extends Controller
 {
@@ -41,9 +41,7 @@ class AuthController extends Controller
 
         Mail::send('master', ['title' => $title, 'content' => $content, 'user' => $user], function ($message) use ($user) {
 
-            $message->from('mailgun@sandbox8ca773b433d0429bb6d345de1ed27764.mailgun.org', 'Admin Restaurant DAD');
-
-            $message->to($user->email);
+            $message->to('2160852@my.ipleiria.pt');
 
 
 
@@ -57,29 +55,33 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $user = User::where('username', $request->email)->first();
-        if (!$user) {
-            $username = $request->email;
-        } else {
-            $username = $user->email;
-        }
+        if ($user->blocked == 0) {
+            if (!$user) {
+                $username = $request->email;
+            } else {
+                $username = $user->email;
+            }
 
-        $http = new \GuzzleHttp\Client;
-        $response = $http->post(YOUR_SERVER_URL . '/oauth/token', [
-            'form_params' => [
-                'grant_type' => 'password',
-                'client_id' => CLIENT_ID,
-                'client_secret' => CLIENT_SECRET,
-                'username' => $username,
-                'password' => $request->password,
-                'scope' => ''
-            ],
-            'exceptions' => false,
-        ]);
-        $errorCode = $response->getStatusCode();
-        if ($errorCode == '200') {
-            return json_decode((string)$response->getBody(), true);
-        } else {
-            return response()->json(['msg' => 'User credentials are invalid'], $errorCode);
+            $http = new \GuzzleHttp\Client;
+            $response = $http->post(YOUR_SERVER_URL . '/oauth/token', [
+                'form_params' => [
+                    'grant_type' => 'password',
+                    'client_id' => CLIENT_ID,
+                    'client_secret' => CLIENT_SECRET,
+                    'username' => $username,
+                    'password' => $request->password,
+                    'scope' => ''
+                ],
+                'exceptions' => false,
+            ]);
+            $errorCode = $response->getStatusCode();
+            if ($errorCode == '200') {
+                return json_decode((string)$response->getBody(), true);
+            } else {
+                return response()->json(['msg' => 'User credentials are invalid'], $errorCode);
+            }
+        }else{
+            return response()->json(['msg' => 'User blocked contact your manager'], 401);
         }
     }
 

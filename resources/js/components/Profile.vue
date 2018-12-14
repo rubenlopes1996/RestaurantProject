@@ -1,35 +1,4 @@
 <template>
-  <!--<div class="ui stackable grid container">
-    <div class="eight wide column">
-      <div class="ui segment">
-        <h2 class="ui dividing header">Edit Profile</h2>
-
-        <form class="ui form">
-          <div class="field">
-            <label>Profile photo</label>
-            <img :src="'storage/profiles/'+user.photo_url" class="profile-pic-edit rounded-circle">
-            <input type="file" id="files" ref="files" v-on:change="handleFiles()">
-          </div>
-          <div class="field">
-            <label>Full Name</label>
-            <input type="text" name="name" v-model="user.name">
-          </div>
-
-          <div class="field">
-            <label>Username</label>
-            <input type="text" name="username" v-model="user.username">
-          </div>
-
-          <div class="field">
-            <label>Email</label>
-            <input disabled type="email" name="email" v-model="user.email" placeholder="Email">
-          </div>
-
-          <a class="btn btn-primary" v-on:click.prevent="updateProfile()">Update Profile</a>
-        </form>
-      </div>
-    </div>
-  </div>-->
   <div class="container">
     <h1>Edit Profile</h1>
   	<hr>
@@ -39,7 +8,6 @@
         <div class="text-center">
           <img :src="'storage/profiles/'+user.photo_url" class="avatar img-circle" alt="avatar">
           <h6>Upload a different photo...</h6>
-          
           <input type="file" class="form-control-file" id="files" ref="files" v-on:change="handleFiles()">
         </div>
       </div>
@@ -69,19 +37,19 @@
           <div class="form-group">
             <label class="col-lg-3 control-label">Email:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" v-model="user.email">
+              <input class="form-control" type="text" v-model="user.email" disabled>
             </div>
           </div>
           <div class="form-group">
             <label class="col-md-3 control-label">Password:</label>
             <div class="col-md-8">
-              <input class="form-control" type="password" value="11111122333">
+              <input class="form-control" type="password" v-model="user.password">
             </div>
           </div>
           <div class="form-group">
             <label class="col-md-3 control-label">Confirm password:</label>
             <div class="col-md-8">
-              <input class="form-control" type="password" value="11111122333">
+              <input class="form-control" type="password">
             </div>
           </div>
           <div class="form-group">
@@ -103,7 +71,8 @@ export default {
   data() {
     return {
       user: this.$store.state.user,
-      files: []
+      files: [],
+      editingPassword: false
     };
   },
   methods: {
@@ -112,6 +81,7 @@ export default {
       for (var i = 0; i < uploadedFiles.length; i++) {
         this.files.push(uploadedFiles[i]);
       }
+      this.$store.commit("setUser", this.user);
       this.upload();
     },
     upload() {
@@ -130,7 +100,7 @@ export default {
           })
           .then(response => {
             console.log(response.data);
-            this.user.photo_url = response.data.photo;
+            //this.user.photo_url = response.data.photo;
             updateProfile();
           })
           .catch(error => {
@@ -142,10 +112,8 @@ export default {
       axios
         .put("api/employee-profile/" + this.user.id, this.user)
         .then(response => {
-          console.log(this.user);
-          console.log(response.data.data);
           Object.assign(this.user, response.data.data);
-          console.log("updated");
+          this.$store.commit("setUser", this.user);
           this.files = [];
         })
         .catch(error => {
@@ -167,5 +135,8 @@ img{
 #profile {
   margin-top: 300px;
   margin-left: 300px;
+}
+#editProfile {
+  margin-top: 200px;
 }
 </style>

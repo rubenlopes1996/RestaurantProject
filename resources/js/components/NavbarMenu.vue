@@ -29,12 +29,18 @@
                     </li>
                     <li class="nav-item" v-if=" user.shift_active ==1">
                         <button class="btn btn-outline-dark my-2 my-sm-0" type="submit" v-on:click.prevent="stopShift()">End shift</button>
-                    </li> 
+                        <a>You are working since {{user.last_shift_start}}, and you worked already {{Math.floor(this.$moment.duration(this.$moment(new Date()).diff(user.last_shift_end)).asHours()) }} hours</a>
+                    </li>
                     <li class="nav-item" v-else>
                         <button class="btn btn-outline-dark my-2 my-sm-0" type="submit" v-on:click.prevent="startShift()">Start shift</button>
+                        <a>Your shift has ended at {{user.last_shift_end}}, and it's been {{ Math.floor(this.$moment.duration(this.$moment(new Date()).diff(user.last_shift_start)).asHours())}} hours since your shift ended</a>
                     </li>
                 </div>
+                <div>
+                    <feather-icon type="bell"></feather-icon>
+                </div>
             </ul>
+    
             <form class="form-inline my-2 my-lg-0 nav-item">
                 <div v-if="user == null">
                     <router-link class="btn btn-outline-success my-2 my-sm-0" to="/login">Login</router-link>
@@ -49,36 +55,39 @@
     export default {
         computed: {
             user: function() {
-                return this.$store.state.user
+                return this.$store.state.user;
             }
-    
         },
-        created(){
-            this.$store.commit('loadTokenAndUserFromSession')
+        created() {
+            this.$store.commit("loadTokenAndUserFromSession");
         },
         methods: {
             logout() {
                 this.showMessage = false;
-                axios.post('api/logout')
+                axios
+                    .post("api/logout")
                     .then(response => {
-                        this.$store.commit('clearUserAndToken');
+                        this.$store.commit("clearUserAndToken");
                         this.typeofmsg = "alert-success";
                         this.message = "User has logged out correctly";
                         this.showMessage = true;
-                        this.$router.push('/');
+                        this.$router.push("/");
                     })
                     .catch(error => {
-                        this.$store.commit('clearUserAndToken');
+                        this.$store.commit("clearUserAndToken");
                         this.typeofmsg = "alert-danger";
-                        this.message = "Logout incorrect. But local credentials were discarded";
+                        this.message =
+                            "Logout incorrect. But local credentials were discarded";
                         this.showMessage = true;
                         console.log(error);
-                    })
+                    });
             },
             startShift() {
                 axios
-                    .put("api/startShift/" + +this.user.id, this.user.id)
+                    .put("api/startShift/" + this.user.id, this.user)
                     .then(response => {
+                        Object.assign(this.user, response.data.data);
+                        this.$store.commit("setUser", this.user);
                         console.log("start");
                     })
                     .catch(error => {
@@ -87,23 +96,27 @@
             },
             stopShift() {
                 axios
-                    .put("api/endShift/" + +this.user.id, this.user.id)
-                    .then(response => {})
+                    .put("api/endShift/" + this.user.id, this.user)
+                    .then(response => {
+                        Object.assign(this.user, response.data.data);
+                        this.$store.commit("setUser", this.user);
+                        console.log("stop");
+                    })
                     .catch(error => {
                         console.log(error.response.data.message);
                     });
-    
             }
         }
     };
 </script>
 
 <style>
-    .dashboards{
+    .dashboards {
         display: inherit;
     }
-    @media screen and ( max-width: 991px ){
-        .dashboards{
+    
+    @media screen and ( max-width: 991px) {
+        .dashboards {
             display: inline-block;
         }
     }

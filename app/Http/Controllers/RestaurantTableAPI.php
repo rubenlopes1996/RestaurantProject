@@ -27,9 +27,17 @@ class RestaurantTableAPI extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $data = $request->validate([
+            'table_number' => 'required|unique:restaurant_tables,table_number'
+        ]);
+
+        $table = new RestaurantTable();
+        $table->table_number = $data['table_number'];
+        $table->save();
+        return response()->json(new RestaurantTableResource($table), 201);
+
     }
 
     /**

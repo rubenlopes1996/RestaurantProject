@@ -18,11 +18,7 @@ class UserControllerAPI extends Controller
 {
     public function index(Request $request)
     {
-        /*if ($request->has('page')) {
-            return UserResource::collection(User::paginate(5));
-        } else {*/
-        return UserResource::collection(User::all());
-        //}
+        return UserResource::collection(User::withTrashed()->get()); 
     }
 
     public function show($id)
@@ -50,16 +46,18 @@ class UserControllerAPI extends Controller
     {
         $data = $request->validate([
             'name' => 'required|min:3|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
-            'email' => 'required|email|unique:users,email,' . $id,
+            'username' => 'required|unique:users,username,' . $id,
+            'password' => 'required|min:3'
         ]);
 
         $user = User::findOrFail($id);
         $user->name = $data['name'];
-        $user->email = $data['email'];
+        $user->username = $data['username'];
+        $user->password = bcrypt($data['password']);
         $user->save();
         return new UserResource($user);
     }
-
+    
     public function uploadPhoto(Request $request, $id)
     {
         $user = User::find($id);
@@ -119,7 +117,7 @@ class UserControllerAPI extends Controller
         $user->shift_active = 1;
         $user->save();
 
-        return response()->json(null, 200);
+        return new UserResource($user);
     }
 
     public function endShift($id)
@@ -129,7 +127,23 @@ class UserControllerAPI extends Controller
         $user->shift_active = 0;
         $user->save();
 
-        return response()->json(null, 200);
+        return new UserResource($user);
+    }
+
+    public function unblock($id){
+        $user = User::findOrFail($id);
+        $user->blocked = 0;
+        $user->save();
+
+        return new UserResource($user);
+    }
+
+    public function block($id){
+        $user = User::findOrFail($id);
+        $user->blocked = 1;
+        $user->save();
+
+        return new UserResource($user);
     }
 
 }

@@ -63,7 +63,6 @@ module.exports = {
     }
   },
   mounted() {
-    this.getInvoices();
   }
 };
 </script>

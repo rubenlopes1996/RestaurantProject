@@ -17,9 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Menu
-Route::get('menu', 'ItemControllerAPI@index');
-
 //Authetication
 Route::post('/register', 'API\AuthController@register');
 Route::post('/login', 'API\AuthController@login')->name('login');
@@ -37,9 +34,12 @@ Route::get('employee/{id}', 'UserControllerAPI@show');
 Route::post('employee', 'UserControllerAPI@store');
 Route::put('employee/{id}', 'UserControllerAPI@update');
 Route::delete('employee/{id}', 'UserControllerAPI@destroy');
+Route::patch('employee/unblock/{id}','UserControllerAPI@unblock');
+Route::patch('employee/block/{id}','UserControllerAPI@block');
 
 //Restaurant tables
 Route::get('restaurant-tables', 'RestaurantTableAPI@index');
+Route::post('restaurant-tables', 'RestaurantTableAPI@create');
 Route::delete('restaurant-tables/{id}','RestaurantTableAPI@destroy');
 
 //Cashiers
@@ -50,7 +50,14 @@ Route::put('invoices/{id}', 'InvoicesControllerAPI@update');
 //My profile
 Route::put('employee-profile/{id}', 'UserControllerAPI@update');
 Route::post('employee-photo/{id}', 'UserControllerAPI@uploadPhoto');
+Route::put('employeePassword/{id}', 'UserControllerAPI@updatePassword');
 
+//Restaurant menu
+Route::get('menu', 'ItemControllerAPI@index');
+Route::delete('menu/{id}','ItemControllerAPI@destroy');
+Route::put('menu/{id}','ItemControllerAPI@update');
+Route::post('menu-photo/{id}', 'ItemControllerAPI@uploadPhoto');
+Route::post('menu', 'ItemControllerAPI@create');
 
 //Start shift
 Route::put('startShift/{id}','UserControllerAPI@startShift');

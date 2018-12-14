@@ -1,12 +1,12 @@
 <template>
   <div class="container content-admin">
-    <!--<add-employee ></add-employee>-->
+    <table-add @save-table="saveTable"></table-add>
     <div id="list">
       <div class="alert alert-success" v-if="showSuccess">
         <button type="button" class="close" aria-label="Close" v-on:click="showSuccess=false"><span aria-hidden="true">&times;</span></button>
         <strong>{{ successMessage }}</strong>
       </div>
-      <!--<user-edit :user="currentUser" @save-user="saveUser()" @cancel-edit="cancelEdit()"></user-edit>-->
+      <table-edit :tables="currentTable" @save-table="saveTable()" @cancel-edit="cancelEdit()"></table-edit>
       <table-list :tables="tables" @edit-table="editTable" @delete-table="deleteTable"></table-list>
     </div>
   </div>
@@ -23,10 +23,22 @@
         failMessage: "",
         currentTable: null,
         newTable: null,
-        tables: []
+        tables: [],
       };
     },
     methods: {
+      saveTable: function(table) {
+        console.log(table)
+        axios.post("api/restaurant-tables", table)
+          .then(response => {
+            this.successMessage = "Table Created";
+            this.getTables();
+          })
+          .catch(error => {
+            console.log(error);
+            console.log(error.response.data.message);
+          });
+      },
       editTable: function() {},
       deleteTable: function(table) {
         if (table === this.currentTable) {
@@ -49,8 +61,10 @@
           this.tables = response.data.data;
         });
       }
-    }, mounted() {
+    },
+    mounted() {
       this.getTables();
     },
   }
 </script>
+

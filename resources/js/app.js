@@ -28,6 +28,12 @@ import {
 import VueFeatherIcon from 'vue-feather-icon';
 import store from './vuex.js';
 import Toasted from 'vue-toasted';
+import Vuetify from 'vuetify';
+import VueMoment from 'vue-moment';
+import Vuelidate from 'vuelidate'
+
+ 
+
 
 window.Vue = require('vue');
 
@@ -37,6 +43,9 @@ Vue.use(VueRouter);
 Vue.use(ClientTable);
 Vue.use(VueSpinners);
 Vue.use(VueFeatherIcon);
+Vue.use(Vuetify);
+Vue.use(Vuelidate)
+Vue.use(VueMoment);
 
 Vue.use(Toasted);
 
@@ -51,10 +60,14 @@ Vue.component('add-employee', require('./components/employee/AddEmployee.vue'));
 Vue.component('table-list', require('./components/restaurant-table/RestaurantTableList.vue'));
 Vue.component('list-orders', require('./components/cooks/ListOrders.vue'));
 Vue.component('list-invoices', require('./components/cashiers/InvoiceList.vue'));
-Vue.component('item-edit', require('./components/restaurant-menu/EditRestaurantMenu.vue'));
+Vue.component('item-edit', require('./components/restaurant-menu/RestaurantMenuEdit.vue'));
+Vue.component('item-add', require('./components/restaurant-menu/RestaurantMenuAdd.vue'));
 Vue.component('item-list', require('./components/restaurant-menu/RestaurantMenuList.vue'));
 Vue.component('paid-invoices', require('./components/cashiers/PaidInvoicesList.vue'));
 Vue.component('invoice-payment', require('./components/cashiers/InvoicePayment.vue'));
+Vue.component('table-list', require('./components/restaurant-table/RestaurantTableList.vue'));
+Vue.component('table-edit', require('./components/restaurant-table/RestaurantTableEdit.vue'));
+Vue.component('table-add', require('./components/restaurant-table/RestaurantTableAdd.vue'));
 
 const app = new Vue({
     el: '#app',

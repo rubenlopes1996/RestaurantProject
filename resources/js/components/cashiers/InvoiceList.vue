@@ -31,7 +31,7 @@ module.exports = {
       ],
       options: {},
       size: 10,
-      notLoaded: false
+      notLoaded: true
     };
   },
   methods: {

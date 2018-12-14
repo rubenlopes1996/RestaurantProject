@@ -67,9 +67,8 @@
                 </div>
             </div>
         </section>
-
+    
         <div class="parallax"></div>
-
         <section id="about-us">
             <div class="container built-with d-flex justify-content-center">
                 <div class="card-deck">
@@ -97,7 +96,7 @@
                 </div>
             </div>
         </section>
-
+    
         <section id="ipl">
             <div class="container">
                 <div class="card">
@@ -122,47 +121,48 @@
             <div class="col">
                 <p class="text-center">All rights reserved ®</p>
             </div>
-
+    
         </div>
     </body>
 </template>
 
 <script>
+    
 </script>
 
 <style scoped>
-#ipl .card {
-  margin-top: 50px;
-  margin-bottom: 50px;
-}
-
-#about-us img {
-  width: 100%;
-  padding: 15px;
-}
-
-.parallax {
-  /* The image used */
-  background-image: url("/images/slider3.jpg");
-  /* Set a specific height */
-  height: 500px;
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin-top: 50px;
-  margin-bottom: 50px;
-}
-
-#tools img {
-  width: 100%;
-  padding: 15px;
-}
-
-#carouselExampleControls {
-  margin-top: 56px;
-  margin-bottom: 50px;
-}
+    #ipl .card {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    
+    #about-us img {
+        width: 100%;
+        padding: 15px;
+    }
+    
+    .parallax {
+        /* The image used */
+        background-image: url("/images/slider3.jpg");
+        /* Set a specific height */
+        height: 500px;
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    
+    #tools img {
+        width: 100%;
+        padding: 15px;
+    }
+    
+    #carouselExampleControls {
+        margin-top: 56px;
+        margin-bottom: 50px;
+    }
 </style>
 
