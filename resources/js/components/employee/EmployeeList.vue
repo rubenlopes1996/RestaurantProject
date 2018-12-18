@@ -1,7 +1,7 @@
 <template>
   <div>
-    <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="notLoaded"></PacmanLoader>
-    <v-client-table ref="table" :data="users" :columns="columns" :options="options" id="buttons" v-else>
+    <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="users==null"></PacmanLoader>
+    <v-client-table ref="table" :data="users" :columns="columns" :options="options" id="buttons" v-if="users!=null">
   
       <div slot="image" slot-scope="users" align="center">
         <img :src="'storage/profiles/'+users.row.photo_url" alt="" width="50" height="50">
@@ -35,8 +35,7 @@
         items: this.users,
         columns: ["image", "name", "username", "email", "type", "blocked", "actions"],
         options: {},
-        size: 10,
-        notLoaded: false,
+        size: 100,
         currentUser: this.$store.state.user
       };
     },

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\RestaurantTable;
 use App\Http\Resources\RestaurantTableResource;
+use App\EloquentVueTables;
 
 class RestaurantTableAPI extends Controller
 {

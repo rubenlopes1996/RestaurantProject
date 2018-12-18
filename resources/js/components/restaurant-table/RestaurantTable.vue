@@ -23,7 +23,7 @@
         failMessage: "",
         currentTable: null,
         newTable: null,
-        tables: [],
+        tables: null,
       };
     },
     methods: {
@@ -60,10 +60,11 @@
         axios.get("api/restaurant-tables").then(response => {
           this.tables = response.data.data;
         });
+        
       }
     },
     mounted() {
-      this.getTables();
+      //this.getTables();
     },
   }
 </script>

@@ -11,7 +11,6 @@
                             <h5 class="card-title">{{item.name}}</h5>
                             <p class="card-text">{{item.price}} €</p>
                             <p class="card-text">{{item.description}}</p>
-                            <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
                         </div>
                     </div>
                 </div>

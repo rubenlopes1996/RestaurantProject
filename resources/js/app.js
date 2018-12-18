@@ -15,12 +15,9 @@ import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import router from './routes.js';
 import VueRouter from 'vue-router';
-import ImgInputer from 'vue-img-inputer';
 import 'vue-img-inputer/dist/index.css';
 import {
-    ServerTable,
-    ClientTable,
-    Event
+    ClientTable
 } from 'vue-tables-2';
 import {
     VueSpinners
@@ -30,13 +27,13 @@ import store from './vuex.js';
 import Toasted from 'vue-toasted';
 import Vuetify from 'vuetify';
 import VueMoment from 'vue-moment';
-import Vuelidate from 'vuelidate'
+import Vuelidate from 'vuelidate';
+
 
  
 
 
 window.Vue = require('vue');
-
 Vue.use(BootstrapVue);
 Vue.use(Card);
 Vue.use(VueRouter);
@@ -44,14 +41,12 @@ Vue.use(ClientTable);
 Vue.use(VueSpinners);
 Vue.use(VueFeatherIcon);
 Vue.use(Vuetify);
-Vue.use(Vuelidate)
+Vue.use(Vuelidate);
 Vue.use(VueMoment);
-
 Vue.use(Toasted);
 
 window.Event = new Vue();
 
-Vue.component('ImgInputer', ImgInputer);
 Vue.component('navbarmenu', require('./components/NavbarMenu.vue'));
 Vue.component('vue-layout', require('./Layout.vue'));
 Vue.component('manager-list', require('./components/employee/EmployeeList.vue'));

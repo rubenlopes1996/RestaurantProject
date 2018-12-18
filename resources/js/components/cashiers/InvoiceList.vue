@@ -1,7 +1,7 @@
 <template>
     <div>
-        <!--<PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="notLoaded"></PacmanLoader>-->
-        <v-client-table ref="table" :data="invoices" :columns="columns" :options="options" id="buttons">
+        <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="invoices==null"></PacmanLoader>
+        <v-client-table ref="table" :data="invoices" :columns="columns" :options="options" id="buttons" v-if="invoices!=null">
             <div slot="actions" slot-scope="invoices" align="center">
                 <button class="btn btn-sm btn-danger" v-on:click.prevent="editInvoice(invoices.row)">Payment</button>
             </div>
@@ -31,12 +31,10 @@ module.exports = {
       ],
       options: {},
       size: 10,
-      notLoaded: true
     };
   },
   methods: {
     editInvoice: function(invoice) {
-      //TODO
       this.$emit("edit-invoice", invoice);
     }
   }

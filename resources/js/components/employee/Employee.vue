@@ -23,7 +23,7 @@
         failMessage: "",
         currentUser: null,
         newUser: null,
-        users: []
+        users: null
       };
     },
     methods: {
