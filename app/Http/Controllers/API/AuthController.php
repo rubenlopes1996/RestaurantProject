@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Mail;
 
-define('YOUR_SERVER_URL', 'http://restaurantproject.dad');
+define('YOUR_SERVER_URL', 'http://dadproject.restaurant');
 // Check "oauth_clients" table for next 2 values:
 define('CLIENT_ID', '2');
-define('CLIENT_SECRET', '0Xm4ZQvOhjrYU2yRSrZfGmjdakadQyLCytoF7NOa');
+define('CLIENT_SECRET', 'uuD8nd80tIBwEuNxrKNLpLp5b6kB2eWOa2UR8PC5');
 
 class AuthController extends Controller
 {

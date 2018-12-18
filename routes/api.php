@@ -63,3 +63,6 @@ Route::post('menu', 'ItemControllerAPI@create');
 Route::put('startShift/{id}','UserControllerAPI@startShift');
 //End shift
 Route::put('endShift/{id}','UserControllerAPI@endShift');
+
+//Waiters
+Route::get('meals', 'MealsControllerAPI@index');

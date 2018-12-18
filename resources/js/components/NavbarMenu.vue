@@ -1,8 +1,43 @@
 <template>
-    <nav id="nav" class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
+<div>
+    <div id="parentx" v-if="user != null">
+        <vs-sidebar position-right parent="body" default-index="1" color="primary" class="sidebarx" spacer v-model="active">
+            <div class="header-sidebar" slot="header">
+                <vs-avatar size="70px" :src="'storage/profiles/'+user.photo_url" />
+                <h4>
+                    {{user.name}}
+                </h4>
+            </div>
+            <vs-divider>Notifications</vs-divider>
+            <div class="container text-center">
+                <!--<textarea id="textGlobal" class="inputchat" v-model="msgGlobalTextArea">Global Chat</textarea>
+                <vs-collapse accordion v-if="userName!= '' ">
+                    <vs-collapse-item>
+                        <div slot="header">
+                            {{userName}}
+                        </div>
+                        <p>{{msg}}</p>
+                    </vs-collapse-item>
+                </vs-collapse>-->
+                <vs-collapse accordion v-if="arrayNames!=null && arrayMsgs != null">
+                    <vs-collapse-item v-for="(name, index) in arrayNames" :key="name + index, index">
+                        <div slot="header">
+                            {{name}}
+                        </div> 
+                        <!--<div v-for="(msg, index) in arrayMsgs" :key="msg + index, index">
+                            <p>{{msg}}</p>
+                        </div>-->
+                        <h6>{{arrayDesc[index]}}</h6>
+                        <p>{{arrayMsgs[index]}}</p>
+                        <vs-button color="danger" type="filled" v-on:click.prevent="removeMsg(index)">Dismiss</vs-button>
+                    </vs-collapse-item>
+                </vs-collapse>
+            </div>
+        </vs-sidebar>
+    </div>
+    <nav id="nav" class="navbar navbar-expand-lg navbar-light bg-light fixed-top"><button class="navbar-toggler" type="button"
+            data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
+            aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
             <router-link class="navbar-brand" to="/">Restaurant DAD</router-link>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -36,28 +71,44 @@
                         <a>Your shift has ended at {{user.last_shift_end}}, and it's been {{ Math.floor(this.$moment.duration(this.$moment(new Date()).diff(user.last_shift_start)).asHours())}} hours since your shift ended</a>
                     </li>
                 </div>
-                <div>
-                    <feather-icon type="bell"></feather-icon>
-                </div>
             </ul>
     
             <form class="form-inline my-2 my-lg-0 nav-item">
                 <div v-if="user == null">
                     <router-link class="btn btn-outline-success my-2 my-sm-0" to="/login">Login</router-link>
                 </div>
-                <button class="btn btn-outline-dark my-2 my-sm-0" type="submit" v-on:click.prevent="logout()" v-else>Logout</button>
+                <div v-else>
+                    <vs-button v-on:click.prevent="active=!active" color="primary" type="border" class="my-2 my-sm-0">
+                        <feather-icon type="bell"></feather-icon><span class="badge badge-light">{{unreadNotif}}</span>
+                    </vs-button>
+                    <button class="btn btn-outline-dark my-2 my-sm-0" type="submit" v-on:click.prevent="logout()">Logout</button>
+                </div>
             </form>
         </div>
     </nav>
+    
+</div>
 </template>
-
 <script>
+import 'material-icons/iconfont/material-icons.css';
     export default {
         computed: {
             user: function() {
                 return this.$store.state.user;
+                
             }
         },
+        data: () => ({
+                active: false,
+                msgGlobalTextArea:"",
+                msg: "",
+                userName: "",
+                arrayNames: [],
+                arrayDesc: [],
+                arrayMsgs: [],
+                unreadNotif: 0
+
+        }),
         created() {
             this.$store.commit("loadTokenAndUserFromSession");
         },
@@ -105,12 +156,96 @@
                     .catch(error => {
                         console.log(error.response.data.message);
                     });
-            }
+            },
+                removeMsg: function(index){
+                    this.arrayNames.splice(index,1);
+                    this.arrayDesc.splice(index,1);
+                    this.arrayMsgs.splice(index,1);
+                    this.unreadNotif -= 1;
+                },
+                resetNotif(){
+                    this.unreadNotif = 0;
+                },
+                logout() {
+                    this.showMessage = false;
+
+                    axios.post('api/logout').then(response => {
+                            this.$store.commit('clearUserAndToken');
+                            this.typeofmsg = "alert-success";
+                            this.message = "User has logged out correctly";
+                            this.showMessage = true;
+                            this.$router.push('/');
+                        }
+
+                    ).catch(error => {
+                            this.$store.commit('clearUserAndToken');
+                            this.typeofmsg = "alert-danger";
+                            this.message = "Logout incorrect. But local credentials were discarded";
+                            this.showMessage = true;
+                            console.log(error);
+                        }
+
+                    )
+                }
+            },
+        
+        sockets:{
+            connect(){
+                console.log('socket connected (socket ID = '+this.$socket.id+')');
+                if(this.$store.state.user){
+                    this.$socket.emit('user_enter',this.$store.state.user);
+                }
+            },
+            privateMessage(dataFromServer){
+                //let sourceName = dataFromServer[0] == null ? 'Unknown': dataFromServer[0].name;
+                //this.msgGlobalTextArea = dataFromServer[1]+ '\n' + this.msgGlobalTextArea;
+                //this.userName = dataFromServer[0];
+                //this.msg = dataFromServer[1];
+                
+                this.$toasted.success('You\'ve got mail.', {duration: 2000, position: 'top-right'});
+                this.unreadNotif+=1;
+                //
+                this.arrayNames.unshift(dataFromServer[0]);
+                this.arrayDesc.unshift(dataFromServer[1]);
+                this.arrayMsgs.unshift(dataFromServer[2]);
+            }/*,
+            msg_from_server(dataFromServer){
+                this.$toasted.show('Msg chegou do server '+dataFromServer);
+                this.msgGlobalTextArea = dataFromServer + '\n' + this.msgGlobalTextArea;
+                
+
+            }*/
         }
-    };
+}
 </script>
 
 <style>
+    /*.sidebarx .vs-sidebar--background{
+        margin-top: 6px;
+    }*/
+    .vs-sidebar{
+        max-width: 350px;
+    }
+    .header-sidebar{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+    }
+    h4{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+	
+	.footer-sidebar{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
     .dashboards {
         display: inherit;
     }
@@ -120,4 +255,5 @@
             display: inline-block;
         }
     }
+
 </style>

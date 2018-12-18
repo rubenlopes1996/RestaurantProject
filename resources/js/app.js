@@ -28,6 +28,9 @@ import Toasted from 'vue-toasted';
 import Vuetify from 'vuetify';
 import VueMoment from 'vue-moment';
 import Vuelidate from 'vuelidate';
+import Vuesax from 'vuesax';
+import 'vuesax/dist/vuesax.css';
+import VueSocketio from 'vue-socket.io';
 
 
  
@@ -44,6 +47,11 @@ Vue.use(Vuetify);
 Vue.use(Vuelidate);
 Vue.use(VueMoment);
 Vue.use(Toasted);
+Vue.use(Vuesax);
+Vue.use(new VueSocketio({
+    debug: true,
+    connection: 'http://127.0.0.1:8080'
+   }));
 
 window.Event = new Vue();
 
@@ -70,6 +78,6 @@ const app = new Vue({
     store,
     created() {
         this.$store.commit('loadTokenAndUserFromSession');
-        }
-});
+    }
+}).$mount('#app');
 

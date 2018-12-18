@@ -23,6 +23,11 @@
                 <li class="users">
                     <router-link class="nav-link" to="/paidinvoices"><feather-icon type="box"></feather-icon> All Invoices</router-link>
                 </li>
+                <li class="users">
+                    <router-link class="nav-link" to="/dashboard/contactAdmin">
+                        <feather-icon type="help-circle"></feather-icon> Contact an Admin
+                    </router-link>
+                </li>
                 <li class="users"><a href="#"><feather-icon type="activity"></feather-icon> Statistics</a></li>
 
             </ul>

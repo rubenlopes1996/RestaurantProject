@@ -50,10 +50,6 @@ body {
   font-family: "Open Sans", arial, sans-serif;
   color: darkslategray;
 }
-/*
-.users a:before {
-  content: "";
-}*/
 
 nav[role="navigation"] {
   background: #2a3542;
@@ -70,38 +66,6 @@ nav[role="navigation"] li a {
   display: block;
   padding: 0.7em;
 }
-/*
-nav[role="navigation"] li a:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-nav[role="navigation"] li a:before {
-  content: "\f248";
-  font-family: FontAwesome;
-  padding-right: 0.6em;
-}
-
-nav[role="navigation"] .dashboard a:before {
-  content: "";
-}
-
-nav[role="navigation"] .write a:before {
-  content: "";
-}
-
-nav[role="navigation"] .edit a:before {
-  content: "";
-}
-
-nav[role="navigation"] .comments a:before {
-  content: "";
-}
-
-nav[role="navigation"] .users a:before {
-  content: "";
-}
-*/
-/* lists */
 
 ul,
 li {

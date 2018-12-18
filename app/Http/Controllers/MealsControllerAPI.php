@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\Http\Resources\MealsResource;
+use \App\Meals;
+
 
 class MealsControllerAPI extends Controller
 {
@@ -13,7 +16,7 @@ class MealsControllerAPI extends Controller
      */
     public function index()
     {
-        //
+        return MealsResource::collection(Meals::all());
     }
 
     /**

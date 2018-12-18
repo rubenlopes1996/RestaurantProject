@@ -47,6 +47,13 @@ let routes = [{
                     middlewareAuth: true
                 },
             },
+            {
+                path: 'contactAdmin',
+                component: require('./components/ContactAdmin.vue'),
+                meta: {
+                    middlewareAuth: true
+                }
+            }
 
         ]
     },
@@ -80,6 +87,35 @@ let routes = [{
             {
                 path: 'paidinvoices',
                 component: require('./components/cashiers/PaidInvoices.vue'),
+                meta: {
+                    middlewareAuth: true
+                }
+            }
+        ]
+    },
+    {
+        path: '/dashboardWaiter',
+        component: require('./components/dashboards/DashboardWaiter.vue'),
+        meta: {
+            middlewareAuth: true
+        },
+        children: [{
+                path: 'meals',
+                component: require('./components/waiters/Meals.vue'),
+                meta: {
+                    middlewareAuth: true
+                }
+            },
+            {
+                path: 'orders',
+                component: require('./components/waiters/Orders.vue'),
+                meta: {
+                    middlewareAuth: true
+                }
+            },
+            {
+                path: 'contactAdmin',
+                component: require('./components/ContactAdmin.vue'),
                 meta: {
                     middlewareAuth: true
                 }
