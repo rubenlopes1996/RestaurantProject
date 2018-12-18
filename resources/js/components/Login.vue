@@ -55,6 +55,7 @@ export default {
         .post("api/login", this.user)
         .then(response => {
           this.$store.commit("setToken", response.data.access_token);
+                
           return axios.get("api/get-user");
         })
         .then(response => {
@@ -62,6 +63,7 @@ export default {
           this.typeofmsg = "alert-success";
           this.message = "User authenticated correctly";
           this.showMessage = true;
+          this.$socket.emit('user_enter', response.data.data);
          switch (response.data.data.type) {
             case "manager":
               this.$router.push("/dashboard");
