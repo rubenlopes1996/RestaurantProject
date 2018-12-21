@@ -7,18 +7,36 @@
         <img :src="'storage/profiles/'+users.row.photo_url" alt="" width="50" height="50">
       </div>
       <div slot="blocked" slot-scope="users" align="center">
-        <feather-icon v-if="users.row.blocked == 1" type="lock"></feather-icon>
-        <feather-icon v-if="users.row.blocked == 0" type="unlock"></feather-icon>
+        <div v-if="users.row.deleted_at != null">
+            <feather-icon type="x"></feather-icon>
+        </div>
+        <div v-else>
+          <feather-icon v-if="users.row.blocked == 1" type="lock"></feather-icon>
+          <feather-icon v-if="users.row.blocked == 0" type="unlock"></feather-icon>
+        </div>
+        
       </div>
       <div slot="actions" slot-scope="users" align="center" v-if="users.row.username != currentUser.username">
         <div v-if=" users.row.deleted_at == null">
-          <button class="btn btn-sm btn-primary" v-on:click.prevent="editUser(users.row)">Edit</button>
-          <button class="btn btn-sm btn-danger" v-on:click.prevent="deleteUser(users.row)">Delete</button>
-          <div v-if="users.row.blocked==1">
-            <button class="btn btn-sm btn-primary" v-on:click.prevent="unblockUser(users.row)">Unblock</button>
-          </div>
-          <div v-if="users.row.blocked==0">
-            <button class="btn btn-sm btn-primary" v-on:click.prevent="blockUser(users.row)">Block</button>
+          <div class="container"> 
+            <div class="row">
+              <div class="col-sm-12">
+                <!--<button class="btn btn-sm btn-primary" v-on:click.prevent="editUser(users.row)">Edit</button>-->
+                <vs-button color="primary" type="filled" v-on:click.prevent="editUser(users.row)">Edit</vs-button>
+              </div>
+              <div class="col-sm-12">
+                <!--<button class="btn btn-sm btn-danger" v-on:click.prevent="deleteUser(users.row)">Delete</button>-->
+                <vs-button color="danger" type="filled" v-on:click.prevent="deleteUser(users.row)">Delete</vs-button>
+              </div>
+              <div class="col-sm-12" v-if="users.row.blocked==1">
+                  <!--<button class="btn btn-sm btn-primary" v-on:click.prevent="unblockUser(users.row)">Unblock</button>-->
+                  <vs-button color="warning" type="filled" v-on:click.prevent="unblockUser(users.row)">Unblock</vs-button>
+              </div>
+              <div class="col-sm-12" v-if="users.row.blocked==0">
+                  <!--<button class="btn btn-sm btn-warning" v-on:click.prevent="blockUser(users.row)">Block</button>-->
+                  <vs-button color="warning" type="filled" v-on:click.prevent="blockUser(users.row)">Block</vs-button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -59,8 +77,11 @@
 </script>
 
 <style scoped>
+  .vs-button{
+    padding: 5px;
+  }
   button {
-    margin-left: 5px;
-    margin-right: 5px;
+    min-width: 58px;
+    margin: 5px;
   }
 </style>

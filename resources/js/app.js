@@ -31,8 +31,8 @@ import Vuelidate from 'vuelidate';
 import Vuesax from 'vuesax';
 import 'vuesax/dist/vuesax.css';
 import VueSocketio from 'vue-socket.io';
-
-
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
  
 
 
@@ -52,7 +52,6 @@ Vue.use(new VueSocketio({
     debug: true,
     connection: 'http://127.0.0.1:8080'
    }));
-
 window.Event = new Vue();
 
 Vue.component('navbarmenu', require('./components/NavbarMenu.vue'));

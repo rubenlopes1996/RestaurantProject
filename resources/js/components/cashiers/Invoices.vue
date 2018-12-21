@@ -35,6 +35,7 @@ module.exports = {
     getInvoices: function() {
       axios.get("api/invoices?pending").then(response => {
         this.invoices = response.data.data;
+        console.log(this.invoices);
       });
     },
     payInvoice: function(){
@@ -57,12 +58,15 @@ module.exports = {
       axios.get("api/invoices?pending" + this.currentInvoice.id).then(response => {
         // Copies response.data.data properties to this.currentInvoice
         // without changing this.currentInvoice reference
+        
         Object.assign(this.currentInvoice, response.data.data);
         this.currentInvoice = null;
       });
     }
   },
   mounted() {
+    this.getInvoices();
   }
 };
+
 </script>

@@ -31,6 +31,7 @@
         this.currentUser = Object.assign({}, user);
         this.editingUser = true;
         this.showSuccess = false;
+        
       },
   
       deleteUser: function(user) {
@@ -56,6 +57,7 @@
           .then(response => {
             this.showSuccess = true;
             this.successMessage = "User Saved";
+            this.$toasted.success('User edited with success!', {duration: 5000, position: 'top-center'});
             // Copies response.data.data properties to this.currentUser
             // without changing this.currentUser reference
             console.log(response.data.data);
@@ -93,6 +95,7 @@
           .then(response => {
             this.showSuccess = true;
             this.successMessage = "User Blocked";
+            this.$toasted.success('User blocked with success!', {duration: 5000, position: 'top-center'});
             this.getUsers();
           })
           .catch(error => {
@@ -107,6 +110,7 @@
           .then(response => {
             this.showSuccess = true;
             this.successMessage = "User Unblocked";
+            this.$toasted.success('User unblocked with success!', {duration: 5000, position: 'top-center'});
             this.getUsers();
           })
           .catch(error => {

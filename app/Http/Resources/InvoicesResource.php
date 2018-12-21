@@ -27,7 +27,7 @@ class InvoicesResource extends JsonResource
             'nif' => $this->nif,
             'name' => $this->name,
             'table_number'=> Meals::find($this->meal_id)->table_number,
-            'responsible_waiter' => User::find(Meals::find($this->meal_id)->responsible_waiter_id)->name,
+            'responsible_waiter' => User::find(Meals::find($this->meal_id)->responsible_waiter_id)['name'],
             'total_price'=> $this->total_price,
             'date' => $this->date,
             'items_consumed' => Items::find(InvoiceItems::Where('invoice_id', $this->id)->pluck('item_id')),

@@ -29,7 +29,9 @@ module.exports = {
         "date",
         "actions"
       ],
-      options: {},
+      options: {
+        highlightMatches: "pending"
+      },
       size: 10,
     };
   },

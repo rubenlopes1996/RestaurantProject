@@ -17,7 +17,9 @@ class OrderControllerAPI extends Controller
     public function index()
     {
 
-        return OrdersResource::collection(Orders::Where('state','in preparation')->where('responsible_cook_id', Auth::id())->orWhere('state','confirmed')->where('responsible_cook_id', Auth::id())->Orderby('created_at')->get());
+        return OrdersResource::collection(Orders::Where('state','in preparation')
+            ->where('responsible_cook_id', Auth::id())->orWhere('state','confirmed')
+            ->where('responsible_cook_id', Auth::id())->Orderby('created_at')->get());
     }
 
     /**

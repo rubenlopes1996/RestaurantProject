@@ -64,7 +64,7 @@
       }
     },
     mounted() {
-      //this.getTables();
+      this.getTables();
     },
   }
 </script>
