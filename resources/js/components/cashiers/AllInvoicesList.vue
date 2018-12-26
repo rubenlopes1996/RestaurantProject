@@ -14,14 +14,6 @@
       </b-col>
     </b-row>
     <b-table hover :items="items" :fields="fields" v-if="items!=null" :filter="filter" :bordered="true">
-      <template slot="id" slot-scope="data">
-        <span style="color:red" v-if="data.value===newestInvoiceId || data.value===newInvoice" id="checkNew">
-          <b-form-checkbox checked="true" disabled></b-form-checkbox>
-        </span>
-        <span v-else>
-          
-        </span>
-      </template>
       <template slot="details" slot-scope="row">
       <!-- In some circumstances you may need to use @click.native.stop instead -->
       <!-- As `row.showDetails` is one-way, we call the toggleDetails function on @change -->
@@ -41,9 +33,6 @@
         </div>
         </b-row>
       </b-card>
-    </template>
-    <template slot="pdf" slot-scope="row">
-      <vs-button color="warning" type="filled">PDF</vs-button>
     </template>
     </b-table>
     <nav aria-label="Page navigation example" v-if="items!=null">
@@ -65,24 +54,20 @@
 
 <script>
   module.exports = {
-    props: ["newestInvoiceId"],
     data: function() {
       return {
         items: null,
         fields: [ 
-            {key:'id', label: 'New', class: 'text-center'},
             {key:'details'},
-            {key:'state', sortable: true},
-            {key:'table_number', sortable: true},
+            {key:'state', sortable: true, 'class': 'text-center'},
+            {key:'table_number', sortable: true, 'class': 'text-center'},
             {key:'responsible_waiter', sortable: true},
             {key:'total_price', sortable: true},
-            {key:'date', sortable: true},
-            {key:'pdf'}
+            {key:'date', sortable: true}
             ],
         pagination: {},
         filter: null,
-        size: 30,
-        newInvoice: -1,
+        size: 30
       };
     },
     created() {
@@ -91,13 +76,14 @@
     methods: {
       fecthPaidInvoices(page_url) {
         let pg = this;
-        page_url = page_url || "api/invoices/paid?page=1";
+        page_url = page_url || "api/invoices?page=1";
         axios
           .get(page_url)
           .then(response => {
             notLoaded = false;
             this.items = response.data.data;
             pg.makePagination(response.data.meta, response.data.links);
+            
           })
           .catch(error => {
             console.log(error);
@@ -112,14 +98,8 @@
         prev_page_url: links.prev
       };
       this.pagination = pagination;
+      console.log(this.pagination);
       }
-    },
-      sockets:{
-        socketRefresh(dataFromServer){
-          console.log("AQUIII"+dataFromServer);
-          this.newInvoice = dataFromServer;
-          this.fecthPaidInvoices();
-        }
     }
   };
 </script>

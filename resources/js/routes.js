@@ -34,7 +34,8 @@ let routes = [{
                 }
             },
             {
-                path: '/paidinvoices',
+                path: '/paidinvoices/:newestInvoiceId',
+                name: 'paidinvoices',
                 component: require('./components/cashiers/PaidInvoices.vue'),
                 meta: {
                     middlewareAuth: true
@@ -87,6 +88,13 @@ let routes = [{
             {
                 path: 'paidinvoices',
                 component: require('./components/cashiers/PaidInvoices.vue'),
+                meta: {
+                    middlewareAuth: true
+                }
+            },
+            {
+                path: 'allinvoices',
+                component: require('./components/cashiers/AllInvoices.vue'),
                 meta: {
                     middlewareAuth: true
                 }

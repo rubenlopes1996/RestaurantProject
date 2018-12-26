@@ -21,7 +21,7 @@
                 </li>
                 <li class="users"><a href="#"><feather-icon type="droplet"></feather-icon> Drinks & Meals</a></li>
                 <li class="users">
-                    <router-link class="nav-link" to="/paidinvoices"><feather-icon type="box"></feather-icon> All Invoices</router-link>
+                    <router-link class="nav-link" :to="{name: 'paidinvoices', params: {newestInvoiceId: -1 }}"><feather-icon type="box"></feather-icon> All Invoices</router-link>
                 </li>
                 <li class="users">
                     <router-link class="nav-link" to="/dashboard/contactAdmin">

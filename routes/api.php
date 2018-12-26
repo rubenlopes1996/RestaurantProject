@@ -44,6 +44,7 @@ Route::delete('restaurant-tables/{id}','RestaurantTableAPI@destroy');
 
 //Cashiers
 Route::get('invoices', 'InvoicesControllerAPI@index');
+Route::get('invoices/paid', 'InvoicesControllerAPI@indexPaid');
 Route::get('invoices/{id}', 'InvoicesControllerAPI@show');
 Route::put('invoices/{id}', 'InvoicesControllerAPI@update');
 

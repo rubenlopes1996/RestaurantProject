@@ -58,15 +58,14 @@ io.on('connection', function (socket) {
 
     socket.on('user_enter', function (user) {
         if (user !== undefined && user !== null){
-            socket.join('department_' + user.department_id);
+            socket.join('group_' + user.type);
             loggedUsers.addUserInfo(user, socket.id);
         }
-
     });
     
     socket.on('user_exit', function (user) {
         if (user !== undefined && user !== null){
-            socket.leave('department_' + user.department_id);
+            socket.leave('group_' + user.type);
             loggedUsers.removeUserInfoByID(user.id);
         }
     });
@@ -90,18 +89,28 @@ io.on('connection', function (socket) {
 
     socket.on('msg_from_client_to_admin', function (desc, msg, userInfo) {
         //find an admin
-        var admins = loggedUsers.userInfoOfAdmin();
-        console.log(admins);
+        //var admins = loggedUsers.userInfoOfAdmin();
+        //console.log(admins);
         if (userInfo === undefined) {
             io.sockets.emit('msg_from_server', 'User Unknown: "' + msg + '"');
         } else {
             //io.sockets.emit('msg_from_server', userInfo.name +'\n Desc: "' + desc + '"'+',\n Msg: "' + msg + '"');
-            for (admin of admins) {
-                socket.broadcast.to(admin.socketID).emit('privateMessage', userInfo.name + ' - ' + userInfo.type, desc, msg);
-            }
+            //for (admin of admins) {
+                socket.broadcast.to('group_manager').emit('privateMessage', userInfo.name + ' - ' + userInfo.type, desc, msg);
+            //}
             
         }
     });
+
+    socket.on('paidInvoice_to_admins', function (userInfo, invoice_table_number, invoice_id) {
+        if (userInfo != undefined) {
+            socket.broadcast.to('group_manager').emit('socketRefresh', invoice_id);
+            socket.broadcast.to('group_manager').emit('freshPaidInvoices', userInfo.type + ': ' + userInfo.name, invoice_table_number, invoice_id);
+             
+        }
+    });
+
+
 
     socket.on('user_saved', user=>{
         if(user){

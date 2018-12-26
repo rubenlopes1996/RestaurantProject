@@ -24,8 +24,9 @@ module.exports = {
         text : 'X',
         onClick : (e, toastObject) => {
             toastObject.goAway(0);
-        }
-    }],
+        },
+        user: this.$store.state.user
+    }]
     };
   },
   methods: {
@@ -35,19 +36,20 @@ module.exports = {
     getInvoices: function() {
       axios.get("api/invoices?pending").then(response => {
         this.invoices = response.data.data;
-        console.log(this.invoices);
+        //console.log(this.invoices);
       });
     },
     payInvoice: function(){
       const invoice = this.currentInvoice;
       axios.put("api/invoices/" + this.currentInvoice.id, this.currentInvoice)
         .then(response => {
+          this.$socket.emit('paidInvoice_to_admins', this.$store.state.user, this.currentInvoice.table_number, this.currentInvoice.id);
           this.currentInvoice = null;
-          this.$toasted.success('Pagamento feito com sucesso!', {duration: 5000, position: 'bottom-center', action: this.action});
+          this.$toasted.success('Payment concluded with success!', {duration: 5000, position: 'bottom-center', action: this.action});
           this.getInvoices();
         })
         .catch(error => {
-          this.$toasted.error('Nao foi possivel concluir o pagamento!', {duration: 5000, position: 'bottom-center', action: this.action});
+          this.$toasted.error('Something went wrong with the payment!', {duration: 5000, position: 'bottom-center', action: this.action});
           this.failMessage = error.response.data.message;
           console.log(error.response.data.message);
         });

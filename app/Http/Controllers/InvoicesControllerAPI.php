@@ -15,16 +15,21 @@ class InvoicesControllerAPI extends Controller
 {
     public function index(Request $request)
     {
-        if($request->has('paid')){
-            return InvoicesResource::collection(Invoices::Where('state','paid')->Orderby('created_at')->paginate(5));
+        if($request->has('page')){
+            return InvoicesResource::collection(Invoices::Orderby('created_at')->paginate(10));
         }else if($request->has('pending')) {
             return InvoicesResource::collection(Invoices::Where('state','pending')->Orderby('created_at')->get());
             //$id = 7;
             //return Meals::Where('responsible_waiter_id',$id)->pluck('id');
             //return Orders::Where('state','prepared')->WhereIn('meal_id', Meals::Where('responsible_waiter_id',$id)->pluck('id'))->get();
             //return Orders::Where('state','prepared')->get();
-        } else if ($request->has('page')) {
-            return InvoicesResource::collection(Invoices::Where('state','paid')->Orderby('created_at')->paginate(10));
+        }
+    }
+
+    public function indexPaid(Request $request)
+    {
+        if ($request->has('page')) {
+            return InvoicesResource::collection(Invoices::Where('state','paid')->Orderby('id', 'asc')->paginate(10));
         }
     }
 

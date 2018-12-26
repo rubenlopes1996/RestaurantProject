@@ -1,7 +1,7 @@
 <template>
     <div class="container content-admin">
         <div id="list">
-            <paid-invoices :paidinvoices="paidinvoices"></paid-invoices>
+            <paid-invoices :newestInvoiceId="newestInvoiceId"></paid-invoices>
         </div>
     </div>
 </template>
@@ -10,19 +10,8 @@
 module.exports = {
   data: function() {
     return {
-      paidinvoices: []
+      newestInvoiceId: this.$route.params.newestInvoiceId
     };
-  },
-  methods: {
-    getPaidInvoices: function() {
-      axios.get("api/invoices?paid").then(response => {
-        this.paidinvoices = response.data.data;
-      });
-    }
-  },
-
-  mounted() {
-    this.getPaidInvoices();
   }
-};
+}
 </script>

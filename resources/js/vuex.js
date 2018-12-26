@@ -19,7 +19,7 @@ const vuexLocalStorage = new VuexPersist({
 const store = new Vuex.Store({
     state: {
         token: "",
-        user: null,
+        user: null
     },
     mutations: {
         clearUserAndToken: (state) => {

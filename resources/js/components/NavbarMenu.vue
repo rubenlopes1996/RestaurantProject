@@ -10,26 +10,24 @@
             </div>
             <vs-divider>Notifications</vs-divider>
             <div class="container text-center">
-                <!--<textarea id="textGlobal" class="inputchat" v-model="msgGlobalTextArea">Global Chat</textarea>
-                <vs-collapse accordion v-if="userName!= '' ">
-                    <vs-collapse-item>
-                        <div slot="header">
-                            {{userName}}
-                        </div>
-                        <p>{{msg}}</p>
-                    </vs-collapse-item>
-                </vs-collapse>-->
                 <vs-collapse accordion v-if="arrayNames!=null && arrayMsgs != null">
                     <vs-collapse-item v-for="(name, index) in arrayNames" :key="name + index, index">
                         <div slot="header">
                             {{name}}
-                        </div> 
-                        <!--<div v-for="(msg, index) in arrayMsgs" :key="msg + index, index">
-                            <p>{{msg}}</p>
-                        </div>-->
+                        </div>
                         <h6>{{arrayDesc[index]}}</h6>
                         <p>{{arrayMsgs[index]}}</p>
                         <vs-button color="danger" type="filled" v-on:click.prevent="removeMsg(index)">Dismiss</vs-button>
+                    </vs-collapse-item>
+                </vs-collapse>
+                <vs-collapse accordion v-if="notificationsInvoicesTableNumber!=null && notificationsInvoicesName != null">
+                    <vs-collapse-item v-for="(name, index) in notificationsInvoicesName" :key="name + index">
+                        <div slot="header">
+                            {{name}}
+                        </div>
+                        <p>Invoice for table {{notificationsInvoicesTableNumber[index]}} has been paid</p>
+                        <router-link :to="{name: 'paidinvoices', params: {newestInvoiceId: notificationsInvoicesId[index] }}" ><vs-button color="success" type="filled">Details</vs-button></router-link>
+                        <vs-button color="danger" type="filled" v-on:click.prevent="removeInvoiceInfo(index)">Dismiss</vs-button>
                     </vs-collapse-item>
                 </vs-collapse>
             </div>
@@ -106,6 +104,9 @@ import 'material-icons/iconfont/material-icons.css';
                 arrayNames: [],
                 arrayDesc: [],
                 arrayMsgs: [],
+                notificationsInvoicesTableNumber: [],
+                notificationsInvoicesName: [],
+                notificationsInvoicesId: [],
                 unreadNotif: 0
 
         }),
@@ -163,6 +164,12 @@ import 'material-icons/iconfont/material-icons.css';
                     this.arrayMsgs.splice(index,1);
                     this.unreadNotif -= 1;
                 },
+                removeInvoiceInfo: function(index){
+                    this.notificationsInvoicesTableNumber.splice(index,1);
+                    this.notificationsInvoicesName.splice(index,1);
+                    this.notificationsInvoicesId.splice(index,1);
+                    this.unreadNotif -= 1;
+                },
                 resetNotif(){
                     this.unreadNotif = 0;
                 },
@@ -202,19 +209,30 @@ import 'material-icons/iconfont/material-icons.css';
                 //this.userName = dataFromServer[0];
                 //this.msg = dataFromServer[1];
                 
-                this.$toasted.success('You\'ve got mail.', {duration: 2000, position: 'top-right'});
+                this.$toasted.success('New message', {duration: 2000, position: 'top-right'});
                 this.unreadNotif+=1;
                 //
                 this.arrayNames.unshift(dataFromServer[0]);
                 this.arrayDesc.unshift(dataFromServer[1]);
                 this.arrayMsgs.unshift(dataFromServer[2]);
-            }/*,
+            },
+            freshPaidInvoices(dataFromServer){
+                console.log("OIII"+dataFromServer);
+                this.$toasted.success('Invoice paid', {duration: 2000, position: 'top-right'});
+                this.unreadNotif+=1;
+                this.notificationsInvoicesName.unshift(dataFromServer[0]);
+                this.notificationsInvoicesTableNumber.unshift(dataFromServer[1]);
+                this.notificationsInvoicesId.unshift(dataFromServer[2]);
+                
+            }
+            /*,
             msg_from_server(dataFromServer){
                 this.$toasted.show('Msg chegou do server '+dataFromServer);
                 this.msgGlobalTextArea = dataFromServer + '\n' + this.msgGlobalTextArea;
                 
 
             }*/
+
         }
 }
 </script>

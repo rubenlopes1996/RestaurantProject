@@ -66,6 +66,7 @@ Vue.component('item-edit', require('./components/restaurant-menu/RestaurantMenuE
 Vue.component('item-add', require('./components/restaurant-menu/RestaurantMenuAdd.vue'));
 Vue.component('item-list', require('./components/restaurant-menu/RestaurantMenuList.vue'));
 Vue.component('paid-invoices', require('./components/cashiers/PaidInvoicesList.vue'));
+Vue.component('all-invoices', require('./components/cashiers/AllInvoicesList.vue'));
 Vue.component('invoice-payment', require('./components/cashiers/InvoicePayment.vue'));
 Vue.component('table-list', require('./components/restaurant-table/RestaurantTableList.vue'));
 Vue.component('table-edit', require('./components/restaurant-table/RestaurantTableEdit.vue'));

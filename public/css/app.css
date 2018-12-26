@@ -10468,6 +10468,21 @@ a.text-dark:focus {
 
 /*  Custom CSS  */
 
+#checkNew .custom-control-inline {
+  margin: 0px !important;
+}
+
+.content-admin .table-bordered td,
+.table-bordered th {
+  border-bottom: 1px solid #bfc2c5;
+}
+
+.pacman-loader {
+  position: absolute;
+  margin-top: 50%;
+  margin-left: 50%;
+}
+
 .users img {
   max-width: 128px;
 }

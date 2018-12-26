@@ -32,9 +32,12 @@
         axios.post("api/restaurant-tables", table)
           .then(response => {
             this.successMessage = "Table Created";
+            this.$toasted.success('Table created with success!', {duration: 5000, position: 'top-center'});
+            
             this.getTables();
           })
           .catch(error => {
+            this.$toasted.error('Something went wrong creating the table!', {duration: 5000, position: 'bottom-center'});
             console.log(error);
             console.log(error.response.data.message);
           });

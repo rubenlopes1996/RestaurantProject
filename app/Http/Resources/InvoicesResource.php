@@ -24,6 +24,7 @@ class InvoicesResource extends JsonResource
         return [
             'id' => $this->id,
             'state' => $this->state,
+            '_rowVariant'=> ($this->state=='paid') ? 'success' : '',
             'nif' => $this->nif,
             'name' => $this->name,
             'table_number'=> Meals::find($this->meal_id)->table_number,

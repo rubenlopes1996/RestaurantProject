@@ -9,10 +9,13 @@
                     <p>Hello, {{user.name}}</p>
                 </li>
                 <li class="users">
-                    <router-link class="nav-link" to="/dashboardCashier/invoices"><feather-icon type="box"></feather-icon> Invoices</router-link>
+                    <router-link class="nav-link" to="/dashboardCashier/invoices"><feather-icon type="box"></feather-icon> Pending Invoices</router-link>
                 </li>
                 <li class="users">
-                    <router-link class="nav-link" to="/dashboardCashier/paidinvoices"><feather-icon type="box"></feather-icon> All Invoices</router-link>
+                    <router-link class="nav-link" to="/dashboardCashier/paidinvoices"><feather-icon type="box"></feather-icon> Paid Invoices</router-link>
+                </li>
+                <li class="users">
+                    <router-link class="nav-link" to="/dashboardCashier/allinvoices"><feather-icon type="box"></feather-icon> All Invoices</router-link>
                 </li>
             </ul>
         </nav>
@@ -38,11 +41,7 @@ export default {
 <style scoped>
 @charset "UTF-8";
 @import url(
-  https://fonts.googleapis.com/css?family=Open+Sans:300,
-  400,
-  700,
-  400,
-  italic
+  https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,400,italic
 );
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css);
 body {
