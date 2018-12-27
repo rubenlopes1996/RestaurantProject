@@ -50,7 +50,6 @@
     data: function() {
       return {
         activeUser: {},
-        items: this.users,
         columns: ["image", "name", "username", "email", "type", "blocked", "actions"],
         options: {},
         size: 100,

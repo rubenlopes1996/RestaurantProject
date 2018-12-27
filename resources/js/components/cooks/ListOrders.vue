@@ -1,62 +1,78 @@
 <template>
-    <div class="lg-12 md-6 xs-4">
-        <table id = "table" class="table table-striped">
-            <thead>
-                <tr>
-                    <th>State</th>
-                    <th>Item id</th>
-                    <th>Meal id</th>
-                    <th>Start</th>
-                    <th>End</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="order in orders" :key="order.id">
-                    <td>{{ order.state }}</td>
-                    <td>{{ order.item_id }}</td>
-                    <td>{{ order.meal_id }}</td>
-                    <td>{{ order.start }}</td>
-                    <td>{{ order.end }}</td>
-    
-                    <td>
-                        <!--<a class="btn btn-sm btn-primary" v-on:click.prevent="editUser(user)">Edit</a>
-                                        <a class="btn btn-sm btn-danger" v-on:click.prevent="deleteUser(user)">Delete</a>-->
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div>
+        <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="orders==null"></PacmanLoader>
+        <!--<v-client-table ref="table" :data="orders" :columns="columns" :options="options" id="buttons" v-if="orders!=null">
+            <div slot="actions" slot-scope="orders" align="center">
+                <div v-if="orders.row.state == 'confirmed'">
+                    <button class="btn btn-sm btn-success" v-on:click.prevent="inPreparation(orders.row)">In preparation</button>
+                </div>
+                <div v-if="orders.row.state == 'in preparation'">
+                    <button class="btn btn-sm btn-primary" v-on:click.prevent="prepared(orders.row)">Prepared</button>
+                </div>
+            </div>
+        </v-client-table>-->
+        <b-row>
+          <b-col md="6" class="my-1" v-if="orders!=null">
+            <b-form-group horizontal label="Filter" class="mb-0">
+              <b-input-group>
+                <b-form-input v-model="filter" placeholder="Type to Search" />
+                <b-input-group-append>
+                  <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
+                </b-input-group-append>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-table hover :items="orders" :fields="fields" v-if="orders!=null" :filter="filter" :per-page="perPage" :current-page="currentPage" :bordered="true">
+      <template slot="actions" slot-scope="row">
+          <div v-if="row.item.state == 'confirmed'">
+                    <button class="btn btn-sm btn-success" v-on:click.prevent="inPreparation(row.item)">In preparation</button>
+                </div>
+                <div v-if="row.item.state == 'in preparation'">
+                    <button class="btn btn-sm btn-primary" v-on:click.prevent="prepared(row.item)">Prepared</button>
+                </div>
+        </template>
+      </b-table>
+      <b-pagination v-if="orders!=null" :total-rows="orders.length" v-model="currentPage" :per-page="perPage">
+      </b-pagination>
     </div>
 </template>
 
 <script>
-module.exports = {
-  data: function() {
-    return {
-      orders: []
+    module.exports = {
+        props: ["orders"],
+        data: function() {
+            return {
+                size: 100,
+                fields: [ 
+                    {key:'state'},
+                    {key:'item_id'},
+                    {key:'meal_id', sortable: true},
+                    {key:'start', sortable: true},
+                    {key:'actions', sortable: true}
+                ],
+                filter: null,
+                currentPage: 1,
+                perPage: 10,
+            };
+        },
+        methods: {
+            inPreparation: function(order) {
+                this.$emit("inPreparation", order);
+            },
+            prepared: function(order) {
+                this.$emit("prepared", order);
+             }
+        }
     };
-  },
-  created() {
-    this.fecthMenu();
-  },
-  methods: {
-    fecthMenu(page_url) {
-      let pg = this;
-      page_url = page_url || "api/orders";
-      axios
-        .get(page_url)
-        .then(response => {
-          this.orders = response.data.data;
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }
-  }
-};
 </script>
 
 <style>
-    #table{
+    #table {
         margin-top: 200px;
+    }
+    
+    .color-success td:nth-child(2) {
+        color: darkgreen;
     }
 </style>

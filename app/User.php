@@ -32,6 +32,10 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
 
+    public function orders()
+    {
+        return $this->hasMany(Orders::class,'responsible_cook_id');
+    }
 
 
  }

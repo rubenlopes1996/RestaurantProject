@@ -1,32 +1,41 @@
 <template>
-    <div>
-        <nav role="navigation">
-            <ul class="main">
-                <li class="users">
-                    <img :src="'storage/profiles/'+user.user.photo_url">
-                    <p>Hello, {{user.user.name}}</p>
-                </li>
-            </ul>
-        </nav>
-        <div class="container d-flex justify-content-center">
-            <list-invoices> </list-invoices>
-        </div>
-        <div class="container d-flex justify-content-center">
-            <router-view></router-view>
-        </div>
+  <div>
+    <nav role="navigation">
+      <ul class="main">
+        <li class="users text-center">
+          <div class="container center-block ">
+            <img :src="'storage/profiles/'+user.photo_url" class="rounded profile-pic">
+          </div>
+          <p>Hello, {{user.name}}</p>
+        </li>
+        <li class="users">
+          <router-link class="nav-link" to="/dashboardCook/orders">
+            <feather-icon type="box"></feather-icon> Orders
+          </router-link>
+        </li>
+        <li class="users">
+          <router-link class="nav-link" to="/dashboard/contactAdmin">
+            <feather-icon type="help-circle"></feather-icon> Contact an Admin
+          </router-link>
+        </li>
+      </ul>
+    </nav>
+    <div class="container d-flex justify-content-center">
+      <router-view></router-view>
     </div>
+  </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      user: this.$root.user
-    };
-  },
-  created() {},
-  methods: {}
-};
+  export default {
+    data() {
+      return {
+        user: this.$store.state.user,
+      };
+    },
+    created() {},
+    methods: {}
+  };
 </script>
 
 <style scoped>
@@ -43,10 +52,6 @@ body {
   background: #f1f2f7;
   font-family: "Open Sans", arial, sans-serif;
   color: darkslategray;
-}
-
-.users a:before {
-  content: "";
 }
 
 nav[role="navigation"] {
@@ -69,32 +74,6 @@ nav[role="navigation"] li a:hover {
   background-color: rgba(255, 255, 255, 0.05);
 }
 
-nav[role="navigation"] li a:before {
-  content: "\f248";
-  font-family: FontAwesome;
-  padding-right: 0.6em;
-}
-
-nav[role="navigation"] .dashboard a:before {
-  content: "";
-}
-
-nav[role="navigation"] .write a:before {
-  content: "";
-}
-
-nav[role="navigation"] .edit a:before {
-  content: "";
-}
-
-nav[role="navigation"] .comments a:before {
-  content: "";
-}
-
-nav[role="navigation"] .users a:before {
-  content: "";
-}
-
 /* lists */
 
 ul,
@@ -110,18 +89,6 @@ main li {
   margin: 0.5em 0;
 }
 
-main li:before {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  left: 0;
-  top: 0.3em;
-  border-left: solid 10px #dde;
-  border-top: solid 5px transparent;
-  border-bottom: solid 5px transparent;
-}
-
 @media screen and (min-width: 600px) {
   html,
   body {
@@ -135,8 +102,7 @@ main li:before {
   }
 }
 
-li p {
-  padding: 15px;
-  margin: 0;
+img {
+  margin: 15px;
 }
 </style>

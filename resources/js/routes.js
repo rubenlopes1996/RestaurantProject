@@ -59,13 +59,6 @@ let routes = [{
         ]
     },
     {
-        path: '/dashboardCook',
-        component: require('./components/dashboards/DashboardCooks.vue'),
-        meta: {
-            middlewareAuth: true
-        },
-    },
-    {
         path: '/myProfile',
         component: require('./components/Profile.vue'),
         meta: {
@@ -129,6 +122,28 @@ let routes = [{
                 }
             }
         ]
+    },
+    {
+        path: '/dashboardCook',
+        component: require('./components/dashboards/DashboardCooks.vue'),
+        meta: {
+            middlewareAuth: true
+        },
+        children: [{
+                path: 'orders',
+                component: require('./components/cooks/Orders.vue'),
+                meta: {
+                    middlewareAuth: true
+                },
+            },
+            {
+                path: 'contactAdmin',
+                component: require('./components/ContactAdmin.vue'),
+                meta: {
+                    middlewareAuth: true
+                }
+            }
+        ]
     }
 ];
 
@@ -137,11 +152,11 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-   if(to.meta.middlewareAuth && (store.state.user == null)){
-       next('/login');
-       return;
-   }
-   next();
+    if (to.meta.middlewareAuth && (store.state.user == null)) {
+        next('/login');
+        return;
+    }
+    next();
 });
 
 export default router;

@@ -14,12 +14,11 @@ class OrderControllerAPI extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-
-        return OrdersResource::collection(Orders::Where('state','in preparation')
-            ->where('responsible_cook_id', Auth::id())->orWhere('state','confirmed')
-            ->where('responsible_cook_id', Auth::id())->Orderby('created_at')->get());
+        
+        return OrdersResource::collection(Orders::Where('state','in preparation')->where('responsible_cook_id', $id)
+        ->orWhere('state','confirmed')->where('responsible_cook_id', $id)->Orderby('created_at')->get());
     }
 
     /**
@@ -86,5 +85,21 @@ class OrderControllerAPI extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function prepared($id){
+        $order = Orders::findOrFail($id);
+        $order->state = 'prepared';
+        $order->save();
+        dd($order);
+        return response()->json(new OrdersResource($order), 200);
+    }
+
+    public function inPreparation($id){
+        $order = Orders::findOrFail($id);
+        $order->state = 'in preparation';
+        $order->save();
+        return response()->json(new OrdersResource($order), 200);
+
     }
 }

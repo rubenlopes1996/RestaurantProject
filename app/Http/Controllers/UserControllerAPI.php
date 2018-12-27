@@ -47,13 +47,11 @@ class UserControllerAPI extends Controller
         $data = $request->validate([
             'name' => 'required|min:3|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
             'username' => 'required|unique:users,username,' . $id,
-            'password' => 'required|min:3'
         ]);
 
         $user = User::findOrFail($id);
         $user->name = $data['name'];
         $user->username = $data['username'];
-        $user->password = bcrypt($data['password']);
         $user->save();
         return new UserResource($user);
     }

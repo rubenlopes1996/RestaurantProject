@@ -25,7 +25,10 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/get-user', 'API\AuthController@getUser');
 
     //Order
-    Route::get('orders', 'OrderControllerAPI@index');
+    Route::get('orders/{id}', 'OrderControllerAPI@index');
+    Route::patch('orders/inPreparation/{id}','OrderControllerAPI@inPreparation');
+    Route::patch('orders/prepared/{id}','OrderControllerAPI@prepared');
+
 });
 
 //Employees
@@ -47,6 +50,7 @@ Route::get('invoices', 'InvoicesControllerAPI@index');
 Route::get('invoices/paid', 'InvoicesControllerAPI@indexPaid');
 Route::get('invoices/{id}', 'InvoicesControllerAPI@show');
 Route::put('invoices/{id}', 'InvoicesControllerAPI@update');
+Route::get('paidInvoices/{id}/download','InvoicesControllerAPI@downloadPDF');
 
 //My profile
 Route::put('employee-profile/{id}', 'UserControllerAPI@update');

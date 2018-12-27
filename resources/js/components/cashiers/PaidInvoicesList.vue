@@ -43,7 +43,7 @@
       </b-card>
     </template>
     <template slot="pdf" slot-scope="row">
-      <vs-button color="warning" type="filled">PDF</vs-button>
+      <vs-button @click.prevent="downloadPDF(row.item.id)" color="warning" type="filled">PDF</vs-button>
     </template>
     </b-table>
     <nav aria-label="Page navigation example" v-if="items!=null">
@@ -95,13 +95,11 @@
         axios
           .get(page_url)
           .then(response => {
-            notLoaded = false;
             this.items = response.data.data;
             pg.makePagination(response.data.meta, response.data.links);
           })
           .catch(error => {
             console.log(error);
-            notLoaded = false;
           });
       },
       makePagination(meta, links) {
@@ -112,6 +110,13 @@
         prev_page_url: links.prev
       };
       this.pagination = pagination;
+      },
+      downloadPDF(id){
+          axios.get("api/paidInvoices/"+id+"/download").then(response=>{
+            console.log("success")
+          }).catch(error=>{
+            console.log("error");
+          })
       }
     },
       sockets:{

@@ -57,7 +57,7 @@ window.Event = new Vue();
 Vue.component('navbarmenu', require('./components/NavbarMenu.vue'));
 Vue.component('vue-layout', require('./Layout.vue'));
 Vue.component('manager-list', require('./components/employee/EmployeeList.vue'));
-Vue.component('user-edit', require('./components/employee/editEmployee.vue'));
+Vue.component('user-edit', require('./components/employee/EditEmployee.vue'));
 Vue.component('add-employee', require('./components/employee/AddEmployee.vue'));
 Vue.component('table-list', require('./components/restaurant-table/RestaurantTableList.vue'));
 Vue.component('list-orders', require('./components/cooks/ListOrders.vue'));
@@ -71,6 +71,7 @@ Vue.component('invoice-payment', require('./components/cashiers/InvoicePayment.v
 Vue.component('table-list', require('./components/restaurant-table/RestaurantTableList.vue'));
 Vue.component('table-edit', require('./components/restaurant-table/RestaurantTableEdit.vue'));
 Vue.component('table-add', require('./components/restaurant-table/RestaurantTableAdd.vue'));
+Vue.component('order-list',require('./components/cooks/ListOrders.vue'));
 
 const app = new Vue({
     el: '#app',

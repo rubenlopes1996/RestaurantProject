@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use \App\Http\Resources\InvoicesResource;
 use \App\Invoices;
 use \App\Meals;
-
+use PDF;
+use \App\InvoiceItems;
 use \App\Http\Resources\MealsResource;
 use \App\Http\Resources\OrdersResource;
 use \App\Orders;
+use \App\User;
+use \App\Items;
 
 class InvoicesControllerAPI extends Controller
 {
@@ -56,5 +59,19 @@ class InvoicesControllerAPI extends Controller
         return new InvoicesResource($invoice);
     }
 
+    public function downloadPDF(Request $request){
+        $invoice = Invoices::findOrFail($request->id);
+        $items = InvoiceItems::Where('invoice_id', $request->id)->get();
+        $responsible_waiter = User::find(Meals::find($invoice->meal_id)->responsible_waiter_id)['name'];
+        $nameItem = Items::find(InvoiceItems::Where('invoice_id', $invoice->id)->pluck('item_id'));
+        
+        $pdf = PDF::loadView('pdf.PDF', compact('invoice','items','responsible_waiter', 'nameItem'));
+        $filename = base_path($invoice->name.$invoice->id.'.pdf');
+        $pdf->save($filename); 
+        return \Response::download($filename);
+
+  
+    }
+
 }
-//
+
