@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\OrdersResource;
+use App\RestaurantTable;
 use Illuminate\Http\Request;
 use \App\Http\Resources\MealsResource;
 use \App\Meals;
-
+use Carbon\Carbon;
+use \App\Orders;
+use \App\Http\Resources\MealsWithOrdersResource;
 
 class MealsControllerAPI extends Controller
 {
@@ -28,16 +32,74 @@ class MealsControllerAPI extends Controller
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function showMealsWithPreparedOrders($id)
     {
-        //
+        return Orders::Where('state', 'prepared')
+            ->WhereIn('meal_id', Meals::
+            Where('responsible_waiter_id', $id)->
+            pluck('id'))->get();
+    }
+
+    public function terminatedMeals($id){
+        $meal =Meals::findOrFail($id);
+        $meal->state='terminated';
+        $meal->save();
+        $orders =  Orders::where('meal_id', $id)
+            ->where('state','!=','delivered')
+            ->get();
+
+        foreach ($orders as $order){
+
+            $order->state = 'not delivered';
+            $order->save();
+        }
+
+    }
+
+
+    public function showMealsById($id)
+    {
+
+        return MealsResource::collection(Meals::where('responsible_waiter_id', $id)
+            ->where('state', 'active')
+            ->get());
+    }
+
+    public function store(Request $request, $id)
+    {
+
+        $table = RestaurantTable::where('table_number', $request->table_number)->get();
+        if(count($table)!=0) {
+
+            $meals = Meals::where('table_number', $request->table_number)
+                ->where('state', 'active')->get();
+            if (count($meals) == 0) {
+
+                $validatedData = $request->validate([
+
+                    'table_number' => 'required|integer',
+
+                ]);
+
+
+                $meal = new Meals();
+                $meal->state = 'active';
+                $meal->start = Carbon::now();
+                $meal->responsible_waiter_id = $id;
+                $meal->table_number = $validatedData['table_number'];
+                $meal->save();
+                return response()->json(new MealsResource($meal), 201);
+            }
+            return response()->json("Meal is already active!", 403);
+
+        }
+        else {
+            return response()->json("Table does not exist!", 404);
+        }
+    }
+    public function showSummaryMeals($id)
+    {
+        return MealsWithOrdersResource::collection(Meals::where('responsible_waiter_id', $id)->OrderBy('id','des')->paginate(20));
     }
 
     /**

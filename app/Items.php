@@ -10,4 +10,7 @@ class Items extends Model
     protected $fillable = [
         'name', 'type', 'description','photo_url','price','deleted_at','created_at','updated_at'
     ];
+    public function order(){
+        return $this->belongsTo(Orders::class,'item_id','id');
+    }
 }

@@ -17,7 +17,7 @@ class OrdersResource extends JsonResource
         return [
             'id' => $this->id,
             'state'=> $this->state,
-            '_rowVariant' => ($this->state == 'in preparation') ? 'warning' : 'active',
+            '_rowVariant' => ($this->state == 'in preparation' || $this->state == 'pending') ? 'warning' : 'active',
             'item_id' => $this->item_id,
             'meal_id'=>$this->meal_id,
             'responsible_cook_id'=>$this->responsible_cook_id,

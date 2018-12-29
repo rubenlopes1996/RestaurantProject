@@ -101,15 +101,43 @@ let routes = [{
             middlewareAuth: true
         },
         children: [{
-                path: 'meals',
-                component: require('./components/waiters/Meals.vue'),
+            path: 'meal/add',
+            component: require('./components/waiters/AddMeal.vue'),
+            meta: {
+                middlewareAuth: true
+            }
+        },
+            {
+                path: 'my/meals/addorder',
+                component: require('./components/waiters/MealsList.vue'),
                 meta: {
                     middlewareAuth: true
                 }
             },
             {
-                path: 'orders',
+                path: 'orders/pending&confirmed',
                 component: require('./components/waiters/Orders.vue'),
+                meta: {
+                    middlewareAuth: true
+                }
+            },
+            {
+                path: 'my/orders/confirmed&prepared',
+                component: require('./components/waiters/PreparedOrders.vue'),
+                meta: {
+                    middlewareAuth: true
+                }
+            },
+            {
+                path: 'my/meals/summary',
+                component: require('./components/waiters/SummaryMeals.vue'),
+                meta: {
+                    middlewareAuth: true
+                }
+            },
+            {
+                path: 'my/meals/terminated',
+                component: require('./components/waiters/TerminatedMeals.vue'),
                 meta: {
                     middlewareAuth: true
                 }

@@ -9,13 +9,33 @@
                     <p>Hello, {{user.name}}</p>
                 </li>
                 <li class="users">
-                    <router-link class="nav-link" to="/dashboardWaiter/orders">
-                        <feather-icon type="box"></feather-icon> Orders
+                    <router-link class="nav-link" to="/dashboardWaiter/meal/add">
+                        <feather-icon type="box"></feather-icon> Add Meal
                     </router-link>
                 </li>
                 <li class="users">
-                    <router-link class="nav-link" to="/dashboardWaiter/meals">
-                        <feather-icon type="box"></feather-icon> Meals
+                    <router-link class="nav-link" to="/dashboardWaiter/my/meals/addorder">
+                        <feather-icon type="box"></feather-icon> Active Order
+                    </router-link>
+                </li>
+                <li class="users">
+                    <router-link class="nav-link" to="/dashboardWaiter/orders/pending&confirmed">
+                        <feather-icon type="box"></feather-icon> Orders Pending/Confirmed
+                    </router-link>
+                </li>
+                <li class="users">
+                    <router-link class="nav-link" to="/dashboardWaiter/my/orders/confirmed&prepared">
+                        <feather-icon type="box"></feather-icon> Prepared Orders
+                    </router-link>
+                </li>
+                <li class="users">
+                    <router-link class="nav-link" to="/dashboardWaiter/my/meals/summary">
+                        <feather-icon type="box"></feather-icon> Summary of Meals
+                    </router-link>
+                </li>
+                <li class="users">
+                    <router-link class="nav-link" to="/dashboardWaiter/my/meals/terminated">
+                        <feather-icon type="box"></feather-icon> Terminated Meals
                     </router-link>
                 </li>
                 <li class="users">
@@ -23,9 +43,10 @@
                         <feather-icon type="help-circle"></feather-icon> Contact an Admin
                     </router-link>
                 </li>
+
             </ul>
         </nav>
-        <div class="container d-flex justify-content-center">
+        <div class="container d-flex justify-content-center content-admin">
             <router-view></router-view>
         </div>
     </div>

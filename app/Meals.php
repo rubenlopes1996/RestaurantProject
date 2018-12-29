@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Meals extends Model
 {
-
     protected $fillable = [
-        //state table respWaiter totalPrice
-        'id', 'responsible_waiter_id'
+        'id', 'state', 'table_number','start','end','responsible_waiter_id','total_price_preview'
     ];
-
-    public function orders_from_meals(){
-        return $this->hasMany('App\Orders');
+    public function order()
+    {
+        return $this->hasMany('App\Orders', 'meal_id','id');
     }
+
 }

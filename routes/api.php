@@ -71,3 +71,19 @@ Route::put('endShift/{id}','UserControllerAPI@endShift');
 
 //Waiters
 Route::get('meals', 'MealsControllerAPI@index');
+Route::post('waiter/{id}/meal','MealsControllerAPI@store');
+
+Route::get('meals/{id}','MealsControllerAPI@showMealsById');
+Route::post('addorders','OrderControllerAPI@store');
+
+Route::get('waiter/list-orders/pending/confirmed', 'OrderControllerAPI@listOrderPendingConfirmed');
+
+Route::get('waiter/{id}/orders/prepared','MealsControllerAPI@showMealsWithPreparedOrders');
+Route::patch('waiter/order/{id}/delivered','OrderControllerAPI@swapOrderToDelivered');
+
+Route::get('waiter/{id}/meals/summary','MealsControllerAPI@showSummaryMeals');
+
+Route::patch('waiter/{id}/meals/terminated','MealsControllerAPI@terminatedMeals');
+
+
+Route::put('waiter/{id}/meal/terminated/invoices', 'InvoicesControllerAPI@store');

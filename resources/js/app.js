@@ -72,6 +72,7 @@ Vue.component('table-list', require('./components/restaurant-table/RestaurantTab
 Vue.component('table-edit', require('./components/restaurant-table/RestaurantTableEdit.vue'));
 Vue.component('table-add', require('./components/restaurant-table/RestaurantTableAdd.vue'));
 Vue.component('order-list',require('./components/cooks/ListOrders.vue'));
+Vue.component('add_order', require('./components/waiters/AddOrder.vue'));
 
 const app = new Vue({
     el: '#app',
