@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\InvoicesResource;
+use App\Http\Resources\MealsResource;
+use App\Invoices;
+use App\Meals;
 use Illuminate\Contracts\Support\Jsonable;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\DB;
@@ -25,6 +29,7 @@ class UserControllerAPI extends Controller
     {
         return new UserResource(User::find($id));
     }
+
 
     public function store(Request $request)
     {
@@ -143,5 +148,19 @@ class UserControllerAPI extends Controller
 
         return new UserResource($user);
     }
+
+    public function showUserByType($type)
+    {
+
+        return UserResource::collection(User::where('type',$type)->get());
+    }
+
+    public function showUsersWaiterCook()
+    {
+
+        return UserResource::collection(User::where('type','waiter')->orWhere('type','cook')->orderBY('name')->get());
+    }
+
+
 
 }

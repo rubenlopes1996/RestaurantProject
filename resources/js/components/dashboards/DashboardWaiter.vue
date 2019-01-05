@@ -10,32 +10,32 @@
                 </li>
                 <li class="users">
                     <router-link class="nav-link" to="/dashboardWaiter/meal/add">
-                        <feather-icon type="box"></feather-icon> Add Meal
+                        <feather-icon type="plus-circle"></feather-icon> Add Meal
                     </router-link>
                 </li>
                 <li class="users">
                     <router-link class="nav-link" to="/dashboardWaiter/my/meals/addorder">
-                        <feather-icon type="box"></feather-icon> Active Order
+                        <feather-icon type="plus"></feather-icon> Add Order
                     </router-link>
                 </li>
                 <li class="users">
                     <router-link class="nav-link" to="/dashboardWaiter/orders/pending&confirmed">
-                        <feather-icon type="box"></feather-icon> Orders Pending/Confirmed
+                        <feather-icon type="list"></feather-icon> Pending&Confirmed Orders
                     </router-link>
                 </li>
                 <li class="users">
                     <router-link class="nav-link" to="/dashboardWaiter/my/orders/confirmed&prepared">
-                        <feather-icon type="box"></feather-icon> Prepared Orders
+                        <feather-icon type="alert-circle"></feather-icon> Prepared Orders
                     </router-link>
                 </li>
                 <li class="users">
                     <router-link class="nav-link" to="/dashboardWaiter/my/meals/summary">
-                        <feather-icon type="box"></feather-icon> Summary of Meals
+                        <feather-icon type="monitor"></feather-icon> Summary of Meals
                     </router-link>
                 </li>
                 <li class="users">
                     <router-link class="nav-link" to="/dashboardWaiter/my/meals/terminated">
-                        <feather-icon type="box"></feather-icon> Terminated Meals
+                        <feather-icon type="delete"></feather-icon> Terminated Meals
                     </router-link>
                 </li>
                 <li class="users">

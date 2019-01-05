@@ -1,6 +1,6 @@
 <template>
     <div id="conteudo">
-   <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="sumary==null"></PacmanLoader>
+        <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="sumary==null"></PacmanLoader>
         <b-row>
             <b-col md="6" class="my-1" v-if="sumary!=null">
                 <b-form-group horizontal label="Filter" class="mb-0">
@@ -24,11 +24,12 @@
                 <b-card>
                     <b-button @click="row.toggleDetails">Hide Details</b-button>
                     <b-row class="lg-10" v-for="(in_I) in row.item.order" :key="in_I.id">
-                            <div>
+                        <div>
                             <br> Name: {{in_I.item.name}}
                             <br> Price: {{in_I.item.price}} €
-                            <br> State: {{in_I.state}} <br> 
-                            </div>
+                            <br> Price: {{in_I.item.type}}
+                            <br> State: {{in_I.state}}<br>
+                        </div>
                     </b-row>
                 </b-card>
             </template>
@@ -64,7 +65,9 @@
                     {key:'details'},
                     {key:'state', sortable: true},
                     {key:'table_number', sortable: true},
+                    {key:'responsible_waiter_id', sortable: true},
                     {key:'total_price_preview', sortable: true},
+                    {key:'start', sortable: true}
                 ],
                 filter: null,
                 pagination: {},
@@ -79,7 +82,7 @@
         methods :{
             fetchData(page_url){
                 let pg = this;
-                page_url = page_url || "api/waiter/" + this.$store.state.user.id + "/meals/summary?page=1";
+                page_url = page_url || "api/list/meals/summary?page=1";
                 axios
                     .get(page_url)
                     .then(response => {

@@ -24,11 +24,12 @@ class InvoicesResource extends JsonResource
         return [
             'id' => $this->id,
             'state' => $this->state,
+            'meal_id' => $this->meal_id,
             '_rowVariant'=> ($this->state=='paid') ? 'success' : '',
             'nif' => $this->nif,
             'name' => $this->name,
             'table_number'=> Meals::find($this->meal_id)->table_number,
-            'responsible_waiter' => User::find(Meals::find($this->meal_id)->responsible_waiter_id)['name'],
+            'responsible_waiter' =>  $this->meal->user()->value('name'),
             'total_price'=> $this->total_price,
             'date' => $this->date,
             'items_consumed' => Items::find(InvoiceItems::Where('invoice_id', $this->id)->pluck('item_id')),

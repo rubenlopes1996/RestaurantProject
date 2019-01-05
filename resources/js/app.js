@@ -33,6 +33,9 @@ import 'vuesax/dist/vuesax.css';
 import VueSocketio from 'vue-socket.io';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import datePicker from 'vue-bootstrap-datetimepicker'
+import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
  
 
 
@@ -48,6 +51,7 @@ Vue.use(Vuelidate);
 Vue.use(VueMoment);
 Vue.use(Toasted);
 Vue.use(Vuesax);
+Vue.use(datePicker);
 Vue.use(new VueSocketio({
     debug: true,
     connection: 'http://127.0.0.1:8080'

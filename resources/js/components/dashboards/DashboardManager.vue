@@ -19,20 +19,39 @@
                         <feather-icon type="users" stroke="fcolor"></feather-icon> Employees
                     </router-link>
                 </li>
-                <li class="users"><a href="#"><feather-icon type="droplet"></feather-icon> Drinks & Meals</a></li>
+                <li class="users">
+                    <router-link class="nav-link" to="/list-meals">
+                    <feather-icon type="list" stroke="fcolor"></feather-icon> Meals
+                    </router-link>
+                </li>
+                <li class="users">
+                    <router-link class="nav-link" to="/summary-meals">
+                        <feather-icon type="monitor" stroke="fcolor"></feather-icon> Summary Meals
+                    </router-link>
+                </li>
                 <li class="users">
                     <router-link class="nav-link" :to="{name: 'paidinvoices', params: {newestInvoiceId: -1 }}"><feather-icon type="box"></feather-icon> All Invoices</router-link>
+                </li>
+                <li class="users">
+                    <router-link class="nav-link" to="/invoices-pending">
+                        <feather-icon type="filter" stroke="fcolor"></feather-icon> Pending Invoices
+                    </router-link>
                 </li>
                 <li class="users">
                     <router-link class="nav-link" to="/dashboard/contactAdmin">
                         <feather-icon type="help-circle"></feather-icon> Contact an Admin
                     </router-link>
                 </li>
-                <li class="users"><a href="#"><feather-icon type="activity"></feather-icon> Statistics</a></li>
+                <li class="users">
+                    <router-link class="nav-link" to="/dashboard/statistics">
+                        <feather-icon type="help-circle"></feather-icon> Statistics
+                    </router-link>
+                </li>
+
 
             </ul>
         </nav>
-        <div class="container d-flex justify-content-center">
+        <div class="container d-flex justify-content-center content-admin">
             <router-view></router-view>
         </div>
     </div>

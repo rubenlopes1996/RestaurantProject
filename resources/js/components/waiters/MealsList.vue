@@ -62,6 +62,8 @@
                 currentPage: 1,
                 perPage: 10,
                 size: 30,
+
+
             };
         },
         methods: {
@@ -81,7 +83,7 @@
                 .get("api/meals/" + this.$store.state.user.id)
                 .then(response => {
                     this.meals = response.data.data;
-                    console.log(this.meals);
+
     
                 })
                 .catch(error => {
