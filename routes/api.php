@@ -39,6 +39,7 @@ Route::put('employee/{id}', 'UserControllerAPI@update');
 Route::delete('employee/{id}', 'UserControllerAPI@destroy');
 Route::patch('employee/unblock/{id}','UserControllerAPI@unblock');
 Route::patch('employee/block/{id}','UserControllerAPI@block');
+Route::patch('employee/confirm/{email}','API\AuthController@confirmActivation');
 
 //Restaurant tables
 Route::get('restaurant-tables', 'RestaurantTableAPI@index');
@@ -50,7 +51,7 @@ Route::get('invoices', 'InvoicesControllerAPI@index');
 Route::get('invoices/paid', 'InvoicesControllerAPI@indexPaid');
 Route::get('invoices/{id}', 'InvoicesControllerAPI@show');
 Route::put('invoices/{id}', 'InvoicesControllerAPI@update');
-Route::get('paidInvoices/{id}/download','InvoicesControllerAPI@downloadPDF');
+Route::get('paidInvoices/download/{id}','InvoicesControllerAPI@downloadPDF');
 
 //My profile
 Route::put('employee-profile/{id}', 'UserControllerAPI@update');

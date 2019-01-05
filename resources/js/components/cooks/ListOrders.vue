@@ -1,16 +1,6 @@
 <template>
     <div>
         <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="orders==null"></PacmanLoader>
-        <!--<v-client-table ref="table" :data="orders" :columns="columns" :options="options" id="buttons" v-if="orders!=null">
-            <div slot="actions" slot-scope="orders" align="center">
-                <div v-if="orders.row.state == 'confirmed'">
-                    <button class="btn btn-sm btn-success" v-on:click.prevent="inPreparation(orders.row)">In preparation</button>
-                </div>
-                <div v-if="orders.row.state == 'in preparation'">
-                    <button class="btn btn-sm btn-primary" v-on:click.prevent="prepared(orders.row)">Prepared</button>
-                </div>
-            </div>
-        </v-client-table>-->
         <b-row>
           <b-col md="6" class="my-1" v-if="orders!=null">
             <b-form-group horizontal label="Filter" class="mb-0">
@@ -25,10 +15,10 @@
         </b-row>
         <b-table hover :items="orders" :fields="fields" v-if="orders!=null" :filter="filter" :per-page="perPage" :current-page="currentPage" :bordered="true">
       <template slot="actions" slot-scope="row">
-          <div v-if="row.item.state == 'confirmed'">
+                <div v-if="row.item.state == 'confirmed' && row.item.type != 'drink' && row.item.type != 'dessert'">
                     <button class="btn btn-sm btn-success" v-on:click.prevent="inPreparation(row.item)">In preparation</button>
                 </div>
-                <div v-if="row.item.state == 'in preparation'">
+                <div v-if="row.item.state == 'in preparation' || row.item.type == 'drink' || row.item.type == 'dessert'">
                     <button class="btn btn-sm btn-primary" v-on:click.prevent="prepared(row.item)">Prepared</button>
                 </div>
         </template>
@@ -63,7 +53,7 @@
             prepared: function(order) {
                 this.$emit("prepared", order);
              }
-        }
+        },
     };
 </script>
 
