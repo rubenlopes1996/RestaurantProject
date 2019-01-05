@@ -35,11 +35,11 @@
                 axios
                     .post("api/waiter/" + this.$store.state.user.id + "/meal", this.meal)
                     .then(response => {
-                        this.$toasted.success('Meal has been created!', {duration: 3000, position: 'top-center'});
+                        this.$toasted.success('Meal has been created!', {duration: 3000, position: 'top-center',theme:'bubble'});
                         console.log(response);
                     })
                     .catch(error => {
-                        this.$toasted.error(error.response.data, {duration: 2000, position: 'top-center'});
+                        this.$toasted.error(error.response.data, {duration: 2000, position: 'top-center',theme:'bubble'});
                         console.log(error.response.data);
 
 

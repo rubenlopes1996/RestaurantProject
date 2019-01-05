@@ -14,4 +14,13 @@ class Meals extends Model
         return $this->hasMany('App\Orders', 'meal_id','id');
     }
 
+    public function user()
+    {
+        return $this->hasOne('App\User', 'id','responsible_waiter_id');
+    }
+
+    public function Invoices() {
+        return $this->belongsTo('Invoices');
+    }
+
 }

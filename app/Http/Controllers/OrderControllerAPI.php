@@ -78,7 +78,9 @@ class OrderControllerAPI extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Orders::find($id);
+        $order->delete();
+
     }
     public function listOrderPendingConfirmed(){
         return OrdersResource::collection(Orders::Where('state','pending')
@@ -100,26 +102,24 @@ class OrderControllerAPI extends Controller
 
     public function store(Request $request)
     {
-        
+
         $validatedData = $request->validate([
 
             'meal_id' => 'required|integer|exists:meals,id',
-            'items' => 'required|array',
+            'items' => 'required|integer|exists:items,id',
         ]);
 
-        $orders= Collection::make();
-        for ($i=0; $i<sizeof($request->items);$i++) {
+
             $order = new Orders();
             $order->state = "pending";
-            $order->item_id = $request->items[$i];
-            $order->meal_id = $request->meal_id;
+            $order->item_id = $validatedData['items'];
+            $order->meal_id = $validatedData['meal_id'];
             $order->start = Carbon::now();
             $order->save();
-            $orders->push($order);
-        }
 
 
-        return response()->json( OrdersResource::collection($orders), 201);
+        return response()->json(new OrdersResource($order), 201);
+
     }
 
     public function prepared($id){
@@ -134,6 +134,15 @@ class OrderControllerAPI extends Controller
         $order = Orders::findOrFail($id);
         $order->state = 'in preparation';
         $order->responsible_cook_id = Auth::id();
+        $order->save();
+        return response()->json(new OrdersResource($order), 200);
+    }
+
+
+
+    public function swapOrderToConfirmed($id){
+        $order = Orders::findOrFail($id);
+        $order->state = 'confirmed';
         $order->save();
         return response()->json(new OrdersResource($order), 200);
     }

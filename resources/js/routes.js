@@ -34,6 +34,27 @@ let routes = [{
                 }
             },
             {
+                path: '/list-meals',
+                component: require('./components/manager/ListMeals.vue'),
+                meta: {
+                    middlewareAuth: true
+                }
+            },
+            {
+                path: '/summary-meals',
+                component: require('./components/manager/SummaryListMeals.vue'),
+                meta: {
+                    middlewareAuth: true
+                }
+            },
+            {
+                path: '/invoices-pending',
+                component: require('./components/manager/PendingInvoices.vue'),
+                meta: {
+                    middlewareAuth: true
+                }
+            },
+            {
                 path: '/paidinvoices/:newestInvoiceId',
                 name: 'paidinvoices',
                 component: require('./components/cashiers/PaidInvoices.vue'),
@@ -51,6 +72,13 @@ let routes = [{
             {
                 path: 'contactAdmin',
                 component: require('./components/ContactAdmin.vue'),
+                meta: {
+                    middlewareAuth: true
+                }
+            },
+            {
+                path: 'statistics',
+                component: require('./components/manager/Statistics.vue'),
                 meta: {
                     middlewareAuth: true
                 }

@@ -5,12 +5,14 @@
             <div class="form-group">
                 <label for="inputName"></label>
                 <b-form-group>
-                    <div class="col-sm-4">
-                        <b-form-checkbox-group id="checkboxes1" name="flavour1" v-model="data.items" :options="optionItems"></b-form-checkbox-group>
+                    <div class="col-sm-12">
+
+                        <b-form-select v-model="data.items" :options="optionItems" size="lg" ></b-form-select>
+
                     </div>
                 </b-form-group>
             </div>
-    
+
             <div class="form-group">
                 <a class="btn btn-primary" v-on:click.prevent="createOrder()">Create</a>
                 <a class="btn btn-light" v-on:click.prevent="cancel()">Cancel</a>
@@ -26,29 +28,69 @@
             return {
                 data: {
                     meal_id: "",
-                    items: []
+                    items: null
                 },
-                optionItems: [],
-                size: 30
+                optionItems: [
+                    { value: null, text: 'Please select some item',disabled: true  },
+                ],
+                size: 30,
+                orderID:null,
+                action : [{
+                    text : 'Cancel this order!',
+
+                    onClick : (e,toastObject) => {
+                        this.deleteOrder(this.orderID);
+                        toastObject.goAway(0);
+                    },
+
+                }],
+
             };
         },
-    
+
         methods: {
-            createOrder: function() {
-                this.data.meal_id = this.meal;
-                
+            confirmedOrder:function(){
+                console.log('estou aqui',this.orderID);
                 axios
-                    .post("api/addorders", this.data)
+                    .patch("api/waiter/order/"+this.orderID+"/confirmed")
                     .then(response => {
-                        this.$toasted.success("Orders has been created!", {
-                            duration: 3000,
-                            position: "top-center"
-                        });
+                            console.log(response.data);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        console.log(error.response.data.message);
+                    });
+            },
+            deleteOrder:function(id) {
+                axios
+                    .delete("api/waiter/"+id+"/delete/order")
+                    .then(response => {
+
+                        this.$toasted.info('Order has been deleted.',{duration: 3000, position: 'top-center', theme:'bubble'});
                         this.cancel();
                     })
                     .catch(error => {
                         console.log(error);
                         console.log(error.response.data.message);
+                    });
+            },
+            createOrder: function() {
+                this.data.meal_id = this.meal;
+                console.log(this.data);
+                axios
+                    .post("api/addorders", this.data)
+                    .then(response => {
+
+                        this.orderID=response.data.id;
+                        this.$toasted.success('Orders has been created!',
+                            {duration: 5000, position: 'bottom-center',theme:'bubble', action: this.action, onComplete:this.confirmedOrder});
+
+                        this.cancel();
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        console.log(error.response.data.message);
+                        this.$toasted.error('Error creating order', {duration: 3000, position: 'top-center',theme:'bubble'});
                     });
             },
             cancel() {

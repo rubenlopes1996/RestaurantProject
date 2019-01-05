@@ -21,6 +21,8 @@ class MealsWithOrdersResource extends JsonResource
             'start' => $this->start,
             'end' => $this->end,
             "total_price_preview" => $this->total_price_preview,
+            "responsible_waiter_id" => $this->responsible_waiter_id,
+
             'order' => $this->order()->with('item')->get(),
         ];
     }

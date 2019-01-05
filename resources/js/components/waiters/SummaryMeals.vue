@@ -57,13 +57,6 @@
     export default {
         data: function () {
             return {
-                columns: [
-                    "id",
-                    "state",
-                    "table_number",
-                    "total_price_preview",
-                ],
-                options: {},
                 sumary:null,
                 items: null,
                 fields: [
@@ -90,7 +83,9 @@
                 axios
                     .get(page_url)
                     .then(response => {
+
                         this.sumary = response.data.data;
+                        console.log(response.data.data);
                         pg.makePagination(response.data.meta, response.data.links);
                     })
                     .catch(error => {

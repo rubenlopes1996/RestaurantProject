@@ -74,9 +74,11 @@ Route::get('meals', 'MealsControllerAPI@index');
 Route::post('waiter/{id}/meal','MealsControllerAPI@store');
 
 Route::get('meals/{id}','MealsControllerAPI@showMealsById');
-Route::post('addorders','OrderControllerAPI@store');
+Route::post('addorders  ','OrderControllerAPI@store');
 
 Route::get('waiter/list-orders/pending/confirmed', 'OrderControllerAPI@listOrderPendingConfirmed');
+
+Route::delete('waiter/{id}/delete/order', 'OrderControllerAPI@destroy');
 
 Route::get('waiter/{id}/orders/prepared','MealsControllerAPI@showMealsWithPreparedOrders');
 Route::patch('waiter/order/{id}/delivered','OrderControllerAPI@swapOrderToDelivered');
@@ -87,3 +89,27 @@ Route::patch('waiter/{id}/meals/terminated','MealsControllerAPI@terminatedMeals'
 
 
 Route::put('waiter/{id}/meal/terminated/invoices', 'InvoicesControllerAPI@store');
+
+
+
+//US35
+Route::get('list-meals','MealsControllerAPI@listmealsManager');
+Route::get('list/meals/summary','MealsControllerAPI@listmealsManagerSummary');
+//US37
+Route::get('list/meals/pending', 'InvoicesControllerAPI@listInvoicesPending');
+
+//US36
+Route::get('list/meals/{data}','MealsControllerAPI@listMeals');
+
+Route::get('list/invoices/{data}','InvoicesControllerAPI@listInvoicesPaidOrNotPaid');
+Route::get('list/invoices/date/{begindate}/{enddate}','InvoicesControllerAPI@listInvoicesDate');
+
+
+Route::get('list/statistics','UserControllerAPI@showUsersWaiterCook');
+Route::get('list/statistics/{type}','UserControllerAPI@showUserByType');
+
+
+//fkusahia
+Route::patch('waiter/order/{id}/confirmed','OrderControllerAPI@swapOrderToConfirmed');
+
+

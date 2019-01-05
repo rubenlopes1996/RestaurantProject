@@ -14,4 +14,7 @@ class Invoices extends Model
     public function invoices_invoice_items(){
         return $this->hasOne('App\InvoiceItems');
     }
+    public function meal(){
+        return$this->hasOne('App\Meals','id','meal_id');
+    }
 }

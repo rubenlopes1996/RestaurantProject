@@ -105,5 +105,38 @@ class InvoicesControllerAPI extends Controller
         return response()->json(new InvoicesResource($invoice), 201);
     }
 
+    public function listInvoicesPending()
+    {
+        return InvoicesResource::collection(Invoices::Where('state', 'pending')->paginate(10));
+    }
+
+    public function listInvoicesDate($date,$toDate ){
+
+        return InvoicesResource::collection(Invoices::whereBetween('date', array($date,$toDate))->paginate(10));
+    }
+    public function listInvoicesPaidOrNotPaid($data)
+    {
+
+        return InvoicesResource::collection(Invoices::where('state', $data)->paginate(10));
+
+//        dd( InvoicesResource::collection(Invoices::with(['meal'=> function ($q) {
+//        $q->orderBy('responsible_waiter_id', 'des');}])->paginate(2)));
+//
+        //$data = InvoicesResource::collection(Invoices::with(['meal'=> function ($q) {
+          //  $q->orderBy('responsible_waiter_id', 'des');}])->paginate(2));
+
+      //  return $data->sortByDesc('meal.responsible_waiter_id');
+
+
+
+
+
+
+
+
+    }
+
+
+
 }
 
