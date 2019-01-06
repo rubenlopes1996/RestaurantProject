@@ -69,9 +69,7 @@
                this.terminar(this.itemIdTerminatedMeal);
                //SOCKET HERE
                console.log(this.terminatedMeal_tableNumber);
-               this.$socket.emit('terminatedMeal_to_cashiers', this.$store.state.user, this.terminatedMeal_tableNumber, this.itemIdTerminatedMeal);
-
-               this.itemIdTerminatedMeal = null;
+               
             },
 
             terminar(meal_id){
@@ -82,6 +80,8 @@
                         this.$toasted.success('Meal has been terminated!', {duration: 3000, position: 'top-center'});
                         this.criarInvoices_Item__Invoice(meal_id);
                         this.mostrarList();
+                        this.$socket.emit('terminatedMeal_to_cashiers', this.$store.state.user, this.terminatedMeal_tableNumber, this.itemIdTerminatedMeal);
+                        this.itemIdTerminatedMeal = null;
                         
                     })
                     .catch(error => {

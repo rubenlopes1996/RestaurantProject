@@ -23,7 +23,7 @@ class InvoicesControllerAPI extends Controller
         if ($request->has('page')) {
             return InvoicesResource::collection(Invoices::Orderby('created_at')->paginate(10));
         } else if ($request->has('pending')) {
-            return InvoicesResource::collection(Invoices::Where('state', 'pending')->Orderby('created_at')->get());
+            return InvoicesResource::collection(Invoices::Where('state', 'pending')->Orderby('created_at', 'desc')->get());
         }
     }
 

@@ -14,4 +14,8 @@ class Orders extends Model
         return $this->hasOne(Items::class,'id','item_id');
     }
 
+    public function meal(){
+        return $this->hasOne(Meals::class, 'id', 'meal_id');
+    }
+
 }

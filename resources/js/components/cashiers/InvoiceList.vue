@@ -18,9 +18,6 @@
             <span v-if="data.value===newMeal || data.value===newestTMealId" id="checkNew">
               <b-form-checkbox checked="true" disabled></b-form-checkbox>
             </span>
-            <span v-else>
-              <p>{{data.value}}</p>
-            </span>
           </template>
           <template slot="details" slot-scope="row">
           <b-form-checkbox @click.native.stop @change="row.toggleDetails" v-model="row.detailsShowing">

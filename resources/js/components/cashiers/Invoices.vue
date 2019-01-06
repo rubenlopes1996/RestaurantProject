@@ -33,7 +33,6 @@ module.exports = {
   },
   methods: {
     refreshInvoices: function(mealId){
-      this.invoices = null;
       console.log("Chegou ao pai para pedir invoices, -->", mealId);
       this.getInvoices();
       this.newMeal=mealId;

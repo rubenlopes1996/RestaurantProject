@@ -49,11 +49,22 @@
         methods: {
             inPreparation: function(order) {
                 this.$emit("inPreparation", order);
+                
+
+
             },
             prepared: function(order) {
                 this.$emit("prepared", order);
+                
+
              }
         },
+    sockets:{
+      socketRefreshOrders(){
+        this.$emit("get-orders");
+        
+      }
+    }
     };
 </script>
 

@@ -118,6 +118,19 @@ io.on('connection', function (socket) {
         }
     });
 
+    socket.on('orderAdded_to_cooks', function () {
+        socket.broadcast.to('group_cook').emit('socketRefreshOrders');
+        socket.broadcast.to('group_cook').emit('freshOrder');
+    });
+
+    socket.on('orderChangedState', function() {
+        socket.broadcast.to('group_cook').emit('socketRefreshOrders');
+    });
+
+    socket.on('orderPrepared_to_waiter', function(waiter_Id) {
+        const waiter = loggedUsers.userInfoByID(waiter_Id);
+        io.to(waiter.socketID).emit('socketRefreshPCOrders');
+    });
 
 
     socket.on('user_saved', user=>{

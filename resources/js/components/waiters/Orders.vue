@@ -57,17 +57,26 @@
                 size: 30,
             };
         },
-        created() {
-            axios
+        methods:{
+            fetchPendingAndConfirmedOrders(){
+                axios
                 .get("api/waiter/list-orders/pending/confirmed")
                 .then(response => {
                     this.orders = response.data.data;
-                    let pg = this;
-                    pg.makePagination(response.data.meta, response.data.links);
                 })
                 .catch(error => {
                     console.log(error);
                 });
+            }
+        },
+        sockets:{
+            socketRefreshPCOrders(){
+                this.$toasted.success('Order Prepared', {duration: 2000, position: 'top-right'});
+                this.fetchPendingAndConfirmedOrders();
+            }
+        },
+        created() {
+            this.fetchPendingAndConfirmedOrders();
         },
     
     };

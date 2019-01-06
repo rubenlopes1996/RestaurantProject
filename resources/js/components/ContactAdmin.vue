@@ -1,6 +1,6 @@
 <template>
     <div style="margin-top:200px">
-        <div class="container">
+       <!-- <div class="container">
             <div class="row">
                 <form role="form" id="contact-form" class="contact-form">
                     <h4>Contact an Administrator</h4>
@@ -26,11 +26,56 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div>-->
+        <form @submit.prevent="sendMessageTo" class="contact-form">
+            <div class="form-group" :class="{ 'form-group--error': $v.name.$error }">
+                <label class="form__label">Name</label>
+                <input class="form__input form-control" v-model.trim="$v.name.$model"/>
+            </div>
+            <div class="error" v-if="!$v.name.required">Name is required</div>
+            <div class="error" v-if="!$v.name.minLength">Name must have at least {{$v.name.$params.minLength.min}} letters.</div>
+            <button class="btn main-btn" type="submit" :disabled="submitStatus === 'PENDING'">Submit!</button>
+            <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your submission!</p>
+            <p class="typo__p" v-if="submitStatus === 'ERROR'">Please fill the form correctly.</p>
+            <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
+        </form>
     </div>
 </template>
 
 <script>
+import { required, minLength } from 'vuelidate/lib/validators'
+
+export default {
+  data() {
+    return {
+      name: '',
+      age: 0,
+      submitStatus: null
+    }
+  },
+  validations: {
+    name: {
+      required,
+      minLength: minLength(4)
+    }
+  },
+  methods: {
+    submit() {
+      console.log('submit!')
+      this.$v.$touch()
+      if (this.$v.$invalid) {
+        this.submitStatus = 'ERROR'
+      } else {
+        // do your submit logic here
+        this.submitStatus = 'PENDING'
+        setTimeout(() => {
+          this.submitStatus = 'OK'
+        }, 500)
+      }
+    }
+  }
+}
+/*
 module.exports = {
     data: function() {
         return {
@@ -58,14 +103,7 @@ module.exports = {
             this.msgDepText ="";
         },
         sendMessageTo: function(){
-				/*let msg = window.prompt('What do you want to say to "' + this.user.name + '"');
-				console.log('Sending Message "' + msg + '" to "' + this.user.name + '"');
-
-				// CODE TO SEND MESSAGE USING WEB SOCKETS
-				this.$socket.emit('privateMessage', msg, this.user, this.$store.state.user);
-				// Complete ...
 				
-                this.$toasted.show('Message "' + msg + '" sent to "' + this.user.name + '"');*/
                 
                 this.$socket.emit('msg_from_client_to_admin',  this.desc, this.msgGlobalText, this.$store.state.user);
                 this.$toasted.success('Your message has been sent.', {duration: 3000, position: 'top-center'});
@@ -80,5 +118,5 @@ module.exports = {
             this.$toasted.error('User "' + destUser.name + '" is not available');
         }
     }
-}
+}*/
 </script>

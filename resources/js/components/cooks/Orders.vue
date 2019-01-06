@@ -7,7 +7,7 @@
               </button>
         <strong>{{ successMessage }}</strong>
       </div>
-      <order-list :orders="orders" @inPreparation="inPreparation" @prepared="prepared"></order-list>
+      <order-list :orders="orders" @inPreparation="inPreparation" @prepared="prepared" @get-orders="refreshOrders"></order-list>
     </div>
   </div>
 </template>
@@ -23,15 +23,20 @@
       };
     },
     methods: {
+      refreshOrders: function(){
+        this.getOrders();
+      },
       getOrders: function() {
         axios.get("api/orders/" + this.user.id).then(response => {
           this.orders = response.data.data;
-          console.log(response.data.data);
+          console.log("User Id",this.user.id);
         });
       },
       inPreparation: function(order) {
         axios.patch('/api/orders/inPreparation/'+order.id).then(response => {
             this.getOrders();
+            //sockets
+            this.$socket.emit('orderChangedState');
           })
           .catch(error => {
             console.log(error.response.data.message);
@@ -41,6 +46,9 @@
       prepared: function(order) {
          axios.patch('/api/orders/prepared/'+order.id).then(response => {
             this.getOrders();
+            //sockets
+            this.$socket.emit('orderChangedState');
+            this.$socket.emit('orderPrepared_to_waiter', order.responsible_waiter_id);
           })
           .catch(error => {
             console.log(error.response.data.message);

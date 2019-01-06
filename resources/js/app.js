@@ -83,6 +83,7 @@ const app = new Vue({
     el: '#app',
     router,
     store,
+    validations: {},
     created() {
         this.$store.commit('loadTokenAndUserFromSession');
     }

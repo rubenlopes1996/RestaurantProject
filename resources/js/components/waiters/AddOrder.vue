@@ -54,7 +54,9 @@
                 axios
                     .patch("api/waiter/order/"+this.orderID+"/confirmed")
                     .then(response => {
-                            console.log(response.data);
+                            console.log("Order changed to confirmed");
+                            //SOCKET
+                            this.$socket.emit('orderAdded_to_cooks');
                     })
                     .catch(error => {
                         console.log(error);

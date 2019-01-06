@@ -6,7 +6,7 @@
             <div class="card-group">
                 <div v-for="item in items" v-bind:key="item.id">
                     <div class="card" style="width: 18rem; margin:10px">
-                        <img class="card-img-top" :src="'storage/items/'+item.photo_url" alt="Card image cap">
+                        <img class="card-img-top center-block img-responsive" :src="'storage/items/'+item.photo_url" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">{{item.name}}</h5>
                             <p class="card-text">{{item.price}} €</p>
