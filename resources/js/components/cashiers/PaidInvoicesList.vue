@@ -15,7 +15,7 @@
     </b-row>
     <b-table hover :items="items" :fields="fields" v-if="items!=null" :filter="filter" :bordered="true">
       <template slot="id" slot-scope="data">
-        <span style="color:red" v-if="data.value===newestInvoiceId || data.value===newInvoice" id="checkNew">
+        <span v-if="data.value===newestInvoiceId || data.value===newInvoice" id="checkNew">
           <b-form-checkbox checked="true" disabled></b-form-checkbox>
         </span>
         <span v-else>
@@ -127,12 +127,12 @@
           })
       },
     },
-      sockets:{
-        socketRefresh(dataFromServer){
-          console.log("AQUIII"+dataFromServer);
-          this.newInvoice = dataFromServer;
-          this.fecthPaidInvoices();
-        }
+    sockets:{
+      socketRefresh(dataFromServer){
+        //console.log("AQUIII"+dataFromServer);
+        this.newInvoice = dataFromServer;
+        this.fecthPaidInvoices();
+      }
     }
   };
 </script>

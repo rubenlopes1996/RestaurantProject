@@ -56,7 +56,7 @@
                 axios
                     .patch("api/waiter/order/"+id+"/delivered")
                     .then(response => {
-                        this.$toasted.success('Orders has been delivered!', {duration: 2000, position: 'top-center'});
+                        this.$toasted.success('Order has been delivered!', {duration: 2000, position: 'top-center'});
                         this.fetchOrdersPrepared();
 
                     })

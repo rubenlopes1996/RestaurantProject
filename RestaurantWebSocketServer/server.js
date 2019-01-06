@@ -110,6 +110,14 @@ io.on('connection', function (socket) {
         }
     });
 
+    socket.on('terminatedMeal_to_cashiers', function (userInfo, meal_table_number, meal_id) {
+        if (userInfo != undefined) {
+            socket.broadcast.to('group_cashier').emit('socketRefreshMeals', meal_id);
+            socket.broadcast.to('group_cashier').emit('freshTerminatedMeals', userInfo.type + ': ' + userInfo.name, meal_table_number, meal_id);
+             
+        }
+    });
+
 
 
     socket.on('user_saved', user=>{

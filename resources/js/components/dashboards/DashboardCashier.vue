@@ -9,7 +9,7 @@
                     <p>Hello, {{user.name}}</p>
                 </li>
                 <li class="users">
-                    <router-link class="nav-link" to="/dashboardCashier/invoices"><feather-icon type="box"></feather-icon> Pending Invoices</router-link>
+                    <router-link class="nav-link" :to="{name: 'invoices', params: {newestTMealId: -1 }}"><feather-icon type="box"></feather-icon> Pending Invoices</router-link>
                 </li>
                 <li class="users">
                     <router-link class="nav-link" to="/dashboardCashier/paidinvoices"><feather-icon type="box"></feather-icon> Paid Invoices</router-link>

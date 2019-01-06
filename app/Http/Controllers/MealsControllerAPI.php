@@ -45,12 +45,9 @@ class MealsControllerAPI extends Controller
         $meal->state='terminated';
         $meal->end=Carbon::now();
         $meal->save();
-        $orders =  Orders::where('meal_id', $id)
-            ->where('state','!=','delivered')
-            ->get();
+        $orders = Orders::where('meal_id', $id) ->where('state','!=','delivered') ->get();
 
-        foreach ($orders as $order){
-
+        foreach ($orders as $order){ 
             $order->state = 'not delivered';
             $order->save();
         }

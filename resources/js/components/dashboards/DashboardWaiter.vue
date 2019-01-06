@@ -35,7 +35,7 @@
                 </li>
                 <li class="users">
                     <router-link class="nav-link" to="/dashboardWaiter/my/meals/terminated">
-                        <feather-icon type="delete"></feather-icon> Terminated Meals
+                        <feather-icon type="delete"></feather-icon> Terminate Meals
                     </router-link>
                 </li>
                 <li class="users">

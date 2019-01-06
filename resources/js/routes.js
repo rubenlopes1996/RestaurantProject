@@ -99,12 +99,14 @@ let routes = [{
         meta: {
             middlewareAuth: true
         },
-        children: [{
-                path: 'invoices',
+        children: [
+            {
+                path: '/invoices/:newestMealId',
+                name: 'invoices',
                 component: require('./components/cashiers/Invoices.vue'),
                 meta: {
                     middlewareAuth: true
-                }
+                },
             },
             {
                 path: 'paidinvoices',
