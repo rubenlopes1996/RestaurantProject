@@ -78,7 +78,7 @@ let routes = [{
             },
             {
                 path: 'statistics',
-                component: require('./components/manager/Statistics.vue'),
+                component: require('./components/statistics/Statistics.vue'),
                 meta: {
                     middlewareAuth: true
                 }

@@ -45,6 +45,10 @@ Route::patch('employee/confirm/{email}','API\AuthController@confirmActivation');
 Route::get('restaurant-tables', 'RestaurantTableAPI@index');
 Route::post('restaurant-tables', 'RestaurantTableAPI@create');
 Route::delete('restaurant-tables/{id}','RestaurantTableAPI@destroy');
+Route::get('restaurant-table/{id}', 'RestaurantTableAPI@show');
+Route::put('restaurant-table/{id}', 'RestaurantTableAPI@update');
+
+
 
 //Cashiers
 Route::get('invoices', 'InvoicesControllerAPI@index');
@@ -54,9 +58,8 @@ Route::put('invoices/{id}', 'InvoicesControllerAPI@update');
 Route::get('paidInvoices/download/{id}','InvoicesControllerAPI@downloadPDF');
 
 //My profile
-Route::put('employee-profile/{id}', 'UserControllerAPI@update');
+Route::put('employee-profile/{id}', 'UserControllerAPI@updateProfile');
 Route::post('employee-photo/{id}', 'UserControllerAPI@uploadPhoto');
-Route::put('employeePassword/{id}', 'UserControllerAPI@updatePassword');
 
 //Restaurant menu
 Route::get('menu', 'ItemControllerAPI@index');
@@ -108,6 +111,7 @@ Route::get('list/invoices/date/{begindate}/{enddate}','InvoicesControllerAPI@lis
 
 Route::get('list/statistics','UserControllerAPI@showUsersWaiterCook');
 Route::get('list/statistics/{type}','UserControllerAPI@showUserByType');
+Route::get('statistics/waiter/{id}/date','StatisticsControllerAPI@statisticsByEmployeeAndDate');
 
 
 //fkusahia

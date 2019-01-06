@@ -60,7 +60,7 @@ class RestaurantTableAPI extends Controller
      */
     public function show($id)
     {
-        //
+        return new RestaurantTableResource(User::find($id));
     }
 
     /**
@@ -82,8 +82,21 @@ class RestaurantTableAPI extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   
+        $table = RestaurantTable::findOrFail($id);
+        $data = $request->validate([
+            'table_number' => 'required|min:1|numeric|unique:restaurant_tables,table_number'
+        ]);
+        
+        $table->table_number = $data['table_number'];
+
+        $meals = $table->meals;
+        if(!$meals->isEmpty()){
+            return Response::json(['error' => 'Can not change the number of the restaurant because it has meals associated with.'], 403);
+        }
+
+        $table->save();
+        return response()->json(new RestaurantTableResource($table), 201);
     }
 
     /**

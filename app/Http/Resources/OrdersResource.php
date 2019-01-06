@@ -26,6 +26,5 @@ class OrdersResource extends JsonResource
             'type'=>$this->item->type
 
         ];
-        //return parent::toArray($request);
     }
 }
