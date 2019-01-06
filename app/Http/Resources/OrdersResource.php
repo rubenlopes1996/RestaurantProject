@@ -28,6 +28,5 @@ class OrdersResource extends JsonResource
             'responsible_waiter_id'=> $this->meal->responsible_waiter_id
 
         ];
-        //return parent::toArray($request);
     }
 }

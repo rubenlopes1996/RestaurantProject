@@ -98,7 +98,7 @@ class UserControllerAPI extends Controller
             'name' => 'required|string|max:255|regex:/^[\pL\s]+$/u',
             'username' => 'required|string',
         ]);
-
+        $user = User::findOrFail($id);
         $user->name = $dados['name'];
         $user->username = $dados['username'];
 

@@ -24,4 +24,10 @@ class Meals extends Model
         return $this->belongsTo('Invoices');
     }
 
+    public function table()
+    {
+        return $this->belongsTo(RestaurantTable::class);
+    }
+
+
 }

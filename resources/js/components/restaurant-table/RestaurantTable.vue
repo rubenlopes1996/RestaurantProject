@@ -6,8 +6,8 @@
         <button type="button" class="close" aria-label="Close" v-on:click="showSuccess=false"><span aria-hidden="true">&times;</span></button>
         <strong>{{ successMessage }}</strong>
       </div>
-      <table-edit :tables="currentTable" @save-table="saveTable()" @cancel-edit="cancelEdit()"></table-edit>
-      <table-list :tables="tables" @edit-table="editTable" @delete-table="deleteTable"></table-list>
+      <table-edit :tables="currentTable" @save-table="saveTable()" @save-edited="saveEditedTable" @cancel-edit="cancelEdit()"></table-edit>
+      <table-list :tables="tables" @edit-table="editTable"  @delete-table="deleteTable"></table-list>
     </div>
   </div>
 </template>
@@ -24,11 +24,33 @@
         currentTable: null,
         newTable: null,
         tables: null,
+        table : null
       };
     },
     methods: {
+      saveEditedTable: function () {
+        this.editingTable= false;
+        console.log(this.currentTable);
+        axios.put("api/restaurant-table/" + this.table.table_number, this.currentTable)
+          .then(response => {
+            this.showSuccess = true;
+            this.$toasted.success('Restaurant table edited with success!', {duration: 5000, position: 'top-center'});
+            Object.assign(this.currentTable, response.data);
+            this.getTables();
+
+          })
+          .catch(error => {
+            this.showFailure = true;
+            this.showSuccess = false;
+            this.failMessage = error.response.data.message;
+            console.log(error.response.data.message);
+          });
+    },
+      cancelEdit : function () {
+        //fechar cancel
+      },
       saveTable: function(table) {
-        console.log(table)
+        this.editingTable = false;
         axios.post("api/restaurant-tables", table)
           .then(response => {
             this.successMessage = "Table Created";
@@ -42,7 +64,12 @@
             console.log(error.response.data.message);
           });
       },
-      editTable: function() {},
+      editTable: function(table) {
+        this.table = table;
+        this.currentTable = Object.assign({}, table);
+        this.editingTable = true;
+        this.showSuccess = false;
+      },
       deleteTable: function(table) {
         if (table === this.currentTable) {
           this.currentTable = null;
