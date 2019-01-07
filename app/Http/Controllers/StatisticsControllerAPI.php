@@ -83,10 +83,11 @@ class StatisticsControllerAPI extends Controller
     public function getAverageMinutesOrdersPerMonth(){
         $data = Orders::selectRaw("items.name, DATE_FORMAT(orders.created_at, '%m') as month, CAST(AVG(TIMESTAMPDIFF(MINUTE, start, end)) AS UNSIGNED INTEGER) as average ")
             ->leftJoin('items', 'items.id', '=', 'orders.item_id')
-            ->where('state', 'delivered')
+            ->where('state', 'delivered')->orWhere('state','not delivered')
             ->groupBy(DB::raw("DATE_FORMAT(orders.created_at, '%m')"))
             ->groupBy("item_id")
             ->get();
+
  
         return response()->json($data);
     }
