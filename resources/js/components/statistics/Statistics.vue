@@ -30,14 +30,15 @@
         <div class="small">
             <line-chart :chart-data="dataOrder"></line-chart>
         </div>
-         <div class="small">
+        <div class="small">
             <line-chart :chart-data="dataMeal"></line-chart>
         </div>
-          <div class="small">
+        <div class="small">
             <line-chart :chart-data="dataTimeMeal"></line-chart>
         </div>
-          <div class="small">
-            <line-chart :chart-data="dataTimeOrder"></line-chart>
+        <div class="small">
+              <b-table hover :items="avgOrder" :fields="fields" :filter="filter" :per-page="perPage" :current-page="currentPage" :bordered="true">
+            </b-table>
         </div>
     </div>
 </template>
@@ -51,37 +52,27 @@
         },
         data: function() {
             return {
-                dataTimeMeal:null,
-                dataTimeOrder:null,
+                columns: ["Name", "Month","Average time"],
+                dataTimeMeal: null,
                 dataOrder: null,
                 dataEmployee: null,
                 dataMeal: null,
                 usersKW: null,
                 startDate: null,
                 endDate: null,
+                avgOrder: [],
                 options: {
                     format: 'YYYY-MM-DD',
                     useCurrent: false,
                 },
-
+    
                 dataUser: {
                     user_id: null,
                 },
                 optionItems: [
-
+    
                 ],
             };
-        },
-        validations: {
-            employeeSelect: {
-                required
-            },
-            startDate: {
-                required
-            },
-            endDate: {
-                required
-            },
         },
         created() {
             this.getCooksAndWaiters();
@@ -92,7 +83,7 @@
         },
         methods: {
             submit() {
-
+    
                 this.$v.$touch()
                 if (this.$v.$invalid) {
                     this.submitStatus = 'ERROR'
@@ -118,7 +109,7 @@
                                 value: element.id
                             });
                         });
-
+    
                     })
                     .catch(error => {
                         console.log(error);
@@ -161,7 +152,7 @@
                     console.log(error);
                 })
             },
-            statisticsMeal(){
+            statisticsMeal() {
                 axios.get('api/statistics/meals').
                 then(response => {
                     this.dataMeal = {
@@ -177,7 +168,7 @@
                     console.log(error);
                 })
             },
-            statisticsTimeMeal(){
+            statisticsTimeMeal() {
                 axios.get('api/statistics/timeMeals').
                 then(response => {
                     this.dataTimeMeal = {
@@ -193,24 +184,15 @@
                     console.log(error);
                 })
             },
-            statisticsTimeOrder(){
+            statisticsTimeOrder(page_url) {
                 axios.get('api/statistics/timeOrders').
                 then(response => {
                     console.log(response.data)
-                    this.dataTimeOrder = {
-                        labels: response.data.labels,
-                        datasets: [{
-                            label: 'Average time it takes to handle each order',
-                            backgroundColor: '#f87979',
-                            data: response.data.series
-                        }]
-                    }
-    
+                    this.avgOrder = response.data;
                 }).catch(error => {
                     console.log(error);
                 })
             }
-    
     
         }
     }
