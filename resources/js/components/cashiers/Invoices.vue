@@ -41,7 +41,6 @@ module.exports = {
       this.currentInvoice = Object.assign({}, invoice);
     },
     getInvoices: function() {
-
       axios.get("api/invoices?pending").then(response => {
         //this.invoices = response.data.data;
         this.invoices = response.data.data;

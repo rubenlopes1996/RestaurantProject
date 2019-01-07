@@ -1,33 +1,46 @@
 <template>
-    <div class="jumbotron">
-        <b-form-group>
-            <p>Select a employee</p>
-            <div class="col-sm-12">
-                <b-form-select v-model="dataUser.user_id" :options="optionItems" size="lg"></b-form-select>
-            </div>
-        </b-form-group>
+    <div>
+        <div class="jumbotron">
+            <div>
+                <b-form-group>
+                    <p>Select a employee</p>
+                    <div class="col-sm-12">
+                        <b-form-select v-model="dataUser.user_id" :options="optionItems" size="lg"></b-form-select>
+                    </div>
+                </b-form-group>
     
-        <b-container>
-            <b-row>
-                <b-col>
-                    <p>Start Date</p>
-                    <date-picker v-model="startDate" :config="options"></date-picker>
-                </b-col>
-                <b-col>
-                    <p>End Date</p>
-                    <date-picker v-model="endDate" :config="options"></date-picker>
-                </b-col>
-            </b-row>
-        </b-container>
-        <b-button v-on:click.prevent="statisticsByEmployeeAndDate()" variant="outline-secondary">Filter </b-button>
+                <b-container>
+                    <b-row>
+                        <b-col>
+                            <p>Start Date</p>
+                            <date-picker v-model="startDate" :config="options"></date-picker>
+                        </b-col>
+                        <b-col>
+                            <p>End Date</p>
+                            <date-picker v-model="endDate" :config="options"></date-picker>
+                        </b-col>
+                    </b-row>
+                </b-container>
+                <b-button v-on:click.prevent="statisticsByEmployeeAndDate()" variant="outline-secondary">Filter </b-button>
+            </div>
+        </div>
+        <div class="small">
+            <line-chart :chart-data="datacollection"></line-chart>
+        </div>
     </div>
 </template>
 
 <script>
-    module.exports = {
+    import LineChart from './statisticsOrders.vue'
+    
+    export default {
+        components: {
+            LineChart
+        },
     
         data: function() {
             return {
+                datacollection: null,
                 usersKW: null,
                 startDate: null,
                 endDate: null,
@@ -48,6 +61,7 @@
         },
         created() {
             this.getCooksAndWaiters();
+            this.statisticsOrder();
         },
         methods: {
             getCooksAndWaiters: function() {
@@ -82,6 +96,27 @@
                 }).catch(error => {
                     console.log(error);
                 })
+            },
+            statisticsOrder() {
+                axios.get('api/statistics/orders').
+                then(response => {
+                    console.log(response.data);
+                    this.datacollection = {
+                        datasets: [{
+                            label: 'Data One',
+                            backgroundColor: '#f87979',
+                            data: [response.data.label]
+                        }, {
+                            label: 'Data One',
+                            backgroundColor: '#f87979',
+                            data: [response.data.series]
+                        }]
+                    }
+                }).catch(error => {
+                    console.log(error);
+                })
+    
+    
             }
     
     

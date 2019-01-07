@@ -113,11 +113,11 @@
       },
       downloadPDF(invoice){
         console.log(invoice)
-          axios({url:"api/paidInvoices/download/"+invoice.id ,method:'GET',responseType:'blob'}).then(response=>{
+          axios({url:"api/paidInvoices/download/"+invoice ,method:'GET',responseType:'blob'}).then(response=>{
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'file.pdf');
+            link.setAttribute('download', 'Invoice'+invoice+'.pdf');
             document.body.appendChild(link);
             link.click();
             console.log("success");

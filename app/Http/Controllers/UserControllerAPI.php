@@ -51,13 +51,29 @@ class UserControllerAPI extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->validate([
-            'name' => 'required|min:3|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
+            'name' => 'required|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
             'username' => 'required|unique:users,username,' . $id,
         ]);
 
         $user = User::findOrFail($id);
         $user->name = $data['name'];
         $user->username = $data['username'];
+        $user->save();
+        return new UserResource($user);
+    }
+
+    public function updateProfile(Request $request, $id)
+    {
+        $dados = $request->validate([
+            'name' => 'required|string|max:255|regex:/^[\pL\s]+$/u',
+            'username' => 'required|string',
+            'password' => ' required|min:6'
+        ]);
+        $user = User::findOrFail($id);
+        $user->name = $dados['name'];
+        $user->password =  bcrypt($request->password);
+        $user->username = $dados['username'];
+
         $user->save();
         return new UserResource($user);
     }
@@ -91,20 +107,6 @@ class UserControllerAPI extends Controller
                 'photo' => $uploadedFile
             ]
         );
-    }
-
-    public function updateProfile(Request $request, $id)
-    {
-        $dados = $request->validate([
-            'name' => 'required|string|max:255|regex:/^[\pL\s]+$/u',
-            'username' => 'required|string',
-        ]);
-        $user = User::findOrFail($id);
-        $user->name = $dados['name'];
-        $user->username = $dados['username'];
-
-        $user->save();
-        return new UserResource($user);
     }
 
     public function destroy($id)

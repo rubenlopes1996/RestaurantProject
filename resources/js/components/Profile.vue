@@ -84,12 +84,8 @@ export default {
       this.upload();
     },
     upload() {
-      for (let i = 0; i < this.files.length; i++) {
-        if (this.files[i].id) {
-          continue;
-        }
         let formData = new FormData();
-        formData.append("file", this.files[i]);
+        formData.append("file", this.files[0]);
 
         axios
           .post("api/employee-photo/" + this.user.id, formData, {
@@ -98,14 +94,11 @@ export default {
             }
           })
           .then(response => {
-            console.log(response.data);
-            //this.user.photo_url = response.data.photo;
-            updateProfile();
+            this.updateProfile();
           })
           .catch(error => {
-            console.log(error.response.data.message);
+            console.log(error);
           });
-      }
     },
     updateProfile: function() {
       axios

@@ -7,26 +7,86 @@ use App\User;
 use App\Orders;
 use Illuminate\Support\Carbon;
 use \Datetime;
+use Illuminate\Support\Facades\DB;
 
 class StatisticsControllerAPI extends Controller
-{
+{   //Us 39
     public function statisticsByEmployeeAndDate(Request $request, $id){
+        
         $user = User::findOrFail($id);
-        if($user->type == "waiter"){
 
+        if(!($user->type == 'waiter' || $user->type == 'cook')){
+            return response()->json(['error' => ['message' => 'Error! ']], 403);
         }
-        else if($user->type == "cook"){
-            $start = DateTime::createFromFormat('Y-m-d', $request->startDate);
-            $start = $start->setTime(0,0,0);
-            $end = DateTime::createFromFormat('Y-m-d', $request->endDate);
-            $end = $end->setTime(0,0,0);
 
-            $orders = Orders::where('responsible_cook_id',$user->id)->where('state','prepared')->where('created_at','>=',$start)
-                            ->where('created_at','<=',$end)->get();
-
-            $days = $start->diff($end);
-            $avgOrder = (count($orders))/($days->days +1);
-            dd($avgOrder);
+        if($user->type === 'cook'){
+            $data = Orders::where('responsible_cook_id', $user->id)
+                ->selectRaw('DATE(created_at) as `date`, COUNT(*) as `total`')
+                ->whereRaw('created_at >= DATE(NOW()) - INTERVAL 60 DAY')
+                ->groupBy(DB::raw('DATE(created_at)'))
+                ->get();
+        }else{
+            $data = Meals::where('responsible_waiter_id', $user->id)
+                ->selectRaw('DATE(created_at) as `date`, COUNT(*) as `total`')
+                ->whereRaw('created_at >= DATE(NOW()) - INTERVAL 60 DAY')
+                ->groupBy(DB::raw('DATE(created_at)'))
+                ->get();
         }
+
+        return response()->json([
+            'labels' => $data->pluck('date'),
+            'series' => $data->pluck('total')
+        ]);
+    }
+    //Meals US40
+    public function getTotalMeals(){
+        $data = Meals::selectRaw("DATE_FORMAT(created_at, '%b') as month, COUNT(*) as total")
+            ->where('state', 'paid')
+            ->OrWhere('state', 'terminated')
+            ->groupBy(DB::raw("DATE_FORMAT(created_at, '%b')"))
+            ->get();
+ 
+        return response()->json([
+            'labels' => $data->pluck('month'),
+            'series' => $data->pluck('total')
+        ]);
+    }
+
+    public function getAverageMinutesMealPerMonth(){
+        $data = Meals::selectRaw("DATE_FORMAT(created_at, '%b') as month, CAST(AVG(TIMESTAMPDIFF(MINUTE, start, end)) AS UNSIGNED INTEGER) as average")
+            ->where('state', 'paid')
+            ->groupBy(DB::raw("DATE_FORMAT(created_at, '%b')"))
+            ->get();
+ 
+ 
+        return response()->json([
+            'labels' => $data->pluck('month'),
+            'series' => $data->pluck('average')
+        ]);
+    }
+
+    //Orders US40
+
+    public function getTotalOrders(){
+        $data = Orders::selectRaw("DATE_FORMAT(created_at, '%b') as month, COUNT(*) as total")
+            ->where('state', 'delivered')
+            ->groupBy(DB::raw("DATE_FORMAT(created_at, '%b')"))
+            ->get();
+ 
+        return response()->json([
+            'labels' => $data->pluck('month'),
+            'series' => $data->pluck('total')
+        ]);
+    }
+
+    public function getAverageMinutesOrdersPerMonth(){
+        $data = Orders::selectRaw("items.name, DATE_FORMAT(orders.created_at, '%b') as month, CAST(AVG(TIMESTAMPDIFF(MINUTE, start, end)) AS UNSIGNED INTEGER) as average ")
+            ->leftJoin('items', 'items.id', '=', 'orders.item_id')
+            ->where('state', 'delivered')
+            ->groupBy(DB::raw("DATE_FORMAT(orders.created_at, '%b')"))
+            ->groupBy("item_id")
+            ->get();
+ 
+        return response()->json($data);
     }
 }

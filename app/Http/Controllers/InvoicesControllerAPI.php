@@ -54,13 +54,7 @@ class InvoicesControllerAPI extends Controller
         //TODO, meals para testar
         Meals::findOrFail($invoice->meal_id)->state = 'paid';
         $invoice->save();
-        $items = InvoiceItems::Where('invoice_id', $request->id)->get();
-        $responsible_waiter = User::find(Meals::find($invoice->meal_id)->responsible_waiter_id)['name'];
-        $nameItem = Items::find(InvoiceItems::Where('invoice_id', $invoice->id)->pluck('item_id'));
-
-        $pdf = PDF::loadView('pdf.PDF', compact('invoice', 'items', 'responsible_waiter', 'nameItem'));
-        $filename = base_path('storage/app/public/invoices/'.$invoice->nif . $invoice->id . '.pdf');
-        $pdf->save($filename);
+      
 
         return new InvoicesResource($invoice);
     }
@@ -68,7 +62,12 @@ class InvoicesControllerAPI extends Controller
     public function downloadPDF($id)
     {   
         $invoice =Invoices::findOrFail($id);
+        $items = InvoiceItems::Where('invoice_id', $id)->get();
+        $responsible_waiter = User::find(Meals::find($invoice->meal_id)->responsible_waiter_id)['name'];
+        $nameItem = Items::find(InvoiceItems::Where('invoice_id', $invoice->id)->pluck('item_id'));
+        $pdf = PDF::loadView('pdf.PDF', compact('invoice', 'items', 'responsible_waiter', 'nameItem'));
         $filename = base_path('storage/app/public/invoices/'.$invoice->nif . $invoice->id . '.pdf');
+        $pdf->save($filename);
         return \Response::download($filename);
     }
 
@@ -121,20 +120,28 @@ class InvoicesControllerAPI extends Controller
 
         return InvoicesResource::collection(Invoices::where('state', $data)->paginate(10));
 
-//        dd( InvoicesResource::collection(Invoices::with(['meal'=> function ($q) {
-//        $q->orderBy('responsible_waiter_id', 'des');}])->paginate(2)));
-//
-        //$data = InvoicesResource::collection(Invoices::with(['meal'=> function ($q) {
-          //  $q->orderBy('responsible_waiter_id', 'des');}])->paginate(2));
-
-      //  return $data->sortByDesc('meal.responsible_waiter_id');
+    }
 
 
+    public function notPaid($id){      
+        $invoice = Invoices::findOrFail($id);
+        $invoice->state = "not paid";
 
+        $meal = Meals::findOrFail($invoice->meal_id);
+        $meal->state = "not paid";
+        $meal->end = Carbon::now();
 
+        $orders = Orders::Where('meal_id',$meal->id);
+        foreach($orders as $order){
+            if($order->state != 'delivered'){
+                $order->state = "not delivered";
+            }
+            $order->end = Carbon::now();
+            $order->save();
+        }
 
-
-
+        $meal->save();
+        $invoice->save();
 
     }
 

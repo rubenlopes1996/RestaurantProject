@@ -3,10 +3,11 @@
         <h2>Edit Table</h2>
         <div class="form-group">
             <label for="tableNumber">Table Number</label>
-            <input type="text" class="form-control" v-model="tables.table_number" name="table_number" id="table_number" placeholder="Table number" value="" />
+            <input type="text" class="form-control" v-model="tables.table_number" name="table_number" id="table_number" placeholder="Table number" value>
         </div>
         <div class="form-group">
             <a class="btn btn-primary" v-on:click.prevent="saveTable()">Save</a>
+            <a class="btn btn-light" v-on:click.prevent="cancelEdit()">Cancel</a>
         </div>
     </div>
 </template>
@@ -24,8 +25,11 @@
         methods: {
             saveTable: function() {
                 this.$emit("save-edited");
+            },
+            cancelEdit: function() {
+                this.$emit("cancel-edit");
             }
         }
-    }
+    };
 </script>
 

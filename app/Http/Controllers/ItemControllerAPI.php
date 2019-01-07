@@ -36,7 +36,7 @@ class ItemControllerAPI extends Controller
             'name' => 'required',
             'description' => 'required',
             'type' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric|between:0.01,1000000.00',
             'photo' => 'required'
         ]);
 

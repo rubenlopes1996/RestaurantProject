@@ -37,7 +37,6 @@
         },
         methods: {
             submit() {
-                console.log('submit!')
                 this.$v.$touch()
                 if (this.$v.$invalid) {
                     this.submitStatus = 'ERROR'
@@ -51,6 +50,7 @@
                 }
             },
             saveTable: function() {
+                this.table.table_number =this.tableNumber; 
                 this.$emit("save-table", this.table);
             }
         },

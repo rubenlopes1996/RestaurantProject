@@ -67,13 +67,8 @@
       cancelEdit: function() {
         this.showSuccess = false;
         this.editingUser = false;
-        axios.get("api/menu/" + this.currentItem.id).then(response => {
-          // Copies response.data.data properties to this.currentUser
-          // without changing this.currentUser reference
-          Object.assign(this.currentItem, response.data.data);
-          this.currentUser = null;
-        });
-      },
+        this.currentItem = null;
+},
       createItem: function(items,files) {
         const formData = new FormData();
         formData.append("photo", files[0]);

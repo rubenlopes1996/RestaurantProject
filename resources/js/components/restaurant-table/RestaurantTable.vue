@@ -6,7 +6,7 @@
         <button type="button" class="close" aria-label="Close" v-on:click="showSuccess=false"><span aria-hidden="true">&times;</span></button>
         <strong>{{ successMessage }}</strong>
       </div>
-      <table-edit :tables="currentTable" @save-table="saveTable()" @save-edited="saveEditedTable" @cancel-edit="cancelEdit()"></table-edit>
+      <table-edit :tables="currentTable" @save-table="saveTable()" @save-edited="saveEditedTable" @cancel-edit="cancelEdit"></table-edit>
       <table-list :tables="tables" @edit-table="editTable"  @delete-table="deleteTable"></table-list>
     </div>
   </div>
@@ -47,10 +47,14 @@
           });
     },
       cancelEdit : function () {
-        //fechar cancel
+        console.log("culpa do afonso!!")
+        this.showSuccess = false;
+        this.editingTable = false;
+        this.currentTable = null;
       },
       saveTable: function(table) {
         this.editingTable = false;
+        console.log(table);
         axios.post("api/restaurant-tables", table)
           .then(response => {
             this.successMessage = "Table Created";

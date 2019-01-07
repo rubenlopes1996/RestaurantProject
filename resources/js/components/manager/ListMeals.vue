@@ -27,7 +27,9 @@
         </b-row>
 
         <b-table hover :items="meals" :fields="fields" v-if="meals!=null" :filter="filter" :per-page="perPage" :current-page="currentPage" :bordered="true">
-
+             <template slot="action" slot-scope="row" v-if="meals[0].state =='terminated'">
+                <vs-button color="danger" type="filled" v-on:click.prevent="notPaidMeal(row.item)">Not paid</vs-button>
+            </template>
         </b-table>
         <nav aria-label="Page navigation example" v-if="meals!=null">
             <ul class="pagination">
@@ -60,12 +62,14 @@
                     {key:'table_number', sortable: true},
                     {key:'responsible_waiter_id', sortable: true},
                     {key:'total_price_preview', sortable: true},
+                    {key: 'action'}
                 ],
                 filter: null,
                 pagination: {},
                 currentPage: 1,
                 perPage: 10,
                 size: 30,
+                stateMeal: ""
             }
         },
         created() {
@@ -95,6 +99,8 @@
             },
             filterData(state){
                 console.log(state);
+                this.stateMeal = state;
+                console.log(this.stateMeal)
                 let pg = this;
                 axios
                     .get("api/list/meals/"+state+"?page=1")
@@ -118,6 +124,17 @@
                     prev_page_url: links.prev
                 };
                 this.pagination = pagination;
+            },
+            notPaidMeal(meal){
+                console.log(meal)
+                axios.put('api/meal/'+meal.id+'/notPaid').
+                then(response=>{
+                     this.$toasted.success('Meal has been confirmed has not paid', {duration: 5000, position: 'top-center'});
+                     this.filterData('terminated');
+
+                }).catch(error=>{
+                    console.log(error);
+                })
             }
         }
 

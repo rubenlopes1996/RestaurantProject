@@ -10,6 +10,7 @@ use \App\Meals;
 use Carbon\Carbon;
 use \App\Orders;
 use \App\Http\Resources\MealsWithOrdersResource;
+use App\Invoices;
 
 class MealsControllerAPI extends Controller
 {
@@ -172,6 +173,29 @@ class MealsControllerAPI extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function notPaid($id){
+        $meal = Meals::findOrFail($id);
+        $meal->state = "not paid";
+        $meal->end = Carbon::now();
+        
+        $invoice = Invoices::where('meal_id',$meal_id);
+        $invoice->state = "not paid";
+
+        $orders = Orders::Where('meal_id',$meal->id);
+        foreach($orders as $order){
+            if($order->state != 'delivered'){
+                $order->state = "not delivered";
+            }
+            $order->end = Carbon::now();
+            $order->save();
+        }
+
+        $meal->save();
+        $invoice->save();
+
     }
 
 

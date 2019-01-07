@@ -78,7 +78,6 @@
             getOrders: function(pagination) {
                 this.$emit("getOrders", pagination);
             },
-
         },
     sockets:{
       socketRefreshOrders(){

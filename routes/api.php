@@ -31,6 +31,10 @@ Route::middleware('auth:api')->group(function () {
 
 });
 
+Route::put('meal/{id}/notPaid','MealsControllerAPI@notPaid');
+Route::put('invoice/{id}/notPaid','InvoicesControllerAPI@notPaid');
+
+
 //Employees
 Route::get('employees', 'UserControllerAPI@index');
 Route::get('employee/{id}', 'UserControllerAPI@show');
@@ -47,8 +51,6 @@ Route::post('restaurant-tables', 'RestaurantTableAPI@create');
 Route::delete('restaurant-tables/{id}','RestaurantTableAPI@destroy');
 Route::get('restaurant-table/{id}', 'RestaurantTableAPI@show');
 Route::put('restaurant-table/{id}', 'RestaurantTableAPI@update');
-
-
 
 //Cashiers
 Route::get('invoices', 'InvoicesControllerAPI@index');
@@ -119,4 +121,8 @@ Route::get('statistics/waiter/{id}/date','StatisticsControllerAPI@statisticsByEm
 Route::patch('waiter/order/{id}/confirmed','OrderControllerAPI@swapOrderToConfirmed');
 Route::get('waiter/order/{id}/confirmed','OrderControllerAPI@swapOrderToConfirmed');
 
+
+//Statistics
+Route::get('statistics/meals', 'StatisticsControllerAPI@getTotalMeals');
+Route::get('statistics/orders', 'StatisticsControllerAPI@getTotalOrders');
 

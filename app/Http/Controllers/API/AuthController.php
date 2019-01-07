@@ -11,10 +11,10 @@ use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 
-define('YOUR_SERVER_URL', 'http://dadproject.restaurant');
+define('YOUR_SERVER_URL', 'http://restaurantproject.dad');
 // Check "oauth_clients" table for next 2 values:
 define('CLIENT_ID', '2');
-define('CLIENT_SECRET', 'uuD8nd80tIBwEuNxrKNLpLp5b6kB2eWOa2UR8PC5');
+define('CLIENT_SECRET', 'ji5EfceQ6j71hjqUXDOdGHTWseunEwlnf19pnZrv');
 
 class AuthController extends Controller
 {
@@ -112,14 +112,14 @@ class AuthController extends Controller
             'passwordConfirmation' => 'required|same:password',
         ]);
 
-        $userId = User::where('email', $email)->get();
+        $userId = User::where('email', $email)->first();
+        $user = User::findOrFail($userId->id);
         
-        $user = User::findOrFail($userId[0]->id);
         if($user->email_verified_at == null){
         $user->password = Hash::make($request->input('password'));
         $user->email_verified_at = Carbon::now();
         $user->blocked = 0;
-        $user->save();
+       $user->save();
 
         return new UserResource($user);
         }
