@@ -71,6 +71,12 @@
         created() {
             this.fetchData();
         },
+        sockets:{
+            socketRefreshMeals(){
+                this.fetchData();
+                this.$toasted.success('Meal terminated!', {duration: 3000, position: 'top-right'});
+            }
+        },
         methods :{
             fetchData(page_url){
                 let pg = this;

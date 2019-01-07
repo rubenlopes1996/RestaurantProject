@@ -8,7 +8,7 @@
                 </div>-->
             <!--<user-edit :user="currentUser" @save-user="saveUser()" @cancel-edit="cancelEdit()"></user-edit>-->
             <invoice-payment :invoice="currentInvoice" @pay-invoice="payInvoice()" @cancel-edit="cancelEdit()"></invoice-payment>
-            <list-invoices :invoices="invoices" @edit-invoice="editInvoice"></list-invoices>
+            <list-invoices :invoices="invoices" @get-invoices="refreshInvoices" :newestTMealId="newestTMealId" :newMeal="newMeal" @edit-invoice="editInvoice"></list-invoices>
             <!--<list-invoices  @edit-user="editUser" @delete-user="deleteUser"></list-invoices>-->
         </div>
     </div>
@@ -18,7 +18,7 @@
 module.exports = {
   data: function() {
     return {
-      invoices: [],
+      invoices: null,
       currentInvoice: null,
       action : [{
         text : 'X',
@@ -26,17 +26,26 @@ module.exports = {
             toastObject.goAway(0);
         },
         user: this.$store.state.user
-    }]
+      }],
+      newestTMealId: this.$route.params.newestMealId,
+      newMeal: ''
     };
   },
   methods: {
+    refreshInvoices: function(mealId){
+      console.log("Chegou ao pai para pedir invoices, -->", mealId);
+      this.getInvoices();
+      this.newMeal=mealId;
+    },
     editInvoice: function(invoice) {
       this.currentInvoice = Object.assign({}, invoice);
     },
     getInvoices: function() {
+
       axios.get("api/invoices?pending").then(response => {
+        //this.invoices = response.data.data;
         this.invoices = response.data.data;
-        //console.log(this.invoices);
+        console.log(this.invoices);
       });
     },
     payInvoice: function(){

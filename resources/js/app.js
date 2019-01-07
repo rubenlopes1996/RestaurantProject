@@ -77,11 +77,13 @@ Vue.component('table-edit', require('./components/restaurant-table/RestaurantTab
 Vue.component('table-add', require('./components/restaurant-table/RestaurantTableAdd.vue'));
 Vue.component('order-list',require('./components/cooks/ListOrders.vue'));
 Vue.component('add_order', require('./components/waiters/AddOrder.vue'));
+Vue.component('activate-account',require('./components/employee/activateAccount.vue'));
 
 const app = new Vue({
     el: '#app',
     router,
     store,
+    validations: {},
     created() {
         this.$store.commit('loadTokenAndUserFromSession');
     }

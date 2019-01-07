@@ -1,7 +1,7 @@
 <template>
     <div id="conteudo">
         <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="meals==null"></PacmanLoader>
-        <div class="container" v-if="meals!=null">
+        <!--<div class="container" v-if="meals!=null">
             <div>
                 <div class="col-md-3">
                     <p>Click here to order by the invoice you wish</p>
@@ -33,13 +33,37 @@
                 <b-button class="col-md-3" v-on:click.prevent="filterBYDate(pagination.prev_page_url)" variant="outline-info">Filter by Date</b-button>
 
             </div>
-        </div>
+        </div>-->
 
+        <b-container>
+            <b-row>
+                <b-col>
+                    <p>Click here to order by the invoice you wish</p>
 
+                    <b-button v-on:click.prevent="filterData(pagination.prev_page_url,'paid')" variant="outline-success">Paid</b-button>
+                    <b-button v-on:click.prevent="filterData(pagination.prev_page_url,'not paid')" variant="outline-danger">Not Paid</b-button>
+                    <b-button v-on:click.prevent="filterData(pagination.prev_page_url,'not paid')" variant="outline-info">Responsible Waiter</b-button>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col>
+                    <p>Start Date</p>
+                    <date-picker   v-model="date" :config="options"></date-picker>
+                </b-col>
+                <b-col>
+                    <p>End  Date</p>
+                    <date-picker  v-model="endDate" :config="options"></date-picker>
+                </b-col>
+                
+            </b-row>
+            <b-row>
+                <b-col>
+                    <br>
+                    <b-button v-on:click.prevent="filterBYDate(pagination.prev_page_url)" variant="outline-info">Filter by Date</b-button>
+                </b-col>
+                </b-row>
+        </b-container>
 
-        <br>
-        <br>
-        <br>
         <b-row>
             <b-col md="6" class="my-1" v-if="meals!=null">
                 <b-form-group horizontal label="Filter" class="mb-0">

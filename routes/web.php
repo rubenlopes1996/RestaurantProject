@@ -15,3 +15,4 @@ Route::get('/', function () {
     return view('master');
 });
 
+Route::get('/activateAccount/{email}','API\AuthController@activateAccount');

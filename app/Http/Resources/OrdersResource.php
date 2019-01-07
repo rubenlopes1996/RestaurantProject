@@ -22,9 +22,11 @@ class OrdersResource extends JsonResource
             'meal_id'=>$this->meal_id,
             'responsible_cook_id'=>$this->responsible_cook_id,
             'start'=>$this->start,
-            'end'=>$this->end
+            'end'=>$this->end,
+            'type'=>$this->item->type,
+            
+            'responsible_waiter_id'=> $this->meal->responsible_waiter_id
 
         ];
-        //return parent::toArray($request);
     }
 }

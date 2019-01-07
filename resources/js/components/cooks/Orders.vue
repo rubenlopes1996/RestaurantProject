@@ -35,6 +35,9 @@
           pg.makePagination(response.data.meta, response.data.links);
         });
       },
+         refreshOrders: function(){
+        this.getOrders();
+      },
       makePagination(meta, links) {
         let pagination = {
           current_page: meta.current_page,
@@ -47,6 +50,8 @@
       inPreparation: function(order) {
         axios.patch('/api/orders/inPreparation/'+order.id).then(response => {
             this.getOrders();
+            //sockets
+            this.$socket.emit('orderChangedState');
           })
           .catch(error => {
             console.log(error.response.data.message);
@@ -56,6 +61,9 @@
       prepared: function(order) {
          axios.patch('/api/orders/prepared/'+order.id).then(response => {
             this.getOrders();
+            //sockets
+            this.$socket.emit('orderChangedState');
+            this.$socket.emit('orderPrepared_to_waiter', order.responsible_waiter_id);
           })
           .catch(error => {
             console.log(error.response.data.message);

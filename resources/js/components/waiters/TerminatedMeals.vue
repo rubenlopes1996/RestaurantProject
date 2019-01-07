@@ -20,7 +20,7 @@
 
                     <template slot="actions" slot-scope="row">
                         <div>
-                            <b-button @click="()=> {modalShow = !modalShow; itemIdTerminatedMeal=row.item.id}"  >
+                            <b-button @click="()=> {modalShow = !modalShow; itemIdTerminatedMeal=row.item.id, terminatedMeal_tableNumber=row.item.table_number}"  >
                                 Terminate
                             </b-button>
 
@@ -60,13 +60,16 @@
                 currentPage: 1,
                 perPage: 10,
                 size: 30,
-                modalShow: false
+                modalShow: false,
+                terminatedMeal_tableNumber: null
             };
         },
         methods:{
             handleOk (){
                this.terminar(this.itemIdTerminatedMeal);
-               this.itemIdTerminatedMeal = null;
+               //SOCKET HERE
+               console.log(this.terminatedMeal_tableNumber);
+               
             },
 
             terminar(meal_id){
@@ -75,8 +78,11 @@
                     .patch("api/waiter/"+meal_id+"/meals/terminated")
                     .then(response => {
                         this.$toasted.success('Meal has been terminated!', {duration: 3000, position: 'top-center'});
+                        this.criarInvoices_Item__Invoice(meal_id);
                         this.mostrarList();
-                        this. criarInvoices_Item__Invoice(meal_id);
+                        this.$socket.emit('terminatedMeal_to_cashiers', this.$store.state.user, this.terminatedMeal_tableNumber, this.itemIdTerminatedMeal);
+                        this.itemIdTerminatedMeal = null;
+                        
                     })
                     .catch(error => {
                         console.log(error);
@@ -87,7 +93,6 @@
                 this.setVisible=false
             },
             criarInvoices_Item__Invoice(id){
-
                 axios
                     .put("api/waiter/"+id+"/meal/terminated/invoices")
                     .then(response => {
@@ -108,7 +113,6 @@
                         console.log(error);
                         console.log(error.response.data.message);
                     })
-
             }
         },
         watch: {

@@ -11,7 +11,6 @@
           <input type="file" class="form-control-file" id="files" ref="files" v-on:change="handleFiles()">
         </div>
       </div>
-      
       <!-- edit form column -->
       <div class="col-md-9 personal-info">
         <div class="alert alert-info alert-dismissable">

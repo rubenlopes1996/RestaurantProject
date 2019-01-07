@@ -110,6 +110,28 @@ io.on('connection', function (socket) {
         }
     });
 
+    socket.on('terminatedMeal_to_cashiers', function (userInfo, meal_table_number, meal_id) {
+        if (userInfo != undefined) {
+            socket.broadcast.to('group_cashier').emit('socketRefreshMeals', meal_id);
+            socket.broadcast.to('group_cashier').emit('freshTerminatedMeals', userInfo.type + ': ' + userInfo.name, meal_table_number, meal_id);
+            socket.broadcast.to('group_manager').emit('socketRefreshMeals');
+             
+        }
+    });
+
+    socket.on('orderAdded_to_cooks', function () {
+        socket.broadcast.to('group_cook').emit('socketRefreshOrders');
+        socket.broadcast.to('group_cook').emit('freshOrder');
+    });
+
+    socket.on('orderChangedState', function() {
+        socket.broadcast.to('group_cook').emit('socketRefreshOrders');
+    });
+
+    socket.on('orderPrepared_to_waiter', function(waiter_Id) {
+        const waiter = loggedUsers.userInfoByID(waiter_Id);
+        io.to(waiter.socketID).emit('socketRefreshPCOrders');
+    });
 
 
     socket.on('user_saved', user=>{

@@ -126,6 +126,7 @@ class OrderControllerAPI extends Controller
         $order = Orders::findOrFail($id);
         $order->state = 'prepared';
         $order->responsible_cook_id = Auth::id();
+        $order->end = Carbon::now();
         $order->save();
         return response()->json(new OrdersResource($order), 200);
     }

@@ -23,14 +23,14 @@ class InvoicesControllerAPI extends Controller
         if ($request->has('page')) {
             return InvoicesResource::collection(Invoices::Orderby('created_at')->paginate(10));
         } else if ($request->has('pending')) {
-            return InvoicesResource::collection(Invoices::Where('state', 'pending')->Orderby('created_at')->get());
+            return InvoicesResource::collection(Invoices::Where('state', 'pending')->Orderby('created_at', 'desc')->get());
         }
     }
 
     public function indexPaid(Request $request)
     {
         if ($request->has('page')) {
-            return InvoicesResource::collection(Invoices::Where('state', 'paid')->Orderby('id', 'asc')->paginate(10));
+            return InvoicesResource::collection(Invoices::Where('state', 'paid')->Orderby('created_at', 'desc')->paginate(10));
         }
     }
 
@@ -54,19 +54,21 @@ class InvoicesControllerAPI extends Controller
         //TODO, meals para testar
         Meals::findOrFail($invoice->meal_id)->state = 'paid';
         $invoice->save();
-        return new InvoicesResource($invoice);
-    }
-
-    public function downloadPDF(Request $request)
-    {
-        $invoice = Invoices::findOrFail($request->id);
         $items = InvoiceItems::Where('invoice_id', $request->id)->get();
         $responsible_waiter = User::find(Meals::find($invoice->meal_id)->responsible_waiter_id)['name'];
         $nameItem = Items::find(InvoiceItems::Where('invoice_id', $invoice->id)->pluck('item_id'));
 
         $pdf = PDF::loadView('pdf.PDF', compact('invoice', 'items', 'responsible_waiter', 'nameItem'));
-        $filename = base_path($invoice->name . $invoice->id . '.pdf');
+        $filename = base_path('storage/app/public/invoices/'.$invoice->nif . $invoice->id . '.pdf');
         $pdf->save($filename);
+
+        return new InvoicesResource($invoice);
+    }
+
+    public function downloadPDF($id)
+    {   
+        $invoice =Invoices::findOrFail($id);
+        $filename = base_path('storage/app/public/invoices/'.$invoice->nif . $invoice->id . '.pdf');
         return \Response::download($filename);
     }
 

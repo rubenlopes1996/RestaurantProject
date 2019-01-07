@@ -11,7 +11,7 @@
             <vs-divider>Notifications</vs-divider>
             <div class="container text-center">
                 <vs-collapse accordion v-if="arrayNames!=null && arrayMsgs != null">
-                    <vs-collapse-item v-for="(name, index) in arrayNames" :key="name + index, index">
+                    <vs-collapse-item v-for="(name, index) in arrayNames" :key="name + index">
                         <div slot="header">
                             {{name}}
                         </div>
@@ -28,6 +28,25 @@
                         <p>Invoice for table {{notificationsInvoicesTableNumber[index]}} has been paid</p>
                         <router-link :to="{name: 'paidinvoices', params: {newestInvoiceId: notificationsInvoicesId[index] }}" ><vs-button color="success" type="filled">Details</vs-button></router-link>
                         <vs-button color="danger" type="filled" v-on:click.prevent="removeInvoiceInfo(index)">Dismiss</vs-button>
+                    </vs-collapse-item>
+                </vs-collapse>
+                <vs-collapse accordion v-if="notificationsTMealTableNumber!=null && notificationsTMealName != null">
+                    <vs-collapse-item v-for="(name, index) in notificationsTMealName" :key="name + index">
+                        <div slot="header">
+                            {{name}}
+                        </div>
+                        <p>Meal for table {{notificationsTMealTableNumber[index]}} has been terminated</p>
+                        <router-link :to="{name: 'invoices', params: {newestMealId: notificationsTMealId[index] }}" ><vs-button color="success" type="filled">Details</vs-button></router-link>
+                        <vs-button color="danger" type="filled" v-on:click.prevent="removeTMealInfo(index)">Dismiss</vs-button>
+                    </vs-collapse-item>
+                </vs-collapse>
+                <vs-collapse accordion v-if="notificationsOrders!=null">
+                    <vs-collapse-item v-for="(order, index) in notificationsOrders" :key="order + index">
+                        <div slot="header">
+                            {{order}}
+                        </div>
+                        <router-link to="/dashboardCook/orders" ><vs-button color="success" type="filled">Orders</vs-button></router-link>
+                        <vs-button color="danger" type="filled" v-on:click.prevent="removeOrderInfo(index)">Dismiss</vs-button>
                     </vs-collapse-item>
                 </vs-collapse>
             </div>
@@ -57,7 +76,7 @@
                             <router-link class="nav-link" to="/dashboardWaiter">Dashboard</router-link>
                         </div>
                         <div v-else-if="user.type == 'cashier'">
-                            <router-link class="nav-link" to="/dashboardCashier/invoices">Dashboard</router-link>
+                            <router-link class="nav-link" :to="{name: 'invoices', params: {newestMealId: -1 }}">Dashboard</router-link>
                         </div>
                     </li>
                     <li class="nav-item" v-if=" user.shift_active ==1">
@@ -101,12 +120,30 @@ import 'material-icons/iconfont/material-icons.css';
                 msgGlobalTextArea:"",
                 msg: "",
                 userName: "",
+
+                //arrays para receber e ver mensagens de users
                 arrayNames: [],
                 arrayDesc: [],
                 arrayMsgs: [],
+                // -----
+
+                //arrays para receber e ver notificacoes de invoices
                 notificationsInvoicesTableNumber: [],
                 notificationsInvoicesName: [],
                 notificationsInvoicesId: [],
+                //------
+
+                //notifications para receber e ver notificaoes de terminated meals
+                notificationsTMealTableNumber: [],
+                notificationsTMealName: [],
+                notificationsTMealId: [],
+                //-------
+
+                //notifications para receber e ver notificacoes de Orders
+                notificationsOrders: [],
+                //-------
+
+
                 unreadNotif: 0
 
         }),
@@ -159,15 +196,29 @@ import 'material-icons/iconfont/material-icons.css';
                     });
             },
                 removeMsg: function(index){
-                    this.arrayNames.splice(index,1);
-                    this.arrayDesc.splice(index,1);
-                    this.arrayMsgs.splice(index,1);
+                    this.arrayNames.splice(index, 1);
+                    this.arrayDesc.splice(index, 1);
+                    this.arrayMsgs.splice(index, 1);
+
                     this.unreadNotif -= 1;
                 },
                 removeInvoiceInfo: function(index){
-                    this.notificationsInvoicesTableNumber.splice(index,1);
-                    this.notificationsInvoicesName.splice(index,1);
-                    this.notificationsInvoicesId.splice(index,1);
+                    this.notificationsInvoicesName.splice(index, 1);
+                    this.notificationsInvoicesId.splice(index, 1);
+                    this.notificationsInvoicesTableNumber.splice(index, 1);
+                    
+                    this.unreadNotif -= 1;
+                },
+                removeTMealInfo: function(index){
+                    this.notificationsTMealName.splice(index, 1);
+                    this.notificationsTMealId.splice(index, 1);
+                    this.notificationsTMealTableNumber.splice(index, 1);
+                    
+                    this.unreadNotif -= 1;
+                },
+                removeOrderInfo: function(index){
+                    this.notificationsOrders.splice(index, 1);
+
                     this.unreadNotif -= 1;
                 },
                 resetNotif(){
@@ -194,7 +245,7 @@ import 'material-icons/iconfont/material-icons.css';
 
                     )
                 }
-            },
+        },
         
         sockets:{
             connect(){
@@ -204,27 +255,40 @@ import 'material-icons/iconfont/material-icons.css';
                 }
             },
             privateMessage(dataFromServer){
-                //let sourceName = dataFromServer[0] == null ? 'Unknown': dataFromServer[0].name;
-                //this.msgGlobalTextArea = dataFromServer[1]+ '\n' + this.msgGlobalTextArea;
-                //this.userName = dataFromServer[0];
-                //this.msg = dataFromServer[1];
-                
                 this.$toasted.success('New message', {duration: 2000, position: 'top-right'});
                 this.unreadNotif+=1;
-                //
+                
                 this.arrayNames.unshift(dataFromServer[0]);
                 this.arrayDesc.unshift(dataFromServer[1]);
                 this.arrayMsgs.unshift(dataFromServer[2]);
             },
             freshPaidInvoices(dataFromServer){
-                console.log("OIII"+dataFromServer);
+                //console.log("OIII"+dataFromServer);
                 this.$toasted.success('Invoice paid', {duration: 2000, position: 'top-right'});
                 this.unreadNotif+=1;
+
                 this.notificationsInvoicesName.unshift(dataFromServer[0]);
                 this.notificationsInvoicesTableNumber.unshift(dataFromServer[1]);
                 this.notificationsInvoicesId.unshift(dataFromServer[2]);
                 
+            },
+            freshTerminatedMeals(dataFromServer){
+                console.log("OIII"+dataFromServer);
+                this.$toasted.success('Meal Terminated', {duration: 2000, position: 'top-right'});
+                this.unreadNotif+=1;
+
+                this.notificationsTMealName.unshift(dataFromServer[0]);
+                this.notificationsTMealTableNumber.unshift(dataFromServer[1]);
+                this.notificationsTMealId.unshift(dataFromServer[2]);
+                
+            },
+            freshOrder(){
+                this.$toasted.success('New Order', {duration: 2000, position: 'top-right'});
+                this.unreadNotif+=1;
+
+                this.notificationsOrders.unshift("New order to prepare");
             }
+
             /*,
             msg_from_server(dataFromServer){
                 this.$toasted.show('Msg chegou do server '+dataFromServer);

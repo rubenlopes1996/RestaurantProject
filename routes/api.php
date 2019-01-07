@@ -39,21 +39,26 @@ Route::put('employee/{id}', 'UserControllerAPI@update');
 Route::delete('employee/{id}', 'UserControllerAPI@destroy');
 Route::patch('employee/unblock/{id}','UserControllerAPI@unblock');
 Route::patch('employee/block/{id}','UserControllerAPI@block');
+Route::patch('employee/confirm/{email}','API\AuthController@confirmActivation');
 
 //Restaurant tables
 Route::get('restaurant-tables', 'RestaurantTableAPI@index');
 Route::post('restaurant-tables', 'RestaurantTableAPI@create');
 Route::delete('restaurant-tables/{id}','RestaurantTableAPI@destroy');
+Route::get('restaurant-table/{id}', 'RestaurantTableAPI@show');
+Route::put('restaurant-table/{id}', 'RestaurantTableAPI@update');
+
+
 
 //Cashiers
 Route::get('invoices', 'InvoicesControllerAPI@index');
 Route::get('invoices/paid', 'InvoicesControllerAPI@indexPaid');
 Route::get('invoices/{id}', 'InvoicesControllerAPI@show');
 Route::put('invoices/{id}', 'InvoicesControllerAPI@update');
-Route::get('paidInvoices/{id}/download','InvoicesControllerAPI@downloadPDF');
+Route::get('paidInvoices/download/{id}','InvoicesControllerAPI@downloadPDF');
 
 //My profile
-Route::put('employee-profile/{id}', 'UserControllerAPI@update');
+Route::put('employee-profile/{id}', 'UserControllerAPI@updateProfile');
 Route::post('employee-photo/{id}', 'UserControllerAPI@uploadPhoto');
 
 
@@ -107,7 +112,7 @@ Route::get('list/invoices/date/{begindate}/{enddate}','InvoicesControllerAPI@lis
 
 Route::get('list/statistics','UserControllerAPI@showUsersWaiterCook');
 Route::get('list/statistics/{type}','UserControllerAPI@showUserByType');
-Route::get('list/statistics/waiter/{id}','UserControllerAPI@getInvoicesByWaiter');
+Route::get('statistics/waiter/{id}/date','StatisticsControllerAPI@statisticsByEmployeeAndDate');
 
 
 //fkusahia

@@ -15,7 +15,7 @@
     </b-row>
     <b-table hover :items="items" :fields="fields" v-if="items!=null" :filter="filter" :bordered="true">
       <template slot="id" slot-scope="data">
-        <span style="color:red" v-if="data.value===newestInvoiceId || data.value===newInvoice" id="checkNew">
+        <span v-if="data.value===newestInvoiceId || data.value===newInvoice" id="checkNew">
           <b-form-checkbox checked="true" disabled></b-form-checkbox>
         </span>
         <span v-else>
@@ -111,20 +111,28 @@
       };
       this.pagination = pagination;
       },
-      downloadPDF(id){
-          axios.get("api/paidInvoices/"+id+"/download").then(response=>{
-            console.log("success")
+      downloadPDF(invoice){
+        console.log(invoice)
+          axios({url:"api/paidInvoices/download/"+invoice.id ,method:'GET',responseType:'blob'}).then(response=>{
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'file.pdf');
+            document.body.appendChild(link);
+            link.click();
+            console.log("success");
+            
           }).catch(error=>{
             console.log("error");
           })
-      }
+      },
     },
-      sockets:{
-        socketRefresh(dataFromServer){
-          console.log("AQUIII"+dataFromServer);
-          this.newInvoice = dataFromServer;
-          this.fecthPaidInvoices();
-        }
+    sockets:{
+      socketRefresh(dataFromServer){
+        //console.log("AQUIII"+dataFromServer);
+        this.newInvoice = dataFromServer;
+        this.fecthPaidInvoices();
+      }
     }
   };
 </script>

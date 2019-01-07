@@ -9,11 +9,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
-define('YOUR_SERVER_URL', 'http://192.168.10.10');
+define('YOUR_SERVER_URL', 'http://dadproject.restaurant');
 // Check "oauth_clients" table for next 2 values:
 define('CLIENT_ID', '2');
-define('CLIENT_SECRET', 'BOAIF9HOLYHwKznsEX5ldA83SkL3KVmNJyJEWD3c');
+define('CLIENT_SECRET', 'uuD8nd80tIBwEuNxrKNLpLp5b6kB2eWOa2UR8PC5');
 
 class AuthController extends Controller
 {
@@ -36,16 +37,21 @@ class AuthController extends Controller
         $user->blocked = 1;
 
         //Send email
-        $title = $request->input('Confirmation account');
-        $content = $request->input('Ola tiago link');
-
-        Mail::send('master', ['title' => $title, 'content' => $content, 'user' => $user], function ($message) use ($user) {
-
-            $message->to('2160852@my.ipleiria.pt');
+        $title = 'Confirmation account';
+        $url = "http://restaurantproject.dad/activateAccount/".$user->email;
+    
 
 
+        Mail::send('emails.send', ['title' => $title, 'user' => $user, 'url'=>$url], function ($message) use ($user) {
+            $message->from('postmaster@restaurantedad.tk', 'Admin Restaurant DAD');
+            $message->sender('postmaster@restaurantedad.tk', 'Admin Restaurant DAD');
+
+            $message->to($user->email, $user->username);
+
+            $message->subject('Account activation RestaurantDAD');
 
         });
+
         $user->save();
 
         return response()->json(new UserResource($user), 201);
@@ -55,13 +61,13 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $user = User::where('username', $request->email)->first();
+        if($user){
+            $username = $user->email;
+        }else{
+            $user = User::where('email', $request->email)->first();
+            $username = $request->email;
+        }
         if ($user->blocked == 0) {
-            if (!$user) {
-                $username = $request->email;
-            } else {
-                $username = $user->email;
-            }
-
             $http = new \GuzzleHttp\Client;
             $response = $http->post(YOUR_SERVER_URL . '/oauth/token', [
                 'form_params' => [
@@ -80,7 +86,7 @@ class AuthController extends Controller
             } else {
                 return response()->json(['msg' => 'User credentials are invalid'], $errorCode);
             }
-        }else{
+        } else {
             return response()->json(['msg' => 'User blocked contact your manager'], 401);
         }
     }
@@ -95,5 +101,30 @@ class AuthController extends Controller
     public function getUser(Request $request)
     {
         return new UserResource($request->user());
+    }
+
+    public function activateAccount($email){
+        return view('employee.activateAccount')->with('email',$email);
+    }
+    public function confirmActivation(Request $request, $email){
+        $request->validate([
+            'password' => 'required|min:3',
+            'passwordConfirmation' => 'required|same:password',
+        ]);
+
+        $userId = User::where('email', $email)->get();
+        
+        $user = User::findOrFail($userId[0]->id);
+        if($user->email_verified_at == null){
+        $user->password = Hash::make($request->input('password'));
+        $user->email_verified_at = Carbon::now();
+        $user->blocked = 0;
+        $user->save();
+
+        return new UserResource($user);
+        }
+        return response()->json(['msg' => 'Account already has been activated.'], 403);
+    
+
     }
 }
