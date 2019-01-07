@@ -1,45 +1,49 @@
 <template>
-    <div>
-        <div class="jumbotron">
-            <div>
-                <b-form-group>
-                    <p>Select a employee</p>
-                    <div class="col-sm-12">
-                        <b-form-select v-model="dataUser.user_id" :options="optionItems" size="lg"></b-form-select>
+    <b-container>
+        <b-row style="margin-top:70px">
+            <b-col cols="12">
+                <div class="jumbotron">
+                    <div>
+                        <b-form-group>
+                            <p>Select a employee</p>
+                            <div class="col-sm-12">
+                                <b-form-select v-model="dataUser.user_id" :options="optionItems" size="lg"></b-form-select>
+                            </div>
+                        </b-form-group>
+
+                        <b-container>
+                            <b-row>
+                                <b-col>
+                                    <p>Start Date</p>
+                                    <date-picker v-model="startDate" :config="options"></date-picker>
+                                </b-col>
+                                <b-col>
+                                    <p>End Date</p>
+                                    <date-picker v-model="endDate" :config="options"></date-picker>
+                                </b-col>
+                            </b-row>
+                        </b-container>
+                        <b-button v-on:click.prevent="statisticsByEmployeeAndDate()" variant="outline-secondary">Filter </b-button>
                     </div>
-                </b-form-group>
-    
-                <b-container>
-                    <b-row>
-                        <b-col>
-                            <p>Start Date</p>
-                            <date-picker v-model="startDate" :config="options"></date-picker>
-                        </b-col>
-                        <b-col>
-                            <p>End Date</p>
-                            <date-picker v-model="endDate" :config="options"></date-picker>
-                        </b-col>
-                    </b-row>
-                </b-container>
-                <b-button v-on:click.prevent="statisticsByEmployeeAndDate()" variant="outline-secondary">Filter </b-button>
-            </div>
-        </div>
-        <div class="small" v-if="this.dataEmployee != null">
-            <line-chart :chart-data="dataEmployee"></line-chart>
-        </div>
-        <div class="small">
-            <line-chart :chart-data="dataOrder"></line-chart>
-        </div>
-         <div class="small">
-            <line-chart :chart-data="dataMeal"></line-chart>
-        </div>
-          <div class="small">
-            <line-chart :chart-data="dataTimeMeal"></line-chart>
-        </div>
-          <div class="small">
-            <line-chart :chart-data="dataTimeOrder"></line-chart>
-        </div>
-    </div>
+                </div>
+                <div class="small" v-if="this.dataEmployee != null">
+                    <line-chart :chart-data="dataEmployee"></line-chart>
+                </div>
+                <div class="small">
+                    <line-chart :chart-data="dataOrder"></line-chart>
+                </div>
+                    <div class="small">
+                    <line-chart :chart-data="dataMeal"></line-chart>
+                </div>
+                    <div class="small">
+                    <line-chart :chart-data="dataTimeMeal"></line-chart>
+                </div>
+                    <div class="small">
+                    <line-chart :chart-data="dataTimeOrder"></line-chart>
+                </div>
+            </b-col>
+        </b-row>
+    </b-container>
 </template>
 
 <script>
@@ -71,17 +75,6 @@
 
                 ],
             };
-        },
-        validations: {
-            employeeSelect: {
-                required
-            },
-            startDate: {
-                required
-            },
-            endDate: {
-                required
-            },
         },
         created() {
             this.getCooksAndWaiters();
@@ -148,6 +141,7 @@
             statisticsOrder() {
                 axios.get('api/statistics/orders').
                 then(response => {
+                    console.log("Stats Ordes: ",response.data);
                     this.dataOrder = {
                         labels: response.data.labels,
                         datasets: [{

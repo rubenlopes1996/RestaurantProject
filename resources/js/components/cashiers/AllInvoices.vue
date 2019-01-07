@@ -1,9 +1,11 @@
 <template>
-    <div class="container content-admin">
-        <div id="list">
+    <b-container>
+          <b-row>
+            <b-col cols="12">
             <all-invoices></all-invoices>
-        </div>
-    </div>
+            </b-col>
+          </b-row>
+    </b-container>
 </template>
 
 <script>

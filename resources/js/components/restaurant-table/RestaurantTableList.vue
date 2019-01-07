@@ -1,6 +1,16 @@
 <template>
   <div>
-    <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="tables==null"></PacmanLoader>
+    <b-container>
+      <b-row>
+        <b-col cols="4">
+        </b-col>
+        <b-col cols="4">
+        <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="tables==null"></PacmanLoader>
+        </b-col>
+        <b-col cols="4">
+        </b-col>
+      </b-row>
+    </b-container>
     <v-client-table :data="tables" :columns="columns" id="buttons" v-if="tables!=null">
       <div slot="actions" slot-scope="tables" align="center">
         <button class="btn btn-sm btn-primary" v-on:click.prevent="editTable(tables.row)">Edit</button>
@@ -17,7 +27,7 @@
       return {
         activeTable: {},
         columns: ["table_number", "actions"],
-        size: 100
+        size: 30
       };
     },
     methods: {

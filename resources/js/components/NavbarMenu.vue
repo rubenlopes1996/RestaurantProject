@@ -8,6 +8,12 @@
                     {{user.name}}
                 </h4>
             </div>
+            <span v-if=" user.shift_active ==1">
+                You worked already {{Math.floor(this.$moment.duration(this.$moment(new Date()).diff(user.last_shift_end)).asHours()) }} hours
+            </span>
+            <span v-else>
+                It's been {{ Math.floor(this.$moment.duration(this.$moment(new Date()).diff(user.last_shift_start)).asHours())}} hours since your shift ended
+            </span>
             <vs-divider>Notifications</vs-divider>
             <div class="container text-center">
                 <vs-collapse accordion v-if="arrayNames!=null && arrayMsgs != null">
@@ -41,7 +47,7 @@
                     </vs-collapse-item>
                 </vs-collapse>
                 <vs-collapse accordion v-if="notificationsOrders!=null">
-                    <vs-collapse-item v-for="(order, index) in notificationsOrders" :key="order + index">
+                    <vs-collapse-item v-for="(order, index) in notificationsOrders" :key="order">
                         <div slot="header">
                             Order to prepare
                         </div>
@@ -82,11 +88,11 @@
                     </li>
                     <li class="nav-item" v-if=" user.shift_active ==1">
                         <button class="btn btn-outline-dark my-2 my-sm-0" type="submit" v-on:click.prevent="stopShift()">End shift</button>
-                        <a>You are working since {{user.last_shift_start}}, and you worked already {{Math.floor(this.$moment.duration(this.$moment(new Date()).diff(user.last_shift_end)).asHours()) }} hours</a>
+                        <a>You are working since {{user.last_shift_start}}</a>
                     </li>
                     <li class="nav-item" v-else>
                         <button class="btn btn-outline-dark my-2 my-sm-0" type="submit" v-on:click.prevent="startShift()">Start shift</button>
-                        <a>Your shift has ended at {{user.last_shift_end}}, and it's been {{ Math.floor(this.$moment.duration(this.$moment(new Date()).diff(user.last_shift_start)).asHours())}} hours since your shift ended</a>
+                        <a>Your shift has ended at {{user.last_shift_end}}</a>
                     </li>
                 </div>
             </ul>

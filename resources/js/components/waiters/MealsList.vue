@@ -2,7 +2,17 @@
     <div>
         <add_order :meal="item" :menuItem="menuItem" v-if="setVisible" @hideAddOrder="esconder"></add_order>
         <div v-else>
-            <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="meals==null"></PacmanLoader>
+            <b-container>
+                <b-row>
+                    <b-col cols="4">
+                    </b-col>
+                    <b-col cols="4">
+                        <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="meals==null"></PacmanLoader>
+                    </b-col>
+                    <b-col cols="4">
+                    </b-col>
+                </b-row>
+            </b-container>
             <b-row>
                 <b-col md="6" class="my-1" v-if="meals!=null">
                     <b-form-group horizontal label="Filter" class="mb-0">

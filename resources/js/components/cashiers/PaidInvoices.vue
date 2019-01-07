@@ -1,9 +1,11 @@
 <template>
-    <div class="container content-admin">
-        <div id="list">
-            <paid-invoices :newestInvoiceId="newestInvoiceId"></paid-invoices>
-        </div>
-    </div>
+    <b-container>
+      <b-row style="margin-top:70px">
+          <b-col cols="12">
+              <paid-invoices :newestInvoiceId="newestInvoiceId"></paid-invoices>
+          </b-col>
+      </b-row>
+    </b-container>
 </template>
 
 <script>

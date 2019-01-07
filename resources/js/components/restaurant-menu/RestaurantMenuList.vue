@@ -1,6 +1,16 @@
 <template>
   <div>
-    <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="items==null"></PacmanLoader>
+    <b-container>
+      <b-row>
+        <b-col cols="4">
+        </b-col>
+        <b-col cols="4">
+        <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="items==null"></PacmanLoader>
+        </b-col>
+        <b-col cols="4">
+        </b-col>
+      </b-row>
+    </b-container>
     <v-client-table ref="table" :data="items" :columns="columns" :options="options" id="buttons" v-if="items != null">
       <div slot="actions" slot-scope="items" align="center">
         <button class="btn btn-sm btn-primary" v-on:click.prevent="editItem(items.row)">Edit</button>
@@ -21,7 +31,7 @@
         activeItem: {},
         columns: ["image", "name", "type", "description", "price", "actions"],
         options: {},
-        size: 100,
+        size: 30,
       };
     },
     methods: {

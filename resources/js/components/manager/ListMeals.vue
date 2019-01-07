@@ -1,6 +1,18 @@
 <template>
-    <div id="conteudo">
-        <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="meals==null"></PacmanLoader>
+    <b-container>
+    <b-row style="margin-top:70px">
+        <b-container>
+            <b-row>
+                <b-col cols="4">
+                </b-col>
+                <b-col cols="4">
+                    <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="meals==null"></PacmanLoader>
+                </b-col>
+                <b-col cols="4">
+                </b-col>
+            </b-row>
+        </b-container>
+        <b-col cols="12">
         <div v-if="meals!=null">
         <p>Click here to order by the order you wish</p>
         <b-button v-on:click.prevent="filterData('active')" variant="outline-success">Active</b-button>
@@ -45,7 +57,9 @@
             </ul>
         </nav>
 
-    </div>
+        </b-col>
+    </b-row>
+    </b-container>
 </template>
 <script>
 

@@ -1,5 +1,7 @@
 <template>
-  <div class="container content-admin">
+  <b-container>
+    <b-row style="margin-top:70px">
+        <b-col cols="12">
     <add-employee></add-employee>
     <div id="list">
       <div class="alert alert-success" v-if="showSuccess">
@@ -9,7 +11,9 @@
       <user-edit :user="currentUser" @save-user="saveUser()" @cancel-edit="cancelEdit()"></user-edit>
       <manager-list :users="users" @edit-user="editUser" @delete-user="deleteUser" @unblock="unblock" @block="block"></manager-list>
     </div>
-  </div>
+        </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>

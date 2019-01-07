@@ -1,30 +1,6 @@
 <template>
-    <div class="jumbotron">
-        <!--
-        <h2>Add employee</h2>
-        <div class="form-group">
-            <label for="inputName">Name</label>
-            <input type="name" class="form-control" v-model="name" name="name" id="name" placeholder="Name" />
-        </div>
-        <div class="form-group">
-            <label for="inputEmail">Email</label>
-            <input type="email" class="form-control" v-model="email" name="email" id="email" placeholder="Email address" />
-        </div>
-        <div class="form-group">
-            <label for="type">Type:</label>
-            <select class="form-control" v-model="type" id="type" name="type">
-                    <option> manager </option>
-                    <option> cashier </option>
-                    <option> waiter </option>
-                    <option> cooker </option>
-                </select>
-        </div>
-        <div class="form-group">
-            <a class="btn btn-primary" v-on:click.prevent="saveEmployee()">Save</a>
-            <a class="btn btn-light" v-on:click.prevent="cancel()">Cancel</a>
-        </div>
-        -->
 
+    <div class="jumbotron">
 
         <form @submit.prevent="submit" class="contact-form">
             <h2>Add employee</h2>
@@ -50,14 +26,7 @@
 
             <p class="typo__p" v-if="submitStatus === 'ERROR'">Please fill the field correctly.</p>
             <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
-
-
-
         </form>
-
-
-
-
     </div>
 </template>
 

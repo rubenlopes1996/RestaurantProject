@@ -1,8 +1,18 @@
 <template>
     <div class="container">
         <h1>Menu Restaurant</h1>
-        <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="notLoaded"></PacmanLoader>
-        <div v-else>
+        <b-container>
+      <b-row>
+        <b-col cols="4">
+        </b-col>
+        <b-col cols="4">
+        <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="items==null"></PacmanLoader>
+        </b-col>
+        <b-col cols="4">
+        </b-col>
+      </b-row>
+    </b-container>
+        <div v-if="items!=null">
             <div class="card-group">
                 <div v-for="item in items" v-bind:key="item.id">
                     <div class="card" style="width: 18rem; margin:10px">
@@ -38,7 +48,7 @@ export default {
     return {
       items: [],
       pagination: {},
-      notLoaded: false
+      size: 30
     };
   },
   created() {
