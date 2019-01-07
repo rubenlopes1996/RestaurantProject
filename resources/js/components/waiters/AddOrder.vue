@@ -1,24 +1,28 @@
 <template>
-    <div>
-        <div class="jumbotron">
-            <h2>Add Order</h2>
-            <div class="form-group">
-                <label for="inputName"></label>
-                <b-form-group>
-                    <div class="col-sm-12">
+    <b-container>
+        <b-row >
+            <b-col>
+                <div class="jumbotron">
+                    <h2>Add Order</h2>
+                    <div class="form-group">
+                        <label for="inputName"></label>
+                        <b-form-group>
+                            <div class="col-sm-12">
 
-                        <b-form-select v-model="data.items" :options="optionItems" size="lg" ></b-form-select>
+                                <b-form-select v-model="data.items" :options="optionItems" size="lg" ></b-form-select>
 
+                            </div>
+                        </b-form-group>
                     </div>
-                </b-form-group>
-            </div>
 
-            <div class="form-group">
-                <a class="btn btn-primary" v-on:click.prevent="createOrder()">Create</a>
-                <a class="btn btn-light" v-on:click.prevent="cancel()">Cancel</a>
-            </div>
-        </div>
-    </div>
+                    <div class="form-group">
+                        <a class="btn btn-primary" v-on:click.prevent="createOrder()">Create</a>
+                        <a class="btn btn-light" v-on:click.prevent="cancel()">Cancel</a>
+                    </div>
+                </div>
+            </b-col>
+        </b-row>
+    </b-container>
 </template>
 
 <script>

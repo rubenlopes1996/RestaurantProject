@@ -1,6 +1,10 @@
 <template>
-    <div style="margin-top:200px">
+    <b-container>
+    <b-row>
+        <b-col cols="4">
 
+        </b-col>
+        <b-col cols="4">
         <form @submit.prevent="submit" class="contact-form">
             <h4>Contact an Administrator</h4>
 
@@ -15,11 +19,13 @@
             <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your submission!</p>
             <p class="typo__p" v-if="submitStatus === 'ERROR'">Please fill the fiedl correctly.</p>
             <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
-
-
-
         </form>
-    </div>
+        </b-col>
+        <b-col cols="4">
+            
+        </b-col>
+    </b-row>
+</b-container>
 </template>
 
 <script>
