@@ -8,7 +8,7 @@
         <b-button v-on:click.prevent="filterData('paid')" variant="outline-primary">Paid</b-button>
         <b-button v-on:click.prevent="filterData('not paid')" variant="outline-warning">Not Paid</b-button>
         <b-button v-on:click.prevent="filterData('start')" variant="outline-secondary">Date</b-button>
-        <b-button v-on:click.prevent="filterData('responsible_waiter_id')"variant="outline-secondary">Responsbile Waiter</b-button>
+        <b-button v-on:click.prevent="filterData('responsible_waiter_id')" variant="outline-secondary">Responsbile Waiter</b-button>
         <br>
         <br>
         <br>

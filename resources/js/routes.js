@@ -187,8 +187,10 @@ let routes = [{
         meta: {
             middlewareAuth: true
         },
-        children: [{
-                path: 'orders',
+        children: [
+            {
+                path: '/orders/:newestOrderId',
+                name:  'orders',
                 component: require('./components/cooks/Orders.vue'),
                 meta: {
                     middlewareAuth: true

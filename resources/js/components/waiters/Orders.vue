@@ -28,8 +28,12 @@
             return {
                 makePag: [],
                 orders: null,
-    
-                fields: [{
+                fields: [
+                    {
+                        key: 'id',
+                        label: 'New'
+                    },
+                    {
                         key: 'state',
                         sortable: true
                     },
@@ -63,6 +67,7 @@
                 .get("api/waiter/list-orders/pending/confirmed")
                 .then(response => {
                     this.orders = response.data.data;
+                    console.log(this.orders);
                 })
                 .catch(error => {
                     console.log(error);
@@ -71,7 +76,7 @@
         },
         sockets:{
             socketRefreshPCOrders(){
-                this.$toasted.success('Order Prepared', {duration: 2000, position: 'top-right'});
+                //this.$toasted.success('Order Prepared', {duration: 2000, position: 'top-right'});
                 this.fetchPendingAndConfirmedOrders();
             }
         },

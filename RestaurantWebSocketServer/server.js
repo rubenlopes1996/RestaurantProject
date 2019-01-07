@@ -119,9 +119,9 @@ io.on('connection', function (socket) {
         }
     });
 
-    socket.on('orderAdded_to_cooks', function () {
+    socket.on('orderAdded_to_cooks', function (order_id) {
         socket.broadcast.to('group_cook').emit('socketRefreshOrders');
-        socket.broadcast.to('group_cook').emit('freshOrder');
+        socket.broadcast.to('group_cook').emit('freshOrder', order_id);
     });
 
     socket.on('orderChangedState', function() {
@@ -131,6 +131,7 @@ io.on('connection', function (socket) {
     socket.on('orderPrepared_to_waiter', function(waiter_Id) {
         const waiter = loggedUsers.userInfoByID(waiter_Id);
         io.to(waiter.socketID).emit('socketRefreshPCOrders');
+        io.to(waiter.socketID).emit('freshOrderPrepared');
     });
 
 

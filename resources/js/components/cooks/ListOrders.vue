@@ -14,7 +14,12 @@
           </b-col>
         </b-row>
         <b-table hover :items="orders" :fields="fields" v-if="orders!=null" :filter="filter" :per-page="perPage" :current-page="currentPage" :bordered="true">
-      <template slot="actions" slot-scope="row">
+        <template slot="id" slot-scope="data">
+            <span v-if="data.value===newestOrderId" id="checkNew">
+              <b-form-checkbox checked="true" disabled></b-form-checkbox>
+            </span>
+        </template>
+        <template slot="actions" slot-scope="row">
                 <div v-if="row.item.state == 'confirmed' && row.item.type != 'drink' && row.item.type != 'dessert'">
                     <button class="btn btn-sm btn-success" v-on:click.prevent="inPreparation(row.item)">In preparation</button>
                 </div>
@@ -30,11 +35,15 @@
 
 <script>
     module.exports = {
-        props: ["orders"],
+        props: {orders: Array, newestOrderId: ''},
         data: function() {
             return {
                 size: 100,
                 fields: [ 
+                    {
+                        key: 'id',
+                        label: 'New'
+                    },
                     {key:'state'},
                     {key:'item_id'},
                     {key:'meal_id', sortable: true},

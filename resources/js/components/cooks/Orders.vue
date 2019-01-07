@@ -7,7 +7,7 @@
               </button>
         <strong>{{ successMessage }}</strong>
       </div>
-      <order-list :orders="orders" @inPreparation="inPreparation" @prepared="prepared" @get-orders="refreshOrders"></order-list>
+      <order-list :orders="orders" :newestOrderId="newestOrderId" @inPreparation="inPreparation" @prepared="prepared" @get-orders="refreshOrders"></order-list>
     </div>
   </div>
 </template>
@@ -19,7 +19,8 @@
         orders: null,
         successMessage: "",
         showSuccess: false,
-        user: this.$store.state.user
+        user: this.$store.state.user,
+        newestOrderId: this.$route.params.newestOrderId,
       };
     },
     methods: {

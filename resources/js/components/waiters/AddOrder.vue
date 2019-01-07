@@ -56,7 +56,7 @@
                     .then(response => {
                             console.log("Order changed to confirmed");
                             //SOCKET
-                            this.$socket.emit('orderAdded_to_cooks');
+                            this.$socket.emit('orderAdded_to_cooks', this.orderID);
                     })
                     .catch(error => {
                         console.log(error);

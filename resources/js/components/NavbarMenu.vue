@@ -43,9 +43,10 @@
                 <vs-collapse accordion v-if="notificationsOrders!=null">
                     <vs-collapse-item v-for="(order, index) in notificationsOrders" :key="order + index">
                         <div slot="header">
-                            {{order}}
+                            Order to prepare
                         </div>
-                        <router-link to="/dashboardCook/orders" ><vs-button color="success" type="filled">Orders</vs-button></router-link>
+                        
+                        <router-link :to="{name: 'orders', params: {newestOrderId: notificationsOrders[index] }}" ><vs-button color="success" type="filled">Details</vs-button></router-link>
                         <vs-button color="danger" type="filled" v-on:click.prevent="removeOrderInfo(index)">Dismiss</vs-button>
                     </vs-collapse-item>
                 </vs-collapse>
@@ -282,11 +283,14 @@ import 'material-icons/iconfont/material-icons.css';
                 this.notificationsTMealId.unshift(dataFromServer[2]);
                 
             },
-            freshOrder(){
-                this.$toasted.success('New Order', {duration: 2000, position: 'top-right'});
+            freshOrder(dataFromServer){
+                this.$toasted.success('New order to prepare', {duration: 2000, position: 'top-right'});
                 this.unreadNotif+=1;
 
-                this.notificationsOrders.unshift("New order to prepare");
+                this.notificationsOrders.unshift(dataFromServer);
+            },
+            freshOrderPrepared(){
+                this.$toasted.success('Order Prepared', {duration: 2000, position: 'top-right'});
             }
 
             /*,

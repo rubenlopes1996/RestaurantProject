@@ -9,7 +9,7 @@
           <p>Hello, {{user.name}}</p>
         </li>
         <li class="users">
-          <router-link class="nav-link" to="/dashboardCook/orders">
+          <router-link class="nav-link" :to="{name: 'orders', params: {newestOrderId: -1 }}">
             <feather-icon type="box"></feather-icon> Orders
           </router-link>
         </li>
