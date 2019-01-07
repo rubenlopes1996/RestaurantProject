@@ -114,6 +114,7 @@ io.on('connection', function (socket) {
         if (userInfo != undefined) {
             socket.broadcast.to('group_cashier').emit('socketRefreshMeals', meal_id);
             socket.broadcast.to('group_cashier').emit('freshTerminatedMeals', userInfo.type + ': ' + userInfo.name, meal_table_number, meal_id);
+            socket.broadcast.to('group_manager').emit('socketRefreshMeals');
              
         }
     });

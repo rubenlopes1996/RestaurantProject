@@ -102,7 +102,7 @@ class MealsControllerAPI extends Controller
     }
 
     public function listmealsManager(){
-        return MealsResource::collection(Meals::Where('state','active')->OrWhere('state','terminated')->paginate(20));
+        return MealsResource::collection(Meals::Where('state','active')->OrWhere('state','terminated')->orderBy('id','desc')->paginate(10));
 
     }
     public function listmealsManagerSummary(){
