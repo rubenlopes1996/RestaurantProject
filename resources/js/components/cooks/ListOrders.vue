@@ -1,16 +1,7 @@
 <template>
     <div>
         <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="orders==null"></PacmanLoader>
-        <!--<v-client-table ref="table" :data="orders" :columns="columns" :options="options" id="buttons" v-if="orders!=null">
-            <div slot="actions" slot-scope="orders" align="center">
-                <div v-if="orders.row.state == 'confirmed'">
-                    <button class="btn btn-sm btn-success" v-on:click.prevent="inPreparation(orders.row)">In preparation</button>
-                </div>
-                <div v-if="orders.row.state == 'in preparation'">
-                    <button class="btn btn-sm btn-primary" v-on:click.prevent="prepared(orders.row)">Prepared</button>
-                </div>
-            </div>
-        </v-client-table>-->
+
         <b-row>
           <b-col md="6" class="my-1" v-if="orders!=null">
             <b-form-group horizontal label="Filter" class="mb-0">
@@ -33,18 +24,29 @@
                 </div>
         </template>
       </b-table>
-      <b-pagination v-if="orders!=null" :total-rows="orders.length" v-model="currentPage" :per-page="perPage">
-      </b-pagination>
+        <nav aria-label="Page navigation example" v-if="orders!=null">
+            <ul class="pagination">
+                <li v-bind:class="[{disabled: !pagination.prev_page_url}]" class="page-item">
+                    <a class="page-link" href="#" @click.prevent="getOrders(pagination.prev_page_url)">Previous</a>
+                </li>
+
+                <li class="page-item disabled"><a class="page-link text-dark" href="#">Page {{ pagination.current_page }} of {{ pagination.last_page }}</a></li>
+
+                <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item">
+                    <a class="page-link" href="#" @click.prevent="getOrders(pagination.next_page_url)">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </template>
 
 <script>
     module.exports = {
-        props: ["orders"],
+        props: ["orders","pagination"],
         data: function() {
             return {
                 size: 100,
-                fields: [ 
+                fields: [
                     {key:'state'},
                     {key:'item_id'},
                     {key:'meal_id', sortable: true},
@@ -54,6 +56,7 @@
                 filter: null,
                 currentPage: 1,
                 perPage: 10,
+
             };
         },
         methods: {
@@ -62,7 +65,11 @@
             },
             prepared: function(order) {
                 this.$emit("prepared", order);
-             }
+             },
+            getOrders: function(pagination) {
+                this.$emit("getOrders", pagination);
+            },
+
         }
     };
 </script>
@@ -71,7 +78,7 @@
     #table {
         margin-top: 200px;
     }
-    
+
     .color-success td:nth-child(2) {
         color: darkgreen;
     }

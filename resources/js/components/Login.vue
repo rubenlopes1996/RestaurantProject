@@ -85,6 +85,7 @@ export default {
           this.message = "Invalid credentials";
           this.showMessage = true;
           console.log(error);
+          this.$toasted.error('Wrong username or password, please try again', {duration: 3000, position: 'top-center',theme:'bubble'});
         });
     }
   }

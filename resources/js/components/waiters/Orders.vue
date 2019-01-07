@@ -62,8 +62,8 @@
                 .get("api/waiter/list-orders/pending/confirmed")
                 .then(response => {
                     this.orders = response.data.data;
-                    let pg = this;
-                    pg.makePagination(response.data.meta, response.data.links);
+
+
                 })
                 .catch(error => {
                     console.log(error);

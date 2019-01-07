@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\InvoicesResource;
 use App\Http\Resources\MealsResource;
+use App\Http\Resources\MealsWithOrdersResource;
 use App\Invoices;
 use App\Meals;
 use Illuminate\Contracts\Support\Jsonable;
@@ -98,7 +99,7 @@ class UserControllerAPI extends Controller
             'name' => 'required|string|max:255|regex:/^[\pL\s]+$/u',
             'username' => 'required|string',
         ]);
-
+        $user = User::findOrFail($id);
         $user->name = $dados['name'];
         $user->username = $dados['username'];
 
@@ -161,6 +162,12 @@ class UserControllerAPI extends Controller
         return UserResource::collection(User::where('type','waiter')->orWhere('type','cook')->orderBY('name')->get());
     }
 
-
+    public function getInvoicesByWaiter($id)
+    {
+        $invoices = Invoices::join('meals', 'invoices.meal_id', '=', 'meals.id')
+            ->join('users', 'users.id', '=', 'meals.responsible_waiter_id')
+            ->where('meals.responsible_waiter_id','=',$id)->where('invoices.state', '!=', 'empty')->paginate(10);
+        return InvoicesResource::collection($invoices,200);
+    }
 
 }

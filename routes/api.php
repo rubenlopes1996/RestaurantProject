@@ -55,7 +55,7 @@ Route::get('paidInvoices/{id}/download','InvoicesControllerAPI@downloadPDF');
 //My profile
 Route::put('employee-profile/{id}', 'UserControllerAPI@update');
 Route::post('employee-photo/{id}', 'UserControllerAPI@uploadPhoto');
-Route::put('employeePassword/{id}', 'UserControllerAPI@updatePassword');
+
 
 //Restaurant menu
 Route::get('menu', 'ItemControllerAPI@index');
@@ -107,9 +107,11 @@ Route::get('list/invoices/date/{begindate}/{enddate}','InvoicesControllerAPI@lis
 
 Route::get('list/statistics','UserControllerAPI@showUsersWaiterCook');
 Route::get('list/statistics/{type}','UserControllerAPI@showUserByType');
+Route::get('list/statistics/waiter/{id}','UserControllerAPI@getInvoicesByWaiter');
 
 
 //fkusahia
 Route::patch('waiter/order/{id}/confirmed','OrderControllerAPI@swapOrderToConfirmed');
+Route::get('waiter/order/{id}/confirmed','OrderControllerAPI@swapOrderToConfirmed');
 
 

@@ -8,8 +8,16 @@
 
                     <b-button v-on:click.prevent="filterData(pagination.prev_page_url,'paid')" variant="outline-success">Paid</b-button>
                     <b-button v-on:click.prevent="filterData(pagination.prev_page_url,'not paid')" variant="outline-danger">Not Paid</b-button>
-                    <b-button v-on:click.prevent="filterData(pagination.prev_page_url,'not paid')" variant="outline-info">Responsible Waiter</b-button>
+
                 </div>
+                <b-form-group>
+                    <p>Select user</p>
+                    <div class="col-sm-12">
+                        <b-form-select v-model="WaiterSelect.user_id" :options="optionItems" size="lg" ></b-form-select>
+                        <br>
+                        <b-button v-on:click.prevent="filterByWaiter()" variant="outline-info">Search </b-button>
+                    </div>
+                </b-form-group>
 
                 <div class="col-md-3">
                     <p>Start Date</p>
@@ -93,15 +101,23 @@
                 currentPage: 1,
                 perPage: 10,
                 size: 30,
+                optionItems: [
+                    { value: null, text: 'Please select some item',disabled: true  },
+                ],
+                WaiterSelect: {
+                    user_id: null,
+                },
+                waiter:null,
             }
         },
         created() {
             this.fetchData();
+            this.getWaiterforSelect();
         },
 
         methods :{
             filterBYDate(page_url){
-                console.log(this.date,this.endDate);
+
 
                 let pg = this;
                 page_url = page_url || "api/list/invoices/date/"+this.date+"/"+this.endDate+"?page=1";
@@ -125,8 +141,9 @@
                 axios
                     .get(page_url)
                     .then(response => {
-                        console.log(response);
+
                         this.meals = response.data.data;
+                        console.log(this.meals);
                         pg.makePagination(response.data.meta, response.data.links);
                     })
                     .catch(error => {
@@ -135,14 +152,14 @@
                     });
             },
             filterData(page_url,state){
-                console.log(state,this.pagination);
+
 
                 let pg = this;
                 page_url = page_url || "api/list/invoices/"+state+"?page=1";
                 axios
                     .get(page_url)
                     .then(response => {
-                        console.log(response);
+
 
                         this.meals= response.data.data;
                         pg.makePagination(response.data.meta, response.data.links);
@@ -152,8 +169,6 @@
                         console.log(error.response.data.message);
                     });
             },
-
-
             makePagination(meta, links) {
                 let pagination = {
                     current_page: meta.current_page,
@@ -162,7 +177,46 @@
                     prev_page_url: links.prev
                 };
                 this.pagination = pagination;
-            }
+            },
+            getWaiterforSelect: function () {
+                axios
+                    .get("api/list/statistics/waiter")
+                    .then(response => {
+                        this.waiter = response.data.data;
+                        this.value=this.waiter;
+
+                        this.waiter.forEach(element => {
+                            this.optionItems.push({
+                                text: element.name,
+                                value: element.id
+                            });
+                        });
+
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        console.log(error.response.data.message);
+                    });
+            },
+            filterByWaiter(page_url){
+                console.log(this.WaiterSelect.user_id);
+                let pg = this;
+                page_url = page_url || "api/list/statistics/waiter/"+this.WaiterSelect.user_id+"?page=1";
+                axios
+                    .get(page_url)
+                    .then(response => {
+                        console.log(response.data.data.length);
+                        this.meals = response.data.data;
+                        if(response.data.data.length==0){
+                            this.$toasted.error('Please select a waiter!', {duration: 2000, position: 'top-center'});
+                        }
+                        pg.makePagination(response.data.meta, response.data.links);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        console.log(error.response.data.message);
+                    });
+            },
         }
 
     }

@@ -7,7 +7,7 @@
               </button>
         <strong>{{ successMessage }}</strong>
       </div>
-      <order-list :orders="orders" @inPreparation="inPreparation" @prepared="prepared"></order-list>
+      <order-list :orders="orders" :pagination="pagination" @inPreparation="inPreparation" @prepared="prepared" @getOrders="getOrders"></order-list>
     </div>
   </div>
 </template>
@@ -19,15 +19,30 @@
         orders: null,
         successMessage: "",
         showSuccess: false,
-        user: this.$store.state.user
+        user: this.$store.state.user,
+        pagination: {},
+        currentPage: 1,
       };
     },
     methods: {
-      getOrders: function() {
-        axios.get("api/orders/" + this.user.id).then(response => {
+      getOrders: function(page_url) {
+        let pg = this;
+        page_url = page_url || "api/orders/" + this.user.id +"?page=1";
+
+        axios.get(page_url).then(response => {
           this.orders = response.data.data;
           console.log(response.data.data);
+          pg.makePagination(response.data.meta, response.data.links);
         });
+      },
+      makePagination(meta, links) {
+        let pagination = {
+          current_page: meta.current_page,
+          last_page: meta.last_page,
+          next_page_url: links.next,
+          prev_page_url: links.prev
+        };
+        this.pagination = pagination;
       },
       inPreparation: function(order) {
         axios.patch('/api/orders/inPreparation/'+order.id).then(response => {
