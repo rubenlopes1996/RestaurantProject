@@ -23,7 +23,7 @@ class OrderControllerAPI extends Controller
     {
         
         return OrdersResource::collection(Orders::Where('state','in preparation')->where('responsible_cook_id', $id)
-        ->orWhere('state','confirmed')->Orderby('created_at')->get());
+        ->orWhere('state','confirmed')->Orderby('created_at')->paginate(10));
     }
 
     /**
@@ -147,4 +147,9 @@ class OrderControllerAPI extends Controller
         $order->save();
         return response()->json(new OrdersResource($order), 200);
     }
+
+
+
+
+
 }

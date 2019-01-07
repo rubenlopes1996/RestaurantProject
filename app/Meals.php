@@ -20,9 +20,6 @@ class Meals extends Model
         return $this->hasOne('App\User', 'id','responsible_waiter_id');
     }
 
-    public function Invoices() {
-        return $this->belongsTo('Invoices');
-    }
 
     public function table()
     {

@@ -7,7 +7,7 @@
               </button>
         <strong>{{ successMessage }}</strong>
       </div>
-      <order-list :orders="orders" :newestOrderId="newestOrderId" @inPreparation="inPreparation" @prepared="prepared" @get-orders="refreshOrders"></order-list>
+      <order-list :orders="orders" :newestOrderId="newestOrderId" :pagination="pagination" @inPreparation="inPreparation" @prepared="prepared" @get-orders="refreshOrders"></order-list>
     </div>
   </div>
 </template>
@@ -21,17 +21,32 @@
         showSuccess: false,
         user: this.$store.state.user,
         newestOrderId: this.$route.params.newestOrderId,
+        pagination: {},
+        currentPage: 1,
       };
     },
     methods: {
-      refreshOrders: function(){
+      getOrders: function(page_url) {
+        let pg = this;
+        page_url = page_url || "api/orders/" + this.user.id +"?page=1";
+
+        axios.get(page_url).then(response => {
+          this.orders = response.data.data;
+          console.log(response.data.data);
+          pg.makePagination(response.data.meta, response.data.links);
+        });
+      },
+         refreshOrders: function(){
         this.getOrders();
       },
-      getOrders: function() {
-        axios.get("api/orders/" + this.user.id).then(response => {
-          this.orders = response.data.data;
-          console.log("User Id",this.user.id);
-        });
+      makePagination(meta, links) {
+        let pagination = {
+          current_page: meta.current_page,
+          last_page: meta.last_page,
+          next_page_url: links.next,
+          prev_page_url: links.prev
+        };
+        this.pagination = pagination;
       },
       inPreparation: function(order) {
         axios.patch('/api/orders/inPreparation/'+order.id).then(response => {

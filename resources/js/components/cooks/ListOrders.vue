@@ -28,14 +28,25 @@
                 </div>
         </template>
       </b-table>
-      <b-pagination v-if="orders!=null" :total-rows="orders.length" v-model="currentPage" :per-page="perPage">
-      </b-pagination>
+        <nav aria-label="Page navigation example" v-if="orders!=null">
+            <ul class="pagination">
+                <li v-bind:class="[{disabled: !pagination.prev_page_url}]" class="page-item">
+                    <a class="page-link" href="#" @click.prevent="getOrders(pagination.prev_page_url)">Previous</a>
+                </li>
+
+                <li class="page-item disabled"><a class="page-link text-dark" href="#">Page {{ pagination.current_page }} of {{ pagination.last_page }}</a></li>
+
+                <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item">
+                    <a class="page-link" href="#" @click.prevent="getOrders(pagination.next_page_url)">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </template>
 
 <script>
     module.exports = {
-        props: {orders: Array, newestOrderId: ''},
+        props: {orders: Array, newestOrderId: '', pagination: ''},
         data: function() {
             return {
                 size: 100,
@@ -53,20 +64,21 @@
                 filter: null,
                 currentPage: 1,
                 perPage: 10,
+
             };
         },
         methods: {
             inPreparation: function(order) {
                 this.$emit("inPreparation", order);
-                
-
 
             },
             prepared: function(order) {
                 this.$emit("prepared", order);
-                
+             },
+            getOrders: function(pagination) {
+                this.$emit("getOrders", pagination);
+            },
 
-             }
         },
     sockets:{
       socketRefreshOrders(){
@@ -81,7 +93,7 @@
     #table {
         margin-top: 200px;
     }
-    
+
     .color-success td:nth-child(2) {
         color: darkgreen;
     }

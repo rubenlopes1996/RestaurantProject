@@ -54,12 +54,12 @@
         axios.post("api/restaurant-tables", table)
           .then(response => {
             this.successMessage = "Table Created";
-            this.$toasted.success('Table created with success!', {duration: 5000, position: 'top-center'});
+            this.$toasted.success('Table created with success!', {duration: 3000, position: 'top-center',theme:'bubble'});
             
             this.getTables();
           })
           .catch(error => {
-            this.$toasted.error('Something went wrong creating the table!', {duration: 5000, position: 'bottom-center'});
+            this.$toasted.error('Something went wrong creating the table!', {duration: 3000, position: 'bottom-center',theme:'bubble'});
             console.log(error);
             console.log(error.response.data.message);
           });
@@ -77,13 +77,12 @@
         axios
           .delete("api/restaurant-tables/" + table.table_number)
           .then(response => {
-            this.showSuccess = true;
-            this.successMessage = "Table Deleted";
+            this.$toasted.success('Table has been deleted!', {duration: 3000, position: 'top-center',theme:'bubble'});
             this.getTables();
           })
           .catch(error => {
-            console.log(error.response.data.message);
-            this.failMessage = error.response.data.message;
+            console.log(error.response.data.message,'dsadjoisao');
+            this.$toasted.error('You can\'t delete this table!', {duration: 3000, position: 'bottom-center',theme:'bubble'});
           });
       },
       getTables: function() {

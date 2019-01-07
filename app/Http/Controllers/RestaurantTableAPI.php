@@ -31,7 +31,7 @@ class RestaurantTableAPI extends Controller
     public function create(Request $request)
     {
         $data = $request->validate([
-            'table_number' => 'required|unique:restaurant_tables,table_number'
+            'table_number' => 'required|min:1|numeric|unique:restaurant_tables,table_number'
         ]);
 
         $table = new RestaurantTable();

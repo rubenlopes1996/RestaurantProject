@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-modal v-model="modalShow" @ok="handleOk()">
-            Are you sure you want to terminated this meal ?
+            Are you sure you want to terminate this meal ?
         </b-modal>
             <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="meals==null"></PacmanLoader>
             <b-row>

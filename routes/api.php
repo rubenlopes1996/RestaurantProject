@@ -61,6 +61,7 @@ Route::get('paidInvoices/download/{id}','InvoicesControllerAPI@downloadPDF');
 Route::put('employee-profile/{id}', 'UserControllerAPI@updateProfile');
 Route::post('employee-photo/{id}', 'UserControllerAPI@uploadPhoto');
 
+
 //Restaurant menu
 Route::get('menu', 'ItemControllerAPI@index');
 Route::delete('menu/{id}','ItemControllerAPI@destroy');
@@ -116,5 +117,6 @@ Route::get('statistics/waiter/{id}/date','StatisticsControllerAPI@statisticsByEm
 
 //fkusahia
 Route::patch('waiter/order/{id}/confirmed','OrderControllerAPI@swapOrderToConfirmed');
+Route::get('waiter/order/{id}/confirmed','OrderControllerAPI@swapOrderToConfirmed');
 
 
