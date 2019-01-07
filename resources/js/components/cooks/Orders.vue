@@ -8,7 +8,7 @@
                 </button>
           <strong>{{ successMessage }}</strong>
         </div>
-        <order-list :orders="orders" :newestOrderId="newestOrderId" :pagination="pagination" @inPreparation="inPreparation" @prepared="prepared" @get-orders="refreshOrders"></order-list>
+        <order-list @getOrders="getOrders" :orders="orders" :newestOrderId="newestOrderId" :pagination="pagination" @inPreparation="inPreparation" @prepared="prepared" @get-orders="refreshOrders"></order-list>
       </b-col>
     </b-row>
   </b-container>

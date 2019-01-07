@@ -297,7 +297,11 @@ import 'material-icons/iconfont/material-icons.css';
             },
             freshOrderPrepared(){
                 this.$toasted.success('Order Prepared', {duration: 2000, position: 'top-right'});
+            },
+            socketRefreshMeals(){
+                this.$toasted.success('Meal terminated!', {duration: 3000, position: 'top-right'});
             }
+
 
             /*,
             msg_from_server(dataFromServer){

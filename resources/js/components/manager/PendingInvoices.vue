@@ -1,7 +1,7 @@
 <template>
     <div id="conteudo">
         <b-container>
-            <b-row>
+            <b-row b-row style="margin-top:70px">
                 <b-col cols="4">
                 </b-col>
                 <b-col cols="4">
@@ -11,6 +11,22 @@
                 </b-col>
             </b-row>
         </b-container>
+
+        <b-container v-if="meals!=null">
+            <b-row>
+                <b-col cols="12">
+        <b-form-group>
+                <p>Select a employee</p>
+                <div class="col-sm-12">
+                    <b-form-select v-model="WaiterSelect.user_id" :options="optionItems" size="lg"></b-form-select>
+                </div>
+        </b-form-group>
+        <b-button v-on:click.prevent="filterByWaiter(pagination.prev_page_url)" variant="outline-secondary">Filter </b-button>
+                </b-col>
+            </b-row>
+        </b-container>
+
+
         <b-container v-if="meals!=null">
             <b-row style="margin-top:70px">
                 <b-col>
@@ -21,6 +37,7 @@
                     <b-button v-on:click.prevent="filterData(pagination.prev_page_url,'not paid')" variant="outline-info">Responsible Waiter</b-button>
                 </b-col>
             </b-row>
+            
             <b-row>
                 <b-col>
                     <p>Start Date</p>
@@ -230,7 +247,6 @@
                     });
             },
             filterByWaiter(page_url){
-                this.WaiterSelect.user_id=this.waiterSelect;
                 console.log(this.WaiterSelect.user_id);
                 let pg = this;
                 page_url = page_url || "api/list/statistics/waiter/"+this.WaiterSelect.user_id+"?page=1";
