@@ -125,4 +125,5 @@ Route::get('waiter/order/{id}/confirmed','OrderControllerAPI@swapOrderToConfirme
 //Statistics
 Route::get('statistics/meals', 'StatisticsControllerAPI@getTotalMeals');
 Route::get('statistics/orders', 'StatisticsControllerAPI@getTotalOrders');
-
+Route::get('statistics/timeOrders','StatisticsControllerAPI@getAverageMinutesOrdersPerMonth');
+Route::get('statistics/timeMeals','StatisticsControllerAPI@getAverageMinutesMealPerMonth');

@@ -24,8 +24,20 @@
                 <b-button v-on:click.prevent="statisticsByEmployeeAndDate()" variant="outline-secondary">Filter </b-button>
             </div>
         </div>
+        <div class="small" v-if="this.dataEmployee != null">
+            <line-chart :chart-data="dataEmployee"></line-chart>
+        </div>
         <div class="small">
-            <line-chart :chart-data="datacollection"></line-chart>
+            <line-chart :chart-data="dataOrder"></line-chart>
+        </div>
+         <div class="small">
+            <line-chart :chart-data="dataMeal"></line-chart>
+        </div>
+          <div class="small">
+            <line-chart :chart-data="dataTimeMeal"></line-chart>
+        </div>
+          <div class="small">
+            <line-chart :chart-data="dataTimeOrder"></line-chart>
         </div>
     </div>
 </template>
@@ -37,10 +49,13 @@
         components: {
             LineChart
         },
-    
         data: function() {
             return {
-                datacollection: null,
+                dataTimeMeal:null,
+                dataTimeOrder:null,
+                dataOrder: null,
+                dataEmployee: null,
+                dataMeal: null,
                 usersKW: null,
                 startDate: null,
                 endDate: null,
@@ -62,6 +77,9 @@
         created() {
             this.getCooksAndWaiters();
             this.statisticsOrder();
+            this.statisticsMeal();
+            this.statisticsTimeOrder();
+            this.statisticsTimeMeal();
         },
         methods: {
             getCooksAndWaiters: function() {
@@ -92,7 +110,14 @@
                     }
                 }).
                 then(response => {
-                    console.log(response);
+                    this.dataEmployee = {
+                        labels: response.data.labels,
+                        datasets: [{
+                            label: 'Performance of the employee',
+                            backgroundColor: '#0040ff',
+                            data: response.data.series
+                        }]
+                    }
                 }).catch(error => {
                     console.log(error);
                 })
@@ -100,23 +125,67 @@
             statisticsOrder() {
                 axios.get('api/statistics/orders').
                 then(response => {
-                    console.log(response.data);
-                    this.datacollection = {
+                    this.dataOrder = {
+                        labels: response.data.labels,
                         datasets: [{
-                            label: 'Data One',
-                            backgroundColor: '#f87979',
-                            data: [response.data.label]
-                        }, {
-                            label: 'Data One',
-                            backgroundColor: '#f87979',
-                            data: [response.data.series]
+                            label: 'Number of orders in the restaurant (months 1-12)',
+                            backgroundColor: '#fa8258',
+                            data: response.data.series
                         }]
                     }
+    
                 }).catch(error => {
                     console.log(error);
                 })
+            },
+            statisticsMeal(){
+                axios.get('api/statistics/meals').
+                then(response => {
+                    this.dataMeal = {
+                        labels: response.data.labels,
+                        datasets: [{
+                            label: 'Number of meals in the restaurant (months 1-12)',
+                            backgroundColor: '#f87979',
+                            data: response.data.series
+                        }]
+                    }
     
+                }).catch(error => {
+                    console.log(error);
+                })
+            },
+            statisticsTimeMeal(){
+                axios.get('api/statistics/timeMeals').
+                then(response => {
+                    this.dataTimeMeal = {
+                        labels: response.data.labels,
+                        datasets: [{
+                            label: 'Average time it takes to handle each meal',
+                            backgroundColor: '#f87979',
+                            data: response.data.series
+                        }]
+                    }
     
+                }).catch(error => {
+                    console.log(error);
+                })
+            },
+            statisticsTimeOrder(){
+                axios.get('api/statistics/timeOrders').
+                then(response => {
+                    console.log(response.data)
+                    this.dataTimeOrder = {
+                        labels: response.data.labels,
+                        datasets: [{
+                            label: 'Average time it takes to handle each order',
+                            backgroundColor: '#f87979',
+                            data: response.data.series
+                        }]
+                    }
+    
+                }).catch(error => {
+                    console.log(error);
+                })
             }
     
     
