@@ -14,15 +14,19 @@
           </router-link>
         </li>
         <li class="users">
-          <router-link class="nav-link" to="/dashboard/contactAdmin">
+          <router-link class="nav-link" to="/dashboardCook/contactAdmin">
             <feather-icon type="help-circle"></feather-icon> Contact an Admin
           </router-link>
         </li>
       </ul>
     </nav>
-    <div class="container d-flex justify-content-center">
-      <router-view></router-view>
-    </div>
+    <b-container>
+      <b-row align-v="center" style="min-height: 900px">
+          <b-col style="margin-left: 200px">
+            <router-view></router-view>
+          </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 

@@ -78,8 +78,6 @@
                 this.msgDepText ="";
             },
             sendMessageTo: function(){
-
-
                 this.$toasted.success('Your message has been sent.', {duration: 3000, position: 'top-center'});
                 this.$socket.emit('msg_from_client_to_admin',  this.msgGlobalText, this.msgGlobalTextArea, this.$store.state.user);
 

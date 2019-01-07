@@ -1,11 +1,15 @@
 <template>
-  <div class="container content-admin">
+  <b-container>
+    <b-row style="margin-top:70px">
+        <b-col cols="12">
     <item-add @create-item="createItem"></item-add>
 
       <item-edit :items="currentItem" @save-item="saveItem()" @cancel-edit="cancelEdit()"></item-edit>
       <item-list :items="items" @edit-item="editItem" @delete-item="deleteItem"></item-list>
-
-  </div>
+        </b-col>
+    </b-row>
+  </b-container>
+  
 </template>
 
 <script>

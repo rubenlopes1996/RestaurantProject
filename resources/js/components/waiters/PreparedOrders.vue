@@ -1,6 +1,15 @@
 <template>
-    <div>
-        <PacmanLoader class="pacman-loader" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="preparedItems==null"></PacmanLoader>
+        <b-container style="margin-top:70px">
+            <b-row>
+                <b-col cols="4">
+                </b-col>
+                <b-col cols="4">
+                <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="preparedItems==null"></PacmanLoader>
+                </b-col>
+                <b-col cols="4">
+                </b-col>
+            </b-row>
+        
         <b-row>
             <b-col md="6" class="my-1" v-if="preparedItems!=null">
                 <b-form-group horizontal label="Filter" class="mb-0">
@@ -14,16 +23,18 @@
             </b-col>
         </b-row>
 
-        <b-table hover :items="preparedItems" :fields="fields" v-if="preparedItems!=null" :filter="filter" :per-page="perPage" :current-page="currentPage" :bordered="true">
-            <template slot="actions" slot-scope="row">
+        <b-row >
+            <b-table hover :items="preparedItems" :fields="fields" v-if="preparedItems!=null" :filter="filter" :per-page="perPage" :current-page="currentPage" :bordered="true">
+                <template slot="actions" slot-scope="row">
 
-                <b-button v-on:click.prevent="deliveredOrder(row.item.id)">Delivered this Order</b-button>
+                    <b-button v-on:click.prevent="deliveredOrder(row.item.id)">Delivered this Order</b-button>
 
-            </template>
-        </b-table>
-        <b-pagination v-if="preparedItems!=null" :total-rows="preparedItems.length" v-model="currentPage" :per-page="perPage">
-        </b-pagination>
-    </div>
+                </template>
+            </b-table>
+            <b-pagination v-if="preparedItems!=null" :total-rows="preparedItems.length" v-model="currentPage" :per-page="perPage">
+            </b-pagination>
+        </b-row>
+    </b-container>
 </template>
 <script>
     export default {

@@ -1,8 +1,18 @@
 <template>
     <div id="conteudo">
-        <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="meals==null"></PacmanLoader>
         <b-container>
             <b-row>
+                <b-col cols="4">
+                </b-col>
+                <b-col cols="4">
+                <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if="meals==null"></PacmanLoader>
+                </b-col>
+                <b-col cols="4">
+                </b-col>
+            </b-row>
+        </b-container>
+        <b-container v-if="meals!=null">
+            <b-row style="margin-top:70px">
                 <b-col>
                     <p>Click here to order by the invoice you wish</p>
                      <b-button v-on:click.prevent="filterData(pagination.prev_page_url,'pending')" variant="outline-secondary">Pending</b-button>
@@ -28,7 +38,6 @@
                     <b-button v-on:click.prevent="filterBYDate(pagination.prev_page_url)" variant="outline-info">Filter by Date</b-button>
                 </b-col>
                 </b-row>
-                -->
         </b-container>
 
         <b-row>

@@ -72,7 +72,6 @@ Vue.component('item-list', require('./components/restaurant-menu/RestaurantMenuL
 Vue.component('paid-invoices', require('./components/cashiers/PaidInvoicesList.vue'));
 Vue.component('all-invoices', require('./components/cashiers/AllInvoicesList.vue'));
 Vue.component('invoice-payment', require('./components/cashiers/InvoicePayment.vue'));
-Vue.component('table-list', require('./components/restaurant-table/RestaurantTableList.vue'));
 Vue.component('table-edit', require('./components/restaurant-table/RestaurantTableEdit.vue'));
 Vue.component('table-add', require('./components/restaurant-table/RestaurantTableAdd.vue'));
 Vue.component('order-list',require('./components/cooks/ListOrders.vue'));

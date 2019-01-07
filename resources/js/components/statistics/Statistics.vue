@@ -1,11 +1,29 @@
 <template>
-    <div>
-        <div class="jumbotron">
-            <div>
-                <b-form-group>
-                    <p>Select a employee</p>
-                    <div class="col-sm-12">
-                        <b-form-select v-model="dataUser.user_id" :options="optionItems" size="lg"></b-form-select>
+    <b-container>
+        <b-row style="margin-top:70px">
+            <b-col cols="12">
+                <div class="jumbotron">
+                    <div>
+                        <b-form-group>
+                            <p>Select a employee</p>
+                            <div class="col-sm-12">
+                                <b-form-select v-model="dataUser.user_id" :options="optionItems" size="lg"></b-form-select>
+                            </div>
+                        </b-form-group>
+
+                        <b-container>
+                            <b-row>
+                                <b-col>
+                                    <p>Start Date</p>
+                                    <date-picker v-model="startDate" :config="options"></date-picker>
+                                </b-col>
+                                <b-col>
+                                    <p>End Date</p>
+                                    <date-picker v-model="endDate" :config="options"></date-picker>
+                                </b-col>
+                            </b-row>
+                        </b-container>
+                        <b-button v-on:click.prevent="statisticsByEmployeeAndDate()" variant="outline-secondary">Filter </b-button>
                     </div>
                 </b-form-group>
     
@@ -139,6 +157,7 @@
             statisticsOrder() {
                 axios.get('api/statistics/orders').
                 then(response => {
+                    console.log("Stats Ordes: ",response.data);
                     this.dataOrder = {
                         labels: response.data.labels,
                         datasets: [{

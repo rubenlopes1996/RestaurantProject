@@ -1,15 +1,19 @@
 <template>
-  <div class="container content-admin">
-    <table-add @save-table="saveTable"></table-add>
-    <div id="list">
-      <div class="alert alert-success" v-if="showSuccess">
-        <button type="button" class="close" aria-label="Close" v-on:click="showSuccess=false"><span aria-hidden="true">&times;</span></button>
-        <strong>{{ successMessage }}</strong>
-      </div>
-      <table-edit :tables="currentTable" @save-table="saveTable()" @save-edited="saveEditedTable" @cancel-edit="cancelEdit"></table-edit>
-      <table-list :tables="tables" @edit-table="editTable"  @delete-table="deleteTable"></table-list>
-    </div>
-  </div>
+  <b-container>
+    <b-row style="margin-top:70px">
+        <b-col cols="12">
+          <table-add @save-table="saveTable"></table-add>
+          <div id="list">
+            <div class="alert alert-success" v-if="showSuccess">
+              <button type="button" class="close" aria-label="Close" v-on:click="showSuccess=false"><span aria-hidden="true">&times;</span></button>
+              <strong>{{ successMessage }}</strong>
+            </div>
+            <table-edit :tables="currentTable" @save-table="saveTable()" @save-edited="saveEditedTable" @cancel-edit="cancelEdit"></table-edit>
+            <table-list :tables="tables" @edit-table="editTable"  @delete-table="deleteTable"></table-list>
+          </div>
+        </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>

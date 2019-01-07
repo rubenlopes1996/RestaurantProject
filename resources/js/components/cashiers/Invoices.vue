@@ -1,17 +1,12 @@
 <template>
-    <div class="container content-admin">
-        <!--<add-employee></add-employee>-->
-        <div id="list">
-            <!--<div class="alert alert-success" v-if="showSuccess">
-                    <button type="button" class="close" aria-label="Close" v-on:click="showSuccess=false"><span aria-hidden="true">&times;</span></button>
-                    <strong>{{ successMessage }}</strong>
-                </div>-->
-            <!--<user-edit :user="currentUser" @save-user="saveUser()" @cancel-edit="cancelEdit()"></user-edit>-->
-            <invoice-payment :invoice="currentInvoice" @pay-invoice="payInvoice()" @cancel-edit="cancelEdit()"></invoice-payment>
-            <list-invoices :invoices="invoices" @get-invoices="refreshInvoices" :newestTMealId="newestTMealId" :newMeal="newMeal" @edit-invoice="editInvoice"></list-invoices>
-            <!--<list-invoices  @edit-user="editUser" @delete-user="deleteUser"></list-invoices>-->
-        </div>
-    </div>
+    <b-container>
+          <b-row>
+            <b-col cols="12">
+              <invoice-payment :invoice="currentInvoice" @pay-invoice="payInvoice()" @cancel-edit="cancelEdit()"></invoice-payment>
+              <list-invoices :invoices="invoices" @get-invoices="refreshInvoices" :newestTMealId="newestTMealId" :newMeal="newMeal" @edit-invoice="editInvoice"></list-invoices>
+            </b-col>
+          </b-row>
+    </b-container>
 </template>
 
 <script>

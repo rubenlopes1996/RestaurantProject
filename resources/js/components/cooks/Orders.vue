@@ -1,15 +1,17 @@
 <template>
-  <div class="container content-admin">
-    <div id="list">
-      <div class="alert alert-success" v-if="showSuccess">
-        <button type="button" class="close" aria-label="Close" v-on:click="showSuccess=false">
-                <span aria-hidden="true">&times;</span>
-              </button>
-        <strong>{{ successMessage }}</strong>
-      </div>
-      <order-list :orders="orders" :newestOrderId="newestOrderId" :pagination="pagination" @inPreparation="inPreparation" @prepared="prepared" @get-orders="refreshOrders"></order-list>
-    </div>
-  </div>
+  <b-container>
+    <b-row>
+      <b-col cols="12">
+        <div class="alert alert-success" v-if="showSuccess">
+          <button type="button" class="close" aria-label="Close" v-on:click="showSuccess=false">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+          <strong>{{ successMessage }}</strong>
+        </div>
+        <order-list :orders="orders" :newestOrderId="newestOrderId" :pagination="pagination" @inPreparation="inPreparation" @prepared="prepared" @get-orders="refreshOrders"></order-list>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
