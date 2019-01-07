@@ -30,15 +30,15 @@
             <h2>Add employee</h2>
 
             <div class="form-group" :class="{ 'form-group--error': $v.name.$error }">
-                <input class="form__input form-control" placeholder="Name" v-model.trim="$v.name.$model"/>
+                <input class="form__input form-control" required="true" placeholder="Name" v-model.trim="$v.name.$model"/>
             </div>
 
             <div class="form-group" :class="{ 'form-group--error': $v.email.$error }">
-                <input class="form__input form-control" placeholder="Email address" v-model.trim="$v.email.$model"/>
+                <input class="form__input form-control" required="true" placeholder="Email address" v-model.trim="$v.email.$model"/>
             </div>
             <div class="form-group" :class="{ 'form-group--error': $v.type.$error }">
                 <label for="type">Type:</label>
-                <select class="form-control" v-model="type" id="type" name="type" v-model.trim="$v.type.$model">
+                <select class="form-control" v-model="type" required="true" id="type" name="type" v-model.trim="$v.type.$model">
                     <option> manager </option>
                     <option> cashier </option>
                     <option> waiter </option>
@@ -116,7 +116,7 @@ export default {
         .catch(error => {
           console.log(error);
           console.log(error.response.data.message);
-            this.$toasted.error('Employee has been created!', {duration: 5000, position: 'top-center'});
+            this.$toasted.error('Something went wrong', {duration: 5000, position: 'top-center'});
         });
     }
   }

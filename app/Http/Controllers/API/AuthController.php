@@ -11,10 +11,17 @@ use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 
+<<<<<<< Updated upstream
 define('YOUR_SERVER_URL', 'http://restaurantproject.dad');
 // Check "oauth_clients" table for next 2 values:
 define('CLIENT_ID', '2');
 define('CLIENT_SECRET', 'ji5EfceQ6j71hjqUXDOdGHTWseunEwlnf19pnZrv');
+=======
+define('YOUR_SERVER_URL', 'http://192.168.10.10');
+// Check "oauth_clients" table for next 2 values:
+define('CLIENT_ID', '2');
+define('CLIENT_SECRET', 'BOAIF9HOLYHwKznsEX5ldA83SkL3KVmNJyJEWD3c');
+>>>>>>> Stashed changes
 
 class AuthController extends Controller
 {
@@ -38,7 +45,7 @@ class AuthController extends Controller
 
         //Send email
         $title = 'Confirmation account';
-        $url = "http://restaurantproject.dad/activateAccount/".$user->email;
+        $url = "http://192.168.10.10/activateAccount/".$user->email;
     
 
 

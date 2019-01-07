@@ -13,7 +13,7 @@
             <h2>Add Table</h2>
 
             <div class="form-group" :class="{ 'form-group--error': $v.tableNumber.$error }">
-                <input class="form__input form-control" placeholder="Table number" v-model.trim="$v.tableNumber.$model"/>
+                <input class="form__input form-control" placeholder="Table number" required="true"  v-model.trim="$v.tableNumber.$model"/>
             </div>
 
             <button class="btn btn-primary" type="submit" :disabled="submitStatus === 'PENDING'">Add</button>

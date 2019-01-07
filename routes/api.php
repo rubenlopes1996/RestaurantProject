@@ -114,6 +114,7 @@ Route::get('list/invoices/date/{begindate}/{enddate}','InvoicesControllerAPI@lis
 
 Route::get('list/statistics','UserControllerAPI@showUsersWaiterCook');
 Route::get('list/statistics/{type}','UserControllerAPI@showUserByType');
+Route::get('list/statistics/waiter/{id}','UserControllerAPI@getInvoicesByWaiter');
 Route::get('statistics/waiter/{id}/date','StatisticsControllerAPI@statisticsByEmployeeAndDate');
 
 

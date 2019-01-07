@@ -9,14 +9,14 @@
             <h4>Contact an Administrator</h4>
 
             <div class="form-group" :class="{ 'form-group--error': $v.msgGlobalText.$error }">
-                <input class="form__input form-control" placeholder="Short description" v-model.trim="$v.msgGlobalText.$model"/>
+                <input class="form__input form-control" required="true" placeholder="Short description" v-model.trim="$v.msgGlobalText.$model"/>
             </div>
 
             <div class="form-group" :class="{ 'form-group--error': $v.msgGlobalTextArea.$error }">
-                <input class="form__input form-control" placeholder="Message" v-model.trim="$v.msgGlobalTextArea.$model"/>
+                <input class="form__input form-control" required="true" placeholder="Message" v-model.trim="$v.msgGlobalTextArea.$model"/>
             </div>
             <button class="btn main-btn" type="submit" :disabled="submitStatus === 'PENDING'">Submit!</button>
-            <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your submission!</p>
+
             <p class="typo__p" v-if="submitStatus === 'ERROR'">Please fill the fiedl correctly.</p>
             <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
         </form>

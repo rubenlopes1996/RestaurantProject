@@ -63,16 +63,25 @@
                     format: 'YYYY-MM-DD',
                     useCurrent: false,
                 },
-    
+
                 dataUser: {
                     user_id: null,
                 },
-                optionItems: [{
-                    value: null,
-                    text: 'Please select a employee',
-                    disabled: true
-                }, ],
+                optionItems: [
+
+                ],
             };
+        },
+        validations: {
+            employeeSelect: {
+                required
+            },
+            startDate: {
+                required
+            },
+            endDate: {
+                required
+            },
         },
         created() {
             this.getCooksAndWaiters();
@@ -82,6 +91,20 @@
             this.statisticsTimeMeal();
         },
         methods: {
+            submit() {
+
+                this.$v.$touch()
+                if (this.$v.$invalid) {
+                    this.submitStatus = 'ERROR'
+                } else {
+                    // do your submit logic here
+                    this.submitStatus = 'PENDING'
+                    setTimeout(() => {
+                        this.submitStatus = 'OK'
+                        this.statisticsByEmployeeAndDate();
+                    }, 500)
+                }
+            },
             getCooksAndWaiters: function() {
                 axios
                     .get("api/list/statistics")
@@ -95,7 +118,7 @@
                                 value: element.id
                             });
                         });
-    
+
                     })
                     .catch(error => {
                         console.log(error);

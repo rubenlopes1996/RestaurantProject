@@ -20,15 +20,12 @@
 
         <form @submit.prevent="submit" class="contact-form">
             <h2>Add Meal</h2>
-
             <div class="form-group" :class="{ 'form-group--error': $v.tableNumber.$error }">
-                <input class="form__input form-control" placeholder="Table Number" v-model.trim="$v.tableNumber.$model"/>
+                <input class="form__input form-control" placeholder="Table Number" required="true" v-model.trim="$v.tableNumber.$model"/>
             </div>
-
             <button class="btn btn-primary" type="submit" :disabled="submitStatus === 'PENDING'">Create</button>
             <p class="typo__p" v-if="submitStatus === 'ERROR'">Please fill the field correctly.</p>
             <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
-
 
         </form>
 

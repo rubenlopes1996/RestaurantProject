@@ -35,28 +35,30 @@
       <div class="field">
         <input type="file" id="files" ref="files" v-on:change="handleFiles()">
       </div>
+      <label for="type">Name:</label>
       <div class="form-group" :class="{ 'form-group--error': $v.name.$error }">
-        <input class="form__input form-control" placeholder="Name" v-model.trim="$v.name.$model"/>
+        <input class="form__input form-control" required="true" placeholder="Name" v-model.trim="$v.name.$model"/>
       </div>
+      <label for="type">Description:</label>
       <div class="form-group" :class="{ 'form-group--error': $v.description.$error }">
-        <input class="form__input form-control" placeholder="Description" v-model.trim="$v.description.$model"/>
+        <input class="form__input form-control" required="true" placeholder="Description" v-model.trim="$v.description.$model"/>
       </div>
 
       <div class="form-group":class="{ 'form-group--error': $v.type.$error }">
         <label for="type">Type:</label>
-        <select class="form-control" v-model="items.type" id="type" name="type" v-model.trim="$v.type.$model">
+        <select class="form-control" v-model="items.type" id="type" required="true" name="type" v-model.trim="$v.type.$model">
           <option>dish</option>
           <option>drink</option>
         </select>
       </div>
 
-
+      <label for="type">Price:</label>
       <div class="form-group" :class="{ 'form-group--error': $v.price.$error }">
-        <input class="form__input form-control" placeholder="Price" v-model.trim="$v.price.$model"/>
+        <input class="form__input form-control" required="true"  placeholder="Price" v-model.trim="$v.price.$model"/>
       </div>
 
       <button class="btn btn-primary" type="submit" :disabled="submitStatus === 'PENDING'">Add</button>
-      <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your submission!</p>
+
       <p class="typo__p" v-if="submitStatus === 'ERROR'">Please fill the fiedl correctly.</p>
       <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
     </form>

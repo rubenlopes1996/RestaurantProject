@@ -1,41 +1,37 @@
 <template>
-    <b-container>
-        <b-row >
-            <b-col>
-                <div class="jumbotron">
-                    <h2>Add Order</h2>
-                    <div class="form-group">
-                        <label for="inputName"></label>
-                        <b-form-group>
-                            <div class="col-sm-12">
+    <div>
+        <div class="jumbotron">
 
-                                <b-form-select v-model="data.items" :options="optionItems" size="lg" ></b-form-select>
+        <form @submit.prevent="submit" class="contact-form">
+            <h2>Add Order</h2>
+            <p>Please select a order</p>
+            <div class="form-group" :class="{ 'form-group--error': $v.orderSelect.$error }">
+                <b-form-select  v-model="data.items" :options="optionItems" size="lg" :required="true" v-model.trim="$v.orderSelect.$model"></b-form-select>
+            </div>
+            <button class="btn btn-primary" type="submit" :disabled="submitStatus === 'PENDING'">Create</button>
+            <button class="btn btn-secundary" v-on:click.prevent="cancel()">Cancel</button>
+            <p class="typo__p" v-if="submitStatus === 'ERROR'">Please select a order first.</p>
+            <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
 
-                            </div>
-                        </b-form-group>
-                    </div>
-
-                    <div class="form-group">
-                        <a class="btn btn-primary" v-on:click.prevent="createOrder()">Create</a>
-                        <a class="btn btn-light" v-on:click.prevent="cancel()">Cancel</a>
-                    </div>
-                </div>
-            </b-col>
-        </b-row>
-    </b-container>
+        </form>
+        </div>
+    </div>
 </template>
 
 <script>
+    import { required } from 'vuelidate/lib/validators'
     export default {
         props: ["meal", "menuItem"],
         data: function() {
             return {
+                submitStatus:null,
+                orderSelect:"",
                 data: {
                     meal_id: "",
                     items: null
                 },
                 optionItems: [
-                    { value: null, text: 'Please select some item',disabled: true  },
+
                 ],
                 size: 30,
                 orderID:null,
@@ -51,10 +47,29 @@
 
             };
         },
+        validations: {
+            orderSelect: {
+                required
+            }
+        },
 
         methods: {
+            submit() {
+
+                this.$v.$touch()
+                if (this.$v.$invalid) {
+                    this.submitStatus = 'ERROR'
+                } else {
+                    // do your submit logic here
+                    this.submitStatus = 'PENDING'
+                    setTimeout(() => {
+                        this.submitStatus = 'OK'
+                        this.createOrder();
+                    }, 500)
+                }
+            },
             confirmedOrder:function(){
-                console.log('estou aqui',this.orderID);
+
                 axios
                     .patch("api/waiter/order/"+this.orderID+"/confirmed")
                     .then(response => {
@@ -81,7 +96,9 @@
                     });
             },
             createOrder: function() {
+
                 this.data.meal_id = this.meal;
+                this.data.items= this.orderSelect;
                 console.log(this.data);
                 axios
                     .post("api/addorders", this.data)

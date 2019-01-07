@@ -20,7 +20,7 @@
                     <p>End  Date</p>
                     <date-picker  v-model="endDate" :config="options"></date-picker>
                 </b-col>
-                
+
             </b-row>
             <b-row>
                 <b-col>
@@ -28,6 +28,7 @@
                     <b-button v-on:click.prevent="filterBYDate(pagination.prev_page_url)" variant="outline-info">Filter by Date</b-button>
                 </b-col>
                 </b-row>
+                -->
         </b-container>
 
         <b-row>
@@ -65,10 +66,13 @@
     </div>
 </template>
 <script>
-
+    import { required } from 'vuelidate/lib/validators'
     export default {
         data: function () {
             return {
+                submitStatus:null,
+                submitStatusDatas:null,
+                waiterSelect:"",
                 date: null,
                 endDate: null,
                 options: {
@@ -95,12 +99,23 @@
                 perPage: 10,
                 size: 30,
                 optionItems: [
-                    { value: null, text: 'Please select some item',disabled: true  },
+
                 ],
                 WaiterSelect: {
                     user_id: null,
                 },
                 waiter:null,
+            }
+        },
+        validations: {
+            waiterSelect: {
+                required
+            },
+            date:{
+                required
+            },
+            endDate:{
+                required
             }
         },
         created() {
@@ -109,6 +124,20 @@
         },
 
         methods :{
+            submit() {
+                console.log('submit!')
+                this.$v.$touch()
+                if (this.$v.$invalid) {
+                    this.submitStatus = 'ERROR'
+                } else {
+                    // do your submit logic here
+                    this.submitStatus = 'PENDING'
+                    setTimeout(() => {
+                        this.submitStatus = 'OK'
+                        this.filterByWaiter();
+                    }, 500)
+                }
+            },
             filterBYDate(page_url){
 
 
@@ -192,6 +221,7 @@
                     });
             },
             filterByWaiter(page_url){
+                this.WaiterSelect.user_id=this.waiterSelect;
                 console.log(this.WaiterSelect.user_id);
                 let pg = this;
                 page_url = page_url || "api/list/statistics/waiter/"+this.WaiterSelect.user_id+"?page=1";

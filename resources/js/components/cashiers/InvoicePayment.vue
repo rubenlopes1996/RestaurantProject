@@ -17,14 +17,14 @@
 
 
         <form @submit.prevent="submit" class="contact-form">
-            <h4>Contact an Administrator</h4>
+            <h2>Invoice Payment</h2>
 
             <div class="form-group" :class="{ 'form-group--error': $v.nif.$error }">
-                <input class="form__input form-control" placeholder="Nif" v-model.trim="$v.nif.$model"/>
+                <input class="form__input form-control" required="true" placeholder="Nif" v-model.trim="$v.nif.$model"/>
             </div>
 
             <div class="form-group" :class="{ 'form-group--error': $v.name.$error }">
-                <input class="form__input form-control" placeholder="Name" v-model.trim="$v.name.$model"/>
+                <input class="form__input form-control" required="true" placeholder="Name" v-model.trim="$v.name.$model"/>
             </div>
             <button class="btn btn-primary" type="submit" :disabled="submitStatus === 'PENDING'">Pay</button>
             <button class="btn btn-light" v-on:click.prevent="cancelEdit()" >Cancel</button>
