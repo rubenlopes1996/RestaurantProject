@@ -7,7 +7,6 @@
                     <div class="col-sm-12">
                         <b-form-select v-model="dataUser.user_id" :options="optionItems" size="lg"></b-form-select>
                     </div>
-                </b-form-group>
     
                 <b-container>
                     <b-row>
@@ -22,6 +21,7 @@
                     </b-row>
                 </b-container>
                 <b-button v-on:click.prevent="statisticsByEmployeeAndDate()" variant="outline-secondary">Filter </b-button>
+                </b-form-group>
             </div>
         </div>
          <b-container>
@@ -97,6 +97,7 @@
                     format: 'YYYY-MM-DD',
                     useCurrent: false,
                 },
+                size: 30,
     
                 dataUser: {
                     user_id: null,

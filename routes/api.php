@@ -122,7 +122,7 @@ Route::middleware('auth:api')->group(function () {
     Route::middleware('typeManager')->get('list/invoices/date/{begindate}/{enddate}', 'InvoicesControllerAPI@listInvoicesDate');
 
     //US38
-    Route::middleware('typeManager')->get('invoices/paid', 'InvoicesControllerAPI@indexPaid');
+    Route::middleware('typeCashierOrManager')->get('invoices/paid', 'InvoicesControllerAPI@indexPaid');
 
     //US39 and 40
     Route::middleware('typeManager')->get('statistics/meals', 'StatisticsControllerAPI@getTotalMeals');

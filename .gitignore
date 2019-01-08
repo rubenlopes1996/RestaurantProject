@@ -16,3 +16,4 @@ sendgrid.env
 /storage/debugbar
 /public/js/app.js
 /RestaurantWebSocketServer/node_modules
+app/Http/Controllers/API/AuthController\.php

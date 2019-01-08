@@ -34,7 +34,6 @@
                      <b-button v-on:click.prevent="filterData(pagination.prev_page_url,'pending')" variant="outline-secondary">Pending</b-button>
                     <b-button v-on:click.prevent="filterData(pagination.prev_page_url,'paid')" variant="outline-success">Paid</b-button>
                     <b-button v-on:click.prevent="filterData(pagination.prev_page_url,'not paid')" variant="outline-danger">Not Paid</b-button>
-                    <b-button v-on:click.prevent="filterData(pagination.prev_page_url,'not paid')" variant="outline-info">Responsible Waiter</b-button>
                 </b-col>
             </b-row>
             
