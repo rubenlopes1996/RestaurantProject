@@ -1,29 +1,11 @@
 <template>
-    <b-container>
-        <b-row style="margin-top:70px">
-            <b-col cols="12">
-                <div class="jumbotron">
-                    <div>
-                        <b-form-group>
-                            <p>Select a employee</p>
-                            <div class="col-sm-12">
-                                <b-form-select v-model="dataUser.user_id" :options="optionItems" size="lg"></b-form-select>
-                            </div>
-                        </b-form-group>
-
-                        <b-container>
-                            <b-row>
-                                <b-col>
-                                    <p>Start Date</p>
-                                    <date-picker v-model="startDate" :config="options"></date-picker>
-                                </b-col>
-                                <b-col>
-                                    <p>End Date</p>
-                                    <date-picker v-model="endDate" :config="options"></date-picker>
-                                </b-col>
-                            </b-row>
-                        </b-container>
-                        <b-button v-on:click.prevent="statisticsByEmployeeAndDate()" variant="outline-secondary">Filter </b-button>
+    <div>
+        <div class="jumbotron">
+            <div>
+                <b-form-group>
+                    <p>Select a employee</p>
+                    <div class="col-sm-12">
+                        <b-form-select v-model="dataUser.user_id" :options="optionItems" size="lg"></b-form-select>
                     </div>
                 </b-form-group>
     
@@ -42,21 +24,38 @@
                 <b-button v-on:click.prevent="statisticsByEmployeeAndDate()" variant="outline-secondary">Filter </b-button>
             </div>
         </div>
+         <b-container>
+            <b-row>
+                <b-col cols="4">
+                </b-col>
+                <b-col cols="4">
+                <PacmanLoader class="custom-class" color="#50555D" loading="loading" :size="size" sizeUnit="px" v-if=" dataOrder==null || dataMeal==null || dataTimeMeal==null || avgOrder==null"></PacmanLoader>
+                </b-col>
+                <b-col cols="4">
+                </b-col>
+            </b-row>
+        </b-container>
         <div class="small" v-if="this.dataEmployee != null">
             <line-chart :chart-data="dataEmployee"></line-chart>
         </div>
-        <div class="small">
+
+        <div class="small" v-if="this.dataOrder!= null">
             <line-chart :chart-data="dataOrder"></line-chart>
         </div>
+
         <div class="small">
-            <line-chart :chart-data="dataMeal"></line-chart>
+            <line-chart :chart-data="dataMeal" v-if="this.dataMeal"></line-chart>
         </div>
+
         <div class="small">
-            <line-chart :chart-data="dataTimeMeal"></line-chart>
+            <line-chart :chart-data="dataTimeMeal" v-if="this.dataTimeMeal"></line-chart>
         </div>
-        <div class="small">
-              <b-table hover :items="avgOrder" :fields="fields" :filter="filter" :per-page="perPage" :current-page="currentPage" :bordered="true">
+
+        <div class="small" v-if="avgOrder != null">
+            <b-table hover :items="avgOrder" :fields="fields"  :filter="filter" :per-page="perPage" :current-page="currentPage" :bordered="true">
             </b-table>
+            <b-pagination :total-rows="avgOrder.length" v-model="currentPage" :per-page="perPage">
+            </b-pagination>
         </div>
     </div>
 </template>
@@ -70,7 +69,22 @@
         },
         data: function() {
             return {
-                columns: ["Name", "Month","Average time"],
+                fields: [{
+                        key: 'name',
+                        sortable: true
+                    },
+                    {
+                        key: 'month',
+                        sortable: true
+                    },
+                    {
+                        key: 'average',
+                        sortable: true
+                    }
+                ],
+                filter: null,
+                currentPage: 1,
+                perPage: 10,
                 dataTimeMeal: null,
                 dataOrder: null,
                 dataEmployee: null,
@@ -78,7 +92,7 @@
                 usersKW: null,
                 startDate: null,
                 endDate: null,
-                avgOrder: [],
+                avgOrder: null,
                 options: {
                     format: 'YYYY-MM-DD',
                     useCurrent: false,
@@ -157,7 +171,6 @@
             statisticsOrder() {
                 axios.get('api/statistics/orders').
                 then(response => {
-                    console.log("Stats Ordes: ",response.data);
                     this.dataOrder = {
                         labels: response.data.labels,
                         datasets: [{

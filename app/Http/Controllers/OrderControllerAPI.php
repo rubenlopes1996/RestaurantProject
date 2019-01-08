@@ -21,7 +21,6 @@ class OrderControllerAPI extends Controller
      */
     public function index($id)
     {
-        
         return OrdersResource::collection(Orders::Where('state','in preparation')->where('responsible_cook_id', $id)
         ->orWhere('state','confirmed')->Orderby('created_at')->paginate(10));
     }

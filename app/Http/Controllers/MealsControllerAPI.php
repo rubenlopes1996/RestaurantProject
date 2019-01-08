@@ -66,8 +66,6 @@ class MealsControllerAPI extends Controller
 
     public function store(Request $request, $id)
     {
-
-
         $table = RestaurantTable::where('table_number', $request->table_number)->get();
         if(count($table)!=0) {
 
